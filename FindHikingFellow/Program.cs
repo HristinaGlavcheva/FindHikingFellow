@@ -2,7 +2,7 @@ namespace FindHikingFellow
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +38,7 @@ namespace FindHikingFellow
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
-            app.RunAsync();
+            await app.RunAsync();
         }
     }
 }

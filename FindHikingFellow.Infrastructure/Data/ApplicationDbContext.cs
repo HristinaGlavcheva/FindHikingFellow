@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FindHikingFellow.Data
+namespace FindHikingFellow.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
