@@ -1,6 +1,6 @@
 ﻿namespace FindHikingFellow.Infrastructure.Data.Models.Enumerations
 {
-    public enum Activity
+    public enum ActivityType
     {
         Hiking = 1,
         MountainBiking = 2,
