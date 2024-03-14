@@ -26,16 +26,15 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public int? ElevationGain { get; set; }
 
         [Required]
-        [MaxLength(TourDurationMaxLength)]
-        [Comment("How many days, hous, nights, etc. the Tour is expected to last")]
         public string Duration { get; set; } = string.Empty;
 
-        [Comment("The point where the participants are supposed to meet to begin Tour")]
+        [MaxLength(TourDurationMaxLength)]
+        [Comment("The time whem the participants are supposed to meet to begin tour")]
         public DateTime MeetingTime { get; set; }
 
         [Required]
         [MaxLength(TourMeetingPointMaxLength)]
-        [Comment("The point where the participants are supposed to meet to begin Tour")]
+        [Comment("The point where the participants are supposed to meet to begin tour")]
         public string MeetingPoint { get; set; } = string.Empty;
 
         public RouteType RouteType { get; set; }
@@ -52,19 +51,22 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [Required]
         public string AddedByUserId { get; set; } = null!;
 
-        [Comment("The User who added the Tour")]
+        [Comment("The User who added the tour")]
         public IdentityUser AddedByUser { get; set; } = null!;
 
         [Comment("Specific points or places which the tour is going to pass near by")]
         public ICollection<TourKeyPoint> KeyPoints { get; init; } = new HashSet<TourKeyPoint>();
 
-        [Comment("Some additional distinctive features of the route")]
+        [Comment("Some additional distinctive features of the tour")]
         public ICollection<TourFeature> Features { get; init; } = new HashSet<TourFeature>();
 
-        [Comment("Helpful advices, warnings, tips and tricks about the route")]
+        [Comment("Different users' lists of tours where the tour is included")]
+        public ICollection<TourPersonalList> Tours { get; init; } = new HashSet<TourPersonalList>();
+
+        [Comment("Helpful advices, warnings, tips and tricks about the tour")]
         public ICollection<TipsAndTricks> TipsAndTricks { get; init; } = new HashSet<TipsAndTricks>();
 
-        [Comment("Helpful advices, warnings, tips and tricks about the route")]
+        [Comment("Ratings and review of the tour")]
         public ICollection<FeedBack> FeedBacks { get; init; } = new HashSet<FeedBack>();
 
         public ICollection<TourParticipant> Participants { get; init; } = new HashSet<TourParticipant>();
