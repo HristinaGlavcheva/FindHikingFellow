@@ -1,7 +1,9 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models;
+﻿using FindHikingFellow.Infrastructure.Data.Configurations;
+using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Reflection;
 
 namespace FindHikingFellow.Infrastructure.Data
 {
@@ -38,6 +40,11 @@ namespace FindHikingFellow.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            Assembly configAssembly =
+                Assembly.GetAssembly(typeof(ApplicationDbContext)) ?? Assembly.GetExecutingAssembly();
+
+            builder.ApplyConfigurationsFromAssembly(configAssembly);
+
             base.OnModelCreating(builder);
 
             // Disable cascade delete

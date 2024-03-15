@@ -20,7 +20,7 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public string Description { get; set; } = string.Empty;
 
         [Comment("The length of the trail in km")]
-        public int? Length { get; set; }
+        public double? Length { get; set; }
 
         [Comment("The elevation gain in meters")]
         public int? ElevationGain { get; set; }
@@ -49,10 +49,10 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public Destination Destination { get; set; } = null!;
                 
         [Required]
-        public string AddedByUserId { get; set; } = null!;
+        public string OrganiserId { get; set; } = null!;
 
         [Comment("The User who added the tour")]
-        public IdentityUser AddedByUser { get; set; } = null!;
+        public IdentityUser Organiser { get; set; } = null!;
 
         [Comment("Specific points or places which the tour is going to pass near by")]
         public ICollection<TourKeyPoint> KeyPoints { get; init; } = new HashSet<TourKeyPoint>();

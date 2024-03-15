@@ -2,8 +2,6 @@
 {
     public class TourFeature
     {
-        public int Id { get; init; }
-
         public int TourId { get; set; }
 
         public Tour Tour { get; set; } = null!;
