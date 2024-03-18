@@ -78,18 +78,37 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
                             TourId = 2
                        }
                 },
-                KeyPoints = new KeyPoint[]
+                KeyPoints = new TourKeyPoint[]
                 {
-                    new KeyPoint
+                    new TourKeyPoint
                     {
-                        Id = 1, 
-                        Name = "Malyovitsa hut"
+                        TourId = 2, 
+                        KeyPointId= 1,
                     },
-                    new KeyPoint
+                     new TourKeyPoint
                     {
-
+                        TourId = 2,
+                        KeyPointId= 10,
                     }
-                }
+                },
+                Features = new TourFeature[] 
+                {
+                    new TourFeature
+                    {
+                        TourId= 2,
+                        FeatureId= 1,
+                    },
+                    new TourFeature
+                    {
+                        TourId= 2,
+                        FeatureId= 3,
+                    },
+                    new TourFeature
+                    {
+                        TourId= 2,
+                        FeatureId= 14
+                    },
+                },
             };
 
             tours.Add(tour);
