@@ -20,7 +20,5 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public string ImageUrl { get; set; } = string.Empty;
 
         public ICollection<Tour> Tours { get; init; } = new HashSet<Tour>();
-
-        public ICollection<AdventureStory> AdventureStories { get; init; } = new HashSet<AdventureStory>();
     }
 }

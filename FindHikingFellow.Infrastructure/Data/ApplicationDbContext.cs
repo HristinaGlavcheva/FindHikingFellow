@@ -2,7 +2,6 @@
 using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Reflection;
 
 namespace FindHikingFellow.Infrastructure.Data
@@ -28,8 +27,6 @@ namespace FindHikingFellow.Infrastructure.Data
 
         public DbSet<PersonalList> PersonalLists { get; set; } = null!;
 
-        public DbSet<TipsAndTricks> tipsAndTricks { get; set; } = null!;
-
         public DbSet<TourFeature> TourFeatures { get; set; } = null!;
 
         public DbSet<TourKeyPoint> TourKeyPoints { get; set; } = null!;
@@ -44,6 +41,12 @@ namespace FindHikingFellow.Infrastructure.Data
                 Assembly.GetAssembly(typeof(ApplicationDbContext)) ?? Assembly.GetExecutingAssembly();
 
             builder.ApplyConfigurationsFromAssembly(configAssembly);
+
+            //builder.ApplyConfiguration(new DestinationConfiguration());
+            //builder.ApplyConfiguration(new TourFeatureConfiguration());
+            //builder.ApplyConfiguration(new TourKeyPointConfiguration());
+            //builder.ApplyConfiguration(new TourParticipantConfiguration());
+            //builder.ApplyConfiguration(new TourPersonalListConfiguration());
 
             base.OnModelCreating(builder);
 

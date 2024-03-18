@@ -61,10 +61,10 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public ICollection<TourFeature> Features { get; init; } = new HashSet<TourFeature>();
 
         [Comment("Different users' lists of tours where the tour is included")]
-        public ICollection<TourPersonalList> Tours { get; init; } = new HashSet<TourPersonalList>();
+        public ICollection<TourPersonalList> PersonalLists { get; init; } = new HashSet<TourPersonalList>();
 
-        [Comment("Helpful advices, warnings, tips and tricks about the tour")]
-        public ICollection<TipsAndTricks> TipsAndTricks { get; init; } = new HashSet<TipsAndTricks>();
+        //[Comment("Helpful advices, warnings, tips and tricks about the tour")]
+        //public ICollection<TipsAndTricks> TipsAndTricks { get; init; } = new HashSet<TipsAndTricks>();
 
         [Comment("Ratings and review of the tour")]
         public ICollection<FeedBack> FeedBacks { get; init; } = new HashSet<FeedBack>();

@@ -8,6 +8,7 @@ namespace FindHikingFellow.Infrastructure.Data.Models
     {
         public int Id { get; init; }
 
+        [Range(0, 5)]
         public int Rate { get; set; }
 
         public string Review { get; set; } = string.Empty;
@@ -23,8 +24,8 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public Tour Tour { get; set; } = null!;
 
         [Required]
-        public string UserId { get; set; } = null!;
+        public string AuthorId { get; set; } = null!;
 
-        public IdentityUser User { get; set; } = null!;
+        public IdentityUser Author { get; set; } = null!;
     }
 }

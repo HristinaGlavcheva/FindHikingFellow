@@ -1,5 +1,4 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -35,13 +34,25 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
             user = new IdentityUser()
             {
                 Id = "aec4bd2b-913c-425a-936f-8d2bd83c1164",
-                UserName = "Participant",
-                NormalizedUserName = "PARTICIPANT",
-                Email = "participant@gmail.com",
-                NormalizedEmail = "PARTICIPANT@GMAIL.COM"
+                UserName = "Participant1",
+                NormalizedUserName = "PARTICIPANT1",
+                Email = "participant1@gmail.com",
+                NormalizedEmail = "PARTICIPANT1@GMAIL.COM"
             };
 
             user.PasswordHash = hasher.HashPassword(user, "participant123");
+            users.Add(user);
+
+            user = new IdentityUser()
+            {
+                Id = "480fd4fe-3c32-4626-8ea9-ada588d0d24f",
+                UserName = "Participant2",
+                NormalizedUserName = "PARTICIPANT2",
+                Email = "participant2@gmail.com",
+                NormalizedEmail = "PARTICIPANT2@GMAIL.COM"
+            };
+
+            user.PasswordHash = hasher.HashPassword(user, "participant456");
             users.Add(user);
 
             return users.ToArray();

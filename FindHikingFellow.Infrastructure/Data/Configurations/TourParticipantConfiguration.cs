@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace FindHikingFellow.Infrastructure.Data.Configurations
 {
     internal class TourParticipantConfiguration : IEntityTypeConfiguration<TourParticipant>
-
     {
         public void Configure(EntityTypeBuilder<TourParticipant> builder)
         {

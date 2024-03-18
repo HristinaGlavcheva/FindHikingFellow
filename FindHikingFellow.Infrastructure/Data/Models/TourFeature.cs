@@ -8,7 +8,6 @@
 
         public int FeatureId { get; set; }
 
-        public TourFeature Feature { get; set; } = null!;
-
+        public Feature Feature { get; set; } = null!;
     }
 }

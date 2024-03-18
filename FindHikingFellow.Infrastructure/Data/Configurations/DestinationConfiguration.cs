@@ -49,8 +49,8 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
             };
             destinations.Add(destination);
 
-            destination = new Destination 
-            { 
+            destination = new Destination
+            {
                 Id = 5,
                 Name = "Vithosha",
                 ImageUrl = "https://media-cdn.tripadvisor.com/media/photo-s/1a/d2/6c/b8/caption.jpg"
@@ -58,6 +58,6 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
             destinations.Add(destination);
 
             return destinations.ToArray();
-        } 
+        }
     }
 }
