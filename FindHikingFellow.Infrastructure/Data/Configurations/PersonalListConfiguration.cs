@@ -16,7 +16,7 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
             ICollection<PersonalList> lists = new HashSet<PersonalList>()
             {
                 new PersonalList { Id = 1, Name = "Completed"},
-                new PersonalList { Id = 2, Name = "Favourites"},
+                new PersonalList { Id = 2, Name = "Favourite"},
                 new PersonalList { Id = 3, Name = "Wish to perform"},
                 new PersonalList { Id = 4, Name = "Planned"}
             };

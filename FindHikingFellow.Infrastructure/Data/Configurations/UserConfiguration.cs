@@ -25,7 +25,7 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
                 UserName = "Organiser",
                 NormalizedUserName = "ORGANISER",
                 Email = "organiser@gmail.com",
-                NormalizedEmail = "ORGANISER@GMAIL.COM"
+                NormalizedEmail = "ORGANISER@GMAIL.COM",
             };
 
             user.PasswordHash = hasher.HashPassword(user, "organiser123");

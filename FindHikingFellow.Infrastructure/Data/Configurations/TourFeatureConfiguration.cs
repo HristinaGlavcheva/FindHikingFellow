@@ -8,7 +8,32 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<TourFeature> builder)
         {
-            builder.HasKey(tf => new {tf.TourId, tf.FeatureId});
+            builder.HasKey(tf => new { tf.TourId, tf.FeatureId });
+            builder.HasData(SeedTourFeatures());
+        }
+
+        private TourFeature[] SeedTourFeatures()
+        {
+            ICollection<TourFeature> tourFeatures = new HashSet<TourFeature>()
+               {
+                    new TourFeature
+                    {
+                        TourId= 2,
+                        FeatureId= 1,
+                    },
+                    new TourFeature
+                    {
+                        TourId= 2,
+                        FeatureId= 3,
+                    },
+                    new TourFeature
+                    {
+                        TourId= 2,
+                        FeatureId= 14
+                    }
+               };
+
+            return tourFeatures.ToArray();
         }
     }
 }

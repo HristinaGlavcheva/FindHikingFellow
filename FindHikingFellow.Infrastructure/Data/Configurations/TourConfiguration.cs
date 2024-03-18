@@ -55,60 +55,6 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
                 MeetingPoint = "Malyovitsa hotel",
                 MeetingTime = new DateTime(2024, 07, 25, 7, 0, 0),
                 OrganiserId = "9baea4e0-3afa-4b47-80d3-cfcd4b43e79b",
-                Participants = new HashSet<TourParticipant>() { new TourParticipant { TourId = 2, ParticipantId = "aec4bd2b-913c-425a-936f-8d2bd83c1164" } },
-                FeedBacks = new FeedBack[]
-                {
-                      new FeedBack
-                      {
-                            Id = 1,
-                            Rate = 5,
-                            ActivityType = ActivityType.Hiking,
-                            CreatedOn = new DateTime(2023, 04, 02),
-                            AuthorId = "9baea4e0-3afa-4b47-80d3-cfcd4b43e79b",
-                            TourId = 2,
-                            Review = "Amazing trail. It had snowed the day before and it looked like a winter wonderland. Towards the end, follow the other mountaineers and don’t follow the all trails route. That being said, I didn’t have any snow spikes and the descent was SCARY. Managed to pull through. I even lost my phone on the trial, luckily I had my burner phone with my Bulgarian sim, which is why this journey starts halfway through. Anyway, it is so worth it. Get ready for an adventure almost 9,000 feet up in the Bulgarian mountains",
-                      },
-                       new FeedBack
-                       {
-                            Id = 2,
-                            Rate = 5,
-                            ActivityType = ActivityType.Backpacking,
-                            CreatedOn = new DateTime(2022, 07, 14),
-                            AuthorId = "480fd4fe-3c32-4626-8ea9-ada588d0d24f",
-                            TourId = 2
-                       }
-                },
-                KeyPoints = new TourKeyPoint[]
-                {
-                    new TourKeyPoint
-                    {
-                        TourId = 2, 
-                        KeyPointId= 1,
-                    },
-                     new TourKeyPoint
-                    {
-                        TourId = 2,
-                        KeyPointId= 10,
-                    }
-                },
-                Features = new TourFeature[] 
-                {
-                    new TourFeature
-                    {
-                        TourId= 2,
-                        FeatureId= 1,
-                    },
-                    new TourFeature
-                    {
-                        TourId= 2,
-                        FeatureId= 3,
-                    },
-                    new TourFeature
-                    {
-                        TourId= 2,
-                        FeatureId= 14
-                    },
-                },
             };
 
             tours.Add(tour);
