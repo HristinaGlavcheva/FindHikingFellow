@@ -1,4 +1,7 @@
-﻿using FindHikingFellow.Infrastructure.Data;
+﻿using FindHikingFellow.Core.Contracts;
+using FindHikingFellow.Core.Services;
+using FindHikingFellow.Infrastructure.Data;
+using FindHikingFellow.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +11,9 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<ITourService, TourService>();
+            services.AddScoped<IDestinationService, DestinationService>();
+
             return services;
         }
 
@@ -16,6 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
             var connectionString = config.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FindHikingFellow.Core\FindHikingFellow.Core.csproj" />
     <ProjectReference Include="..\FindHikingFellow.Infrastructure\FindHikingFellow.Infrastructure.csproj" />
   </ItemGroup>
 
