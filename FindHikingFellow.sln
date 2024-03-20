@@ -8,9 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindHikingFellow", "FindHik
 		{120FEAFC-DC8A-493A-87D0-806F6CB19E48} = {120FEAFC-DC8A-493A-87D0-806F6CB19E48}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindHikingFellow.Infrastructure", "FindHikingFellow.Infrastructure\FindHikingFellow.Infrastructure.csproj", "{717C80C4-98E6-4566-B3F2-A441D23E075B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindHikingFellow.Infrastructure", "FindHikingFellow.Infrastructure\FindHikingFellow.Infrastructure.csproj", "{717C80C4-98E6-4566-B3F2-A441D23E075B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindHikingFellow.Core", "FindHikingFellow.Core\FindHikingFellow.Core.csproj", "{120FEAFC-DC8A-493A-87D0-806F6CB19E48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindHikingFellow.Core", "FindHikingFellow.Core\FindHikingFellow.Core.csproj", "{120FEAFC-DC8A-493A-87D0-806F6CB19E48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
