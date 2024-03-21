@@ -28,8 +28,7 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [Required]
         public string Duration { get; set; } = string.Empty;
 
-        [MaxLength(TourDurationMaxLength)]
-        [Comment("The time whem the participants are supposed to meet to begin tour")]
+        [Comment("The time when the participants are supposed to meet to begin tour")]
         public DateTime MeetingTime { get; set; }
 
         [Required]

@@ -1,5 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models;
+using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace FindHikingFellow.Core.Services
             return await destinations;
         }
 
-        public async Task<IEnumerable<ListDestinationsViewModel>> ListDestinationsNamesAsync()
+        public async Task<IEnumerable<ListDestinationsViewModel>> ListDestinationsAsync()
         {
             var destinations = repository
                 .AllAsNoTracking<Destination>()

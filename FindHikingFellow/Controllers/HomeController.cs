@@ -1,5 +1,8 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models;
+using FindHikingFellow.Core.Models.Destination;
+using FindHikingFellow.Core.Models.Home;
+using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
