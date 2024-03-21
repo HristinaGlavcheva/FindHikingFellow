@@ -11,9 +11,9 @@ namespace FindHikingFellow.Infrastructure.Data.Common
            dbContext = _dbContext;
         }
 
-        public Task AddAsync<T>(T entity) where T : class
+        public async Task AddAsync<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            await DbSet<T>().AddAsync(entity);
         }
 
         public IQueryable<T> All<T>() where T : class
@@ -36,9 +36,9 @@ namespace FindHikingFellow.Infrastructure.Data.Common
             throw new NotImplementedException();
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            return await dbContext.SaveChangesAsync();
         }
 
         /// <summary>
