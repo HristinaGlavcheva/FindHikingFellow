@@ -18,7 +18,7 @@ namespace FindHikingFellow.Core.Services
         {
             var tours = tourRepository
                 .AllAsNoTracking<Tour>()
-                .OrderByDescending(t => t.Id)
+                .OrderByDescending(t => t.MeetingTime)
                 .Select(t => new TourServiceModel
                 {
                     Name = t.Name,

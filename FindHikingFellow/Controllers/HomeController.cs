@@ -1,12 +1,13 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models;
 using FindHikingFellow.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace FindHikingFellow.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDestinationService destinationService;
@@ -22,6 +23,7 @@ namespace FindHikingFellow.Controllers
             tourService = _tourService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var destinationServiceModels = await destinationService.GetMostPopularDestinationsAsync();
@@ -46,11 +48,13 @@ namespace FindHikingFellow.Controllers
             return this.View(indexViewModel);
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
