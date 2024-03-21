@@ -1,6 +1,6 @@
-﻿namespace FindHikingFellow.Core.Models
+﻿namespace FindHikingFellow.Core.Models.Destination
 {
-    public class TourServiceModel
+    public class DestinationServiceModel
     {
         public string Name { get; set; } = string.Empty;
 

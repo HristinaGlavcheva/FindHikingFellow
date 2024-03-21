@@ -1,4 +1,4 @@
-﻿namespace FindHikingFellow.Core.Models
+﻿namespace FindHikingFellow.Core.Models.Destination
 {
     public class DestinationViewModel
     {

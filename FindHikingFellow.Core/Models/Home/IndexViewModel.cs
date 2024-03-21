@@ -1,4 +1,7 @@
-﻿namespace FindHikingFellow.Core.Models
+﻿using FindHikingFellow.Core.Models.Destination;
+using FindHikingFellow.Core.Models.Tour;
+
+namespace FindHikingFellow.Core.Models.Home
 {
     public class IndexViewModel
     {
