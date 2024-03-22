@@ -36,7 +36,7 @@ namespace FindHikingFellow.Controllers
                 Destinations = new AllDestinationsViewModel
                 {
                     AllDestinations = destinationViewModels
-                    .Select(d => new DestinationViewModel
+                    .Select(d => new AddDestinationFormModel
                     {
                         Name = d.Name,
                         ImageUrl = d.ImageUrl,

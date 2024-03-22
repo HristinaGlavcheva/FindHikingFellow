@@ -9,6 +9,8 @@ namespace FindHikingFellow.Core.Contracts
 
         Task<AllDestinationsViewModel> GetAllDestinationsAsync();
 
-        Task<IEnumerable<DestinationViewModel>> GetMostPopularDestinationsAsync();
+        Task<IEnumerable<AddDestinationFormModel>> GetMostPopularDestinationsAsync();
+
+        Task<int> AddDestinationAsync(AddDestinationFormModel input);
     }
 }

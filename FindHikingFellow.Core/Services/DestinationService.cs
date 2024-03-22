@@ -9,20 +9,20 @@ namespace FindHikingFellow.Core.Services
 {
     public class DestinationService : IDestinationService
     {
-        private readonly IRepository repository;
+        private readonly IRepository destinationRepository;
 
-        public DestinationService(IRepository _repository)
+        public DestinationService(IRepository _destinationRepository)
         {
-            repository = _repository;
+            destinationRepository = _destinationRepository;
         }
 
-        public async Task<IEnumerable<DestinationViewModel>> GetMostPopularDestinationsAsync()
+        public async Task<IEnumerable<AddDestinationFormModel>> GetMostPopularDestinationsAsync()
         {
-            var destinations = repository
+            var destinations = destinationRepository
                .AllAsNoTracking<Destination>()
                .OrderByDescending(d => d.Tours.Count())
                .Take(6)
-               .Select(d => new DestinationViewModel
+               .Select(d => new AddDestinationFormModel
                {
                    Name = d.Name,
                    ImageUrl = d.ImageUrl,
@@ -34,10 +34,10 @@ namespace FindHikingFellow.Core.Services
 
         public async Task<AllDestinationsViewModel> GetAllDestinationsAsync()
         {
-            var destinations = await repository
+            var destinations = await destinationRepository
                .AllAsNoTracking<Destination>()
                .OrderBy(d => d.Name)
-               .Select(d => new DestinationViewModel
+               .Select(d => new AddDestinationFormModel
                {
                    Name = d.Name,
                    ImageUrl = d.ImageUrl,
@@ -54,7 +54,7 @@ namespace FindHikingFellow.Core.Services
 
         public async Task<IEnumerable<ListDestinationsViewModel>> ListDestinationsAsync()
         {
-            var destinations = repository
+            var destinations = destinationRepository
                 .AllAsNoTracking<Destination>()
                 .Select(d => new ListDestinationsViewModel
                 {
@@ -64,6 +64,20 @@ namespace FindHikingFellow.Core.Services
                 .ToListAsync();
 
             return await destinations;
+        }
+
+        public async Task<int> AddDestinationAsync(AddDestinationFormModel input)
+        {
+            var newDestination = new Destination
+            {
+                Name = input.Name,
+                ImageUrl = input.ImageUrl
+            };
+
+            await destinationRepository.AddAsync(newDestination);
+            await destinationRepository.SaveChangesAsync();
+
+            return newDestination.Id;
         }
     }
 }

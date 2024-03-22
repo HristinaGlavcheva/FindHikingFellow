@@ -1,4 +1,5 @@
 ﻿using FindHikingFellow.Core.Contracts;
+using FindHikingFellow.Core.Models.Destination;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FindHikingFellow.Controllers
@@ -19,10 +20,20 @@ namespace FindHikingFellow.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
-            return View();
+            var model = new AddDestinationFormModel();
+
+            return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Add(AddDestinationFormModel input)
+        {
+            await destinationService.AddDestinationAsync(input);
+
+            return RedirectToAction("Create", "Tour");
+        }
     }
 }

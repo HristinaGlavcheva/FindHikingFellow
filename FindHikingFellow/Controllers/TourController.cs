@@ -19,12 +19,12 @@ namespace FindHikingFellow.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var viewModel = new CreateTourFormModel()
+            var model = new CreateTourFormModel()
             {
                 Destinations = await destinationService.ListDestinationsAsync()
             };
 
-            return View(viewModel);
+            return View(model);
         }
 
         [HttpPost]

@@ -2,6 +2,6 @@
 {
     public class AllDestinationsViewModel
     {
-        public IEnumerable<DestinationViewModel> AllDestinations { get; set; } = null!;
+        public IEnumerable<AddDestinationFormModel> AllDestinations { get; set; } = null!;
     }
 }
