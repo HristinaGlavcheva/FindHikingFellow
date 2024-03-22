@@ -17,12 +17,6 @@ namespace FindHikingFellow.Controllers
             destinationService = _destinationService;
         }
 
-        [AllowAnonymous]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -40,11 +34,11 @@ namespace FindHikingFellow.Controllers
             if (!ModelState.IsValid)
             {
                 input.Destinations = await destinationService.ListDestinationsAsync();
-                return this.View();
+                return this.View(input);
             }
 
             await tourService.CreateTourAsync(input, User.Id());
-
+            
             // TODO: Redirect to tour details page
             return this.Redirect("/");
         }

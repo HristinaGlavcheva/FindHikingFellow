@@ -1,0 +1,67 @@
+﻿@using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
+@model FindHikingFellow.Core.Models.Tour.CreateTourFormModel
+
+@{
+    this.ViewData["Title"] = "Add new tour";
+}
+
+<form method="post" class="col-md-6 offset-md-3">
+    <h1 class="text-center">@this.ViewData["Title"]!</h1>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="DestinationId"></label>
+        <select asp-for="DestinationId" class="form-control">
+            @foreach (var destination in Model.Destinations)
+            {
+                <option value="@destination.Id">@destination.Name</option>
+            }
+        </select>
+        <span asp-validation-for="DestinationId" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="Duration"></label>
+        <input asp-for="Duration" class="form-control" placeholder="5 hours, 3 days, ..." />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="Length"></label>
+        <input asp-for="Length" class="form-control" />
+        <span asp-validation-for="Length" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="ElevationGain"></label>
+        <input asp-for="ElevationGain" class="form-control" />
+        <span asp-validation-for="ElevationGain" class="text-danger"></span>
+    </div>
+
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="MeetingTime">Meeting time</label>
+        <input asp-for="MeetingTime" class="form-control" placeholder="@DateTime.UtcNow" />
+        <span asp-validation-for="MeetingTime" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="MeetingPoint">Meeting point</label>
+        <input asp-for="MeetingPoint" class="form-control" />
+        <span asp-validation-for="MeetingPoint" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ; class="form-group">
+        <label asp-for="RouteType">Route type</label>
+        <select asp-for="RouteType" class="form-control" asp-items="@Html.GetEnumSelectList<RouteType>()"></select>
+        <span asp-validation-for="RouteType" class="text-danger"></span>
+    </div>
+    <div style="margin-top: 10px" ;>
+        <label asp-for="Difficulty"></label>
+        <select asp-for="Difficulty" class="form-control" asp-items="@Html.GetEnumSelectList<Difficulty>()"></select>
+        <span asp-validation-for="Difficulty" class="text-danger"></span>
+    </div>
+    <input style="margin-top: 10px" ; type="submit" class="btn btn-primary" value="Save" />
+</form>

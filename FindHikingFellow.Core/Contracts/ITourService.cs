@@ -6,6 +6,6 @@ namespace FindHikingFellow.Core.Contracts
     {
         Task<IEnumerable<TourServiceModel>> GetMostResentToursAsync();
 
-        Task<CreateTourFormModel> CreateTourAsync(CreateTourFormModel input, string organiserId);
+        Task<int> CreateTourAsync(CreateTourFormModel input, string organiserId);
     }
 }

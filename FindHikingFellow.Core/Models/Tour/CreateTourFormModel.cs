@@ -1,11 +1,8 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
-using FindHikingFellow.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using FindHikingFellow.Infrastructure.Data.Models;
+using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
 using static FindHikingFellow.Core.Constants.MessageConstants;
 using static FindHikingFellow.Infrastructure.Constants.DataConstants;
-using FindHikingFellow.Core.Models.Destination;
 
 
 namespace FindHikingFellow.Core.Models.Tour

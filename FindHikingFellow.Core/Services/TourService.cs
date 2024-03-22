@@ -15,7 +15,7 @@ namespace FindHikingFellow.Core.Services
             tourRepository = _tourRepository;
         }
 
-        public async Task<CreateTourFormModel> CreateTourAsync(CreateTourFormModel input, string organiserId    )
+        public async Task<int> CreateTourAsync(CreateTourFormModel input, string organiserId)
         {
             var newTour = new Tour
             {
@@ -30,11 +30,13 @@ namespace FindHikingFellow.Core.Services
                 ActivityType = input.ActivityType,
                 ElevationGain = input.ElevationGain,
                 Length = input.Length,
-                OrganiserId = organiserId,
+                OrganiserId = organiserId
             };
 
             await tourRepository.AddAsync(newTour);
             await tourRepository.SaveChangesAsync();
+
+            return newTour.Id;
         }
 
         public async Task<IEnumerable<TourServiceModel>> GetMostResentToursAsync()
