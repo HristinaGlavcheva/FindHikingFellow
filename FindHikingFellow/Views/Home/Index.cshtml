@@ -1,4 +1,5 @@
 ﻿@using FindHikingFellow.Core.Models.Home;
+@using FindHikingFellow.Core.Models.Destination;
 @model IndexViewModel
 
 @{
@@ -10,10 +11,10 @@
     <h2>Let you find a fellow to share your hiking adventure with</h2>
     <h5>Choose your hiking destination:</h5>
     <div class="row">
-        @foreach (var destination in Model.Destinations)
+        @foreach (var destination in Model.Destinations.AllDestinations)
         {
             <div class="col-md-4">
-                <div class="card">
+                <div class="card mt-5">
                     <a asp-controller="Tours" asp-action="GetToursByDestination" asp-route-id="btn btn-primary">
                         <h5 class="card-title text-center">@destination.Name</h5>
                         <img class="card-img-top" src="@destination.ImageUrl" alt="@destination.Name">View tours
@@ -22,7 +23,14 @@
             </div>
         }
     </div>
-    <div class="row">
+
+    <div class="col-md-4">
+            <a asp-controller="Destination" asp-action="All" class="btn btn-primary mt-5">View All Destinations</a>
+        </div>
+    </div>
+
+
+@*     <div class="row">
         @if (!Model.Tours.Any())
         {
             <h1>Welcome to where you can find your hiking fellows!</h1>
@@ -43,4 +51,4 @@
             </div>
         }
     </div>
-</div>
+ *@</div>

@@ -16,13 +16,13 @@ namespace FindHikingFellow.Core.Services
             repository = _repository;
         }
 
-        public async Task<IEnumerable<DestinationServiceModel>> GetMostPopularDestinationsAsync()
+        public async Task<IEnumerable<DestinationViewModel>> GetMostPopularDestinationsAsync()
         {
             var destinations = repository
                .AllAsNoTracking<Destination>()
                .OrderByDescending(d => d.Tours.Count())
-               .Take(3)
-               .Select(d => new DestinationServiceModel
+               .Take(6)
+               .Select(d => new DestinationViewModel
                {
                    Name = d.Name,
                    ImageUrl = d.ImageUrl,
@@ -30,6 +30,26 @@ namespace FindHikingFellow.Core.Services
                .ToListAsync();
 
             return await destinations;
+        }
+
+        public async Task<AllDestinationsViewModel> GetAllDestinationsAsync()
+        {
+            var destinations = await repository
+               .AllAsNoTracking<Destination>()
+               .OrderBy(d => d.Name)
+               .Select(d => new DestinationViewModel
+               {
+                   Name = d.Name,
+                   ImageUrl = d.ImageUrl,
+               })
+               .ToListAsync();
+
+            var allDestinationsViewModel = new AllDestinationsViewModel
+            {
+                AllDestinations = destinations
+            };
+
+            return allDestinationsViewModel;
         }
 
         public async Task<IEnumerable<ListDestinationsViewModel>> ListDestinationsAsync()

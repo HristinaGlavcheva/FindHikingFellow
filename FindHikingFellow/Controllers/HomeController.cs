@@ -28,17 +28,21 @@ namespace FindHikingFellow.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var destinationServiceModels = await destinationService.GetMostPopularDestinationsAsync();
+            var destinationViewModels = await destinationService.GetMostPopularDestinationsAsync();
             var tourServiceModels = await tourService.GetMostResentToursAsync();
 
             var indexViewModel = new IndexViewModel
             {
-                Destinations = destinationServiceModels.Select(d => new DestinationViewModel
+                Destinations = new AllDestinationsViewModel
                 {
-                    Name = d.Name,
-                    ImageUrl = d.ImageUrl,
-                })
-                .ToList(),
+                    AllDestinations = destinationViewModels
+                    .Select(d => new DestinationViewModel
+                    {
+                        Name = d.Name,
+                        ImageUrl = d.ImageUrl,
+                    })
+                .ToList()
+                },
                 Tours = tourServiceModels.Select(t => new TourViewModel
                 {
                     Name = t.Name,
@@ -48,19 +52,19 @@ namespace FindHikingFellow.Controllers
             };
 
             return this.View(indexViewModel);
-        }
-
-        [AllowAnonymous]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
+
+    [AllowAnonymous]
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    [AllowAnonymous]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+}
 }
