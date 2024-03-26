@@ -27,7 +27,7 @@ namespace FindHikingFellow.Data.Migrations
                     { 2, "https://novavarna.net/wp-content/uploads/2020/06/rila_maliovica-1280x720.jpg", "Rila" },
                     { 3, "https://trud.bg/public/images/articles/2020-11/mountain-landscape-beautiful-hd-wallpaper-1024x640_1509577115668281610_original.jpg", "Balkan Mauntains" },
                     { 4, "https://bulgariawalking.com/wp-content/uploads/2016/10/rhodopes-and-rila-2.jpg", "Rodopi" },
-                    { 5, "https://media-cdn.tripadvisor.com/media/photo-s/1a/d2/6c/b8/caption.jpg", "Vithosha" }
+                    { 5, "https://media-cdn.tripadvisor.com/media/photo-s/1a/d2/6c/b8/caption.jpg", "Vitosha" }
                 });
 
             migrationBuilder.InsertData(

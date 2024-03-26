@@ -75,7 +75,7 @@ namespace FindHikingFellow.Data.Migrations
                         {
                             Id = 5,
                             ImageUrl = "https://media-cdn.tripadvisor.com/media/photo-s/1a/d2/6c/b8/caption.jpg",
-                            Name = "Vithosha"
+                            Name = "Vitosha"
                         });
                 });
 
@@ -420,9 +420,8 @@ namespace FindHikingFellow.Data.Migrations
                         .HasComment("The point where the participants are supposed to meet to begin tour");
 
                     b.Property<DateTime>("MeetingTime")
-                        .HasMaxLength(100)
                         .HasColumnType("datetime2")
-                        .HasComment("The time whem the participants are supposed to meet to begin tour");
+                        .HasComment("The time when the participants are supposed to meet to begin tour");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -708,15 +707,15 @@ namespace FindHikingFellow.Data.Migrations
                         {
                             Id = "9baea4e0-3afa-4b47-80d3-cfcd4b43e79b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5cc6130c-ae64-423b-9b72-9a27440cb543",
+                            ConcurrencyStamp = "8cc0f1c5-b9e5-403a-9a64-0a9f373a9b7e",
                             Email = "organiser@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ORGANISER@GMAIL.COM",
                             NormalizedUserName = "ORGANISER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJggYtpbhLl6vqAgPaa7BuslQgO7EmwHUBVcxy4TxH1EmRfQ6VN2s8LTkkfWde/Muw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIIEvGmoL9vqw1zK5vMJfdL/oRM1ER3BboANearRefup2kr2wBmoSUZYTo/Azhkppg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f5d3cb3e-61ab-418e-8ebd-bd6291596f53",
+                            SecurityStamp = "88dccce2-ba31-4ed1-9008-a470cc554fda",
                             TwoFactorEnabled = false,
                             UserName = "Organiser"
                         },
@@ -724,15 +723,15 @@ namespace FindHikingFellow.Data.Migrations
                         {
                             Id = "aec4bd2b-913c-425a-936f-8d2bd83c1164",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "03cc5945-035a-401f-b04d-e229183c3ab5",
+                            ConcurrencyStamp = "213acede-6db5-498b-bf66-058fd4f5b27d",
                             Email = "participant1@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTICIPANT1@GMAIL.COM",
                             NormalizedUserName = "PARTICIPANT1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH7m9i8vrqH2c/HkjHkbuVgNVkfqryV9wL7QB/iVDSWd1R8bKBg+DvzMbL7ujgLPQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELxtfJZ5NJKL1t/vk6TdM3pKbNbm639aCerVVKCem/p7ZtdmFqB+/wRZnHXNnxMc5g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "81edca4c-8841-4b25-ba6e-5dacd9ad1cd5",
+                            SecurityStamp = "2e995e2c-cb72-44b7-bce5-0b683e2c4495",
                             TwoFactorEnabled = false,
                             UserName = "Participant1"
                         },
@@ -740,15 +739,15 @@ namespace FindHikingFellow.Data.Migrations
                         {
                             Id = "480fd4fe-3c32-4626-8ea9-ada588d0d24f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6f956c1a-4afc-4775-bf9f-2dea1ea3abf8",
+                            ConcurrencyStamp = "bd888c21-3abc-41c5-8c48-6b44e397604e",
                             Email = "participant2@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTICIPANT2@GMAIL.COM",
                             NormalizedUserName = "PARTICIPANT2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP/ua1kvCZZHdgqYNIBxGjMvwOj8XuwDPCA7x+LL2qUsRO6EdRO3o7iKOS4AYccpgQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOmCMKnk36+cANsGSRdX48fFJz9j61zd+apqb6OjmisO2D2R4ZeltR/Z99uPkA8w7Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d2f94509-b6a8-4ce4-80fd-c39c6fbd7c9f",
+                            SecurityStamp = "5c07b956-ea2d-4c7a-93c7-a17e766d91b0",
                             TwoFactorEnabled = false,
                             UserName = "Participant2"
                         });

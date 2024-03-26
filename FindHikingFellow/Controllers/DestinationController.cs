@@ -13,7 +13,7 @@ namespace FindHikingFellow.Controllers
             destinationService = _destinationService;
         }
 
-        public async Task<IActionResult> All( )
+        public async Task<IActionResult> All()
         {
             var model = await destinationService.GetAllDestinationsAsync();
 
@@ -31,6 +31,16 @@ namespace FindHikingFellow.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddDestinationFormModel input)
         {
+            if (await destinationService.DestinationExistsByNameAsync(input.Name) == true)
+            {
+                ModelState.AddModelError(nameof(input.Name), "This destination already exists");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             await destinationService.AddDestinationAsync(input);
 
             return RedirectToAction("Create", "Tour");

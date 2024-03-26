@@ -1,4 +1,6 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models;
+﻿using FindHikingFellow.Core.Models.Feature;
+using FindHikingFellow.Core.Models.TourKeyPoint;
+using FindHikingFellow.Infrastructure.Data.Models;
 using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
 using static FindHikingFellow.Core.Constants.MessageConstants;
@@ -53,6 +55,11 @@ namespace FindHikingFellow.Core.Models.Tour
         public int DestinationId { get; set; }
 
         public IEnumerable<ListDestinationsViewModel> Destinations { get; set; } = new HashSet<ListDestinationsViewModel>();
+
+        public IEnumerable<TourKeyPointInputModel> KeyPoints { get; set; } = new HashSet<TourKeyPointInputModel>();
+
+
+        public List<ListFeaturesViewModel> Features { get; set; } = new List<ListFeaturesViewModel>();
 
         public ICollection<Image> Images { get; init; } = new HashSet<Image>();
     }

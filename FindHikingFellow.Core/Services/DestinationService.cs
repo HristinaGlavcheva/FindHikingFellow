@@ -79,5 +79,20 @@ namespace FindHikingFellow.Core.Services
 
             return newDestination.Id;
         }
+
+        public async Task<bool> DestinationExistsByIdAsync(int destinationId)
+        {
+            return await destinationRepository
+                .AllAsNoTracking<Destination>()
+                .AnyAsync(d => d.Id == destinationId);
+        }
+
+        public async Task<bool> DestinationExistsByNameAsync(string destinationName)
+        {
+            return await destinationRepository
+                .AllAsNoTracking<Destination>()
+                .AnyAsync(d => d.Name == destinationName);
+        }
+
     }
 }

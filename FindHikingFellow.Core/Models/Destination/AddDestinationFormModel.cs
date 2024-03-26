@@ -11,13 +11,13 @@ namespace FindHikingFellow.Core.Models.Destination
         [StringLength(DestinationNameMaxLength,
            MinimumLength = DestinationNameMinLength,
             ErrorMessage = LengthMessage)]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = string.Empty!;
 
         [Url]
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(ImageUrlMaxLength,
             MinimumLength = ImageUrlMinLength,
             ErrorMessage = LengthMessage)]
-        public string ImageUrl { get; set; } = null!;
+        public string ImageUrl { get; set; } = string.Empty!;
     }
 }

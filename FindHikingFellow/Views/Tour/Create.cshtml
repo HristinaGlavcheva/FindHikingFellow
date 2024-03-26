@@ -5,68 +5,149 @@
     this.ViewData["Title"] = "Add new tour";
 }
 
-<form method="post" class="col-md-6 offset-md-3">
-    <h1 class="text-center">@this.ViewData["Title"]!</h1>
-    <div class="form-group mt-3">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control"/>
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="row">
-        <div class="col form-group col-md-8 mt-2">
-            <label asp-for="DestinationId">Choose destination from the list or add a new one</label>
-            <select asp-for="DestinationId" class="form-control">
-                @foreach (var destination in Model.Destinations)
-                {
-                    <option value="@destination.Id">@destination.Name</option>
-                }
-            </select>
-            <span asp-validation-for="DestinationId" class="text-danger"></span>
-        </div>
-        <div class="col row-cols-md-1 mt-3">
-            <a href="/Destination/Add" class="btn btn-primary mt-3">Add new destination</a>
-        </div>
-    </div>
-    <div class="form-group mt-3">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group mt-2">
-        <label asp-for="Duration"></label>
-        <input asp-for="Duration" class="form-control" placeholder="How long do you expect the tour to last" />
-        <span asp-validation-for="Duration" class="text-danger"></span>
-    </div>
-    <div class="form-group mt-2">
-        <label asp-for="Length"></label>
-        <input asp-for="Length" class="form-control" />
-        <span asp-validation-for="Length" class="text-danger"></span>
-    </div>
-    <div class="form-group mt-2">
-        <label asp-for="ElevationGain"></label>
-        <input asp-for="ElevationGain" class="form-control" />
-        <span asp-validation-for="ElevationGain" class="text-danger"></span>
-    </div>
+<h1 class="text-center">@this.ViewData["Title"]!</h1>
 
-    <div class="form-group mt-2">
-        <label asp-for="MeetingTime">Meeting time</label>
-        <input asp-for="MeetingTime" class="form-control" placeholder="@DateTime.UtcNow" />
-        <span asp-validation-for="MeetingTime" class="text-danger"></span>
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group mt-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col form-group col-md-8 mt-2">
+                    <label asp-for="DestinationId">Choose destination from the list or add a new one</label>
+                    <select asp-for="DestinationId" class="form-control">
+                        @foreach (var destination in Model.Destinations)
+                        {
+                            <option value="@destination.Id">@destination.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="DestinationId" class="text-danger"></span>
+                </div>
+                <div class="col row-cols-md-1 mt-3">
+                    <a href="/Destination/Add" class="btn btn-primary mt-3">Add new destination</a>
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Duration"></label>
+                <input asp-for="Duration" class="form-control" placeholder="How long do you expect the tour to last" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Length"></label>
+                <input asp-for="Length" class="form-control" />
+                <span asp-validation-for="Length" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="ElevationGain"></label>
+                <input asp-for="ElevationGain" class="form-control" />
+                <span asp-validation-for="ElevationGain" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                <label asp-for="MeetingTime">Meeting time</label>
+                <input asp-for="MeetingTime" class="form-control" placeholder="@DateTime.UtcNow" />
+                <span asp-validation-for="MeetingTime" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="MeetingPoint">Meeting point</label>
+                <input asp-for="MeetingPoint" class="form-control" />
+                <span asp-validation-for="MeetingPoint" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="RouteType">Route type</label>
+                <select asp-for="RouteType" class="form-control" asp-items="@Html.GetEnumSelectList<RouteType>()"></select>
+                <span asp-validation-for="RouteType" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="Difficulty"></label>
+                <select asp-for="Difficulty" class="form-control" asp-items="@Html.GetEnumSelectList<Difficulty>()"></select>
+                <span asp-validation-for="Difficulty" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="ActivityType"></label>
+                <select asp-for="ActivityType" class="form-control" asp-items="@Html.GetEnumSelectList<ActivityType>()"></select>
+                <span asp-validation-for="ActivityType" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-5 offset-1">
+
+            @*             <label for="@Model.Features">Features:</label>
+            <div id="Features">
+            @for (int i = 0; i < Model.Features.Count(); i++)
+            {
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="@Model.Features[i].Id" name="@Model.Features[@i].Name" value="@Model.Features[i].Name">
+            <label class="form-check-label" for="item-@Model.Features[i].Name">
+            @Model.Features[i].Name
+            </label>
+            <input type="hidden" name="@Model.Features[@i].Name" value="@Model.Features[i].Name">
+            </div>
+            }
+            *@
+            
+            
+            @*             <div class="col-md-5 offset-1">
+            <label for="Features">Features:</label>
+            <div id="Features">
+            @for (int i = 0; i < Model.Features.Count; i++)
+            {
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="feature-i" name="Features[@i].Id" value="@Model.Features[i].Id">
+            <label class="form-check-label" for="feature-@Model.Features[i].Id">
+            @Model.Features[i].Name
+            </label>
+            <input type="hidden" name="Features[@i].Name" value="@Model.Features[i].Name">
+            </div>
+            }
+            </div>
+            </div>
+            *@
+
+            @*                         <div class="form-group mt-3">
+            <div>
+            <label asp-for="Features"></label>
+            <ul class="list-group">
+            @foreach (var feature in Model.Features)
+            {
+            <li class="list-group-item">
+            <input class="form-check-input me-1" name="@feature.Name" type="checkbox" value="@feature.Id" aria-label="...">
+            @feature.Name
+            </li>
+            }
+
+            </ul>
+            *@
+
+
+
+            <div id="KeyPointsContainer" class="col-md-5 offset-1">
+                <label asp-for="KeyPoints"></label>
+                <a class="btn btn-success" onclick="AddMoreKeyPoints()">+</a>
+            </div>
+
+            <input type="submit" class="btn btn-primary mt-3" value="Save" />
+        </div>
     </div>
-    <div class="form-group mt-2">
-        <label asp-for="MeetingPoint">Meeting point</label>
-        <input asp-for="MeetingPoint" class="form-control" />
-        <span asp-validation-for="MeetingPoint" class="text-danger"></span>
-    </div>
-    <div class="form-group mt-2">
-        <label asp-for="RouteType">Route type</label>
-        <select asp-for="RouteType" class="form-control" asp-items="@Html.GetEnumSelectList<RouteType>()"></select>
-        <span asp-validation-for="RouteType" class="text-danger"></span>
-    </div>
-    <div class="form-group mt-2">
-        <label asp-for="Difficulty"></label>
-        <select asp-for="Difficulty" class="form-control" asp-items="@Html.GetEnumSelectList<Difficulty>()"></select>
-        <span asp-validation-for="Difficulty" class="text-danger"></span>
-    </div>
-    <input type="submit" class="btn btn-primary mt-3" value="Save" />
 </form>
+
+@section Scripts {
+    <script>
+        var keyPointIndex = 0;
+        function AddMoreKeyPoints() {
+            $("#KeyPointsContainer").
+                append("<div class='form-control'>Name: <input type='text' name='KeyPoints[" + keyPointIndex + "].KeyPointName' /> </div>");
+            keyPointIndex++;
+        }
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

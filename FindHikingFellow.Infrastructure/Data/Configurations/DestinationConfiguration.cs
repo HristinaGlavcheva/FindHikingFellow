@@ -52,7 +52,7 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
             destination = new Destination
             {
                 Id = 5,
-                Name = "Vithosha",
+                Name = "Vitosha",
                 ImageUrl = "https://media-cdn.tripadvisor.com/media/photo-s/1a/d2/6c/b8/caption.jpg"
             };
             destinations.Add(destination);
