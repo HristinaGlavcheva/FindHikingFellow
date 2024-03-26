@@ -1,4 +1,5 @@
-﻿using FindHikingFellow.Core.Models.Feature;
+﻿using FindHikingFellow.Attributes;
+using FindHikingFellow.Core.Models.Feature;
 using FindHikingFellow.Core.Models.TourKeyPoint;
 using FindHikingFellow.Infrastructure.Data.Models;
 using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
@@ -34,6 +35,8 @@ namespace FindHikingFellow.Core.Models.Tour
         public string Duration { get; set; } = null!;
 
         [Display(Name = "Meeting time")]
+        [IsNotPassed(ErrorMessage = "Meeting time should be in the future")]
+        [DisplayFormat(DataFormatString ="dd.MM.yyyy hh:mm")]
         public DateTime MeetingTime { get; set; }
 
         [Required(ErrorMessage = RequiredMessage)]

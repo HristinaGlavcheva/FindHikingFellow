@@ -68,31 +68,31 @@ namespace FindHikingFellow.Core.Services
             }
 
             await tourRepository.AddAsync(newTour);
-    await tourRepository.SaveChangesAsync();
+            await tourRepository.SaveChangesAsync();
 
             return newTour.Id;
         }
 
-public async Task<IEnumerable<TourServiceModel>> GetMostResentToursAsync()
-{
-    var tours = tourRepository
-        .AllAsNoTracking<Tour>()
-        .OrderByDescending(t => t.MeetingTime)
-        .Select(t => new TourServiceModel
+        public async Task<IEnumerable<TourServiceModel>> GetMostResentToursAsync()
         {
-            Name = t.Name,
-            ImageUrl = t.Destination.ImageUrl,
-        })
-        .ToListAsync();
+            var tours = tourRepository
+                .AllAsNoTracking<Tour>()
+                .OrderByDescending(t => t.MeetingTime)
+                .Select(t => new TourServiceModel
+                {
+                    Name = t.Name,
+                    ImageUrl = t.Destination.ImageUrl,
+                })
+                .ToListAsync();
 
-    return await tours;
-}
+            return await tours;
+        }
 
-public async Task<bool> TourWithSameNameExists(string name)
-{
-    return await tourRepository
-        .AllAsNoTracking<Tour>()
-        .AnyAsync(t => t.Name == name);
-}
+        public async Task<bool> TourWithSameNameExists(string name)
+        {
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .AnyAsync(t => t.Name == name);
+        }
     }
 }
