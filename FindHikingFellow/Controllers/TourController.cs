@@ -1,6 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Tour;
-using FindHikingFellow.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -54,12 +54,31 @@ namespace FindHikingFellow.Controllers
                 input.Features = await featureService.ListFeaturesAsync();
                 return this.View(input);
             }
-            //return this.Json(input);
 
             await tourService.CreateTourAsync(input, User.Id());
             
             // TODO: Redirect to tour details page
             return this.Redirect("/");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery]AllToursQueryModel query)
+        {
+            var queryResult = await tourService.AllAsync(
+                query.Destination,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllToursQueryModel.ToursPerPage);
+
+            var tourDestinations = await tourService.AllDestinationsNamesAsync();
+
+            query.Destinations = tourDestinations;
+            query.TotalTours = queryResult.TotalToursCount;
+            query.Tours = queryResult.Tours;
+
+            return View(query);
         }
 
         public IActionResult Archive()

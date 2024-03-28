@@ -2,11 +2,11 @@
 
 namespace FindHikingFellow.Attributes
 {
-    public class IsNotPassed : ValidationAttribute
+    public class IsInTheFuture : ValidationAttribute
     {
         protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            if((DateTime)value < DateTime.UtcNow)
+            if((DateTime?)value <= DateTime.Now)
             {
                 return new ValidationResult(ErrorMessage);
             }

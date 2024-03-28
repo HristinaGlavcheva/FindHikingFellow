@@ -1,0 +1,33 @@
+﻿@using FindHikingFellow.Core.Models.Tour
+@model IEnumerable<TourServiceModel>
+
+<div class="row">
+    @foreach (var tour in Model)
+    {
+        <div class="col-md-4 mt-5">
+            <div class="card mb-3">
+                @*                 <img class="card-img-top" src="@tour.Destination" alt="@tour.Destination @car.Model - @car.Year (@car.CategoryName)">
+            *@                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@tour.Name - @tour.Destination - @tour.MeetingTime </h5>
+                    @if (tour.Upcoming)
+                    {
+                        <div class="btn btn-success">Upcoming</div>
+                    }
+                    else
+                    {
+                        <div class="btn btn-danger">Finished</div>
+
+                    }
+
+                    @*                     <a asp-controller="Cars" asp-action="Details" asp-route-id="@car.Id" asp-route-information="@car.GetInformation()" class="btn btn-primary">View</a>
+                @if (ViewBag.AllowCarEdit == true || User.IsAdmin())
+                {
+                <a asp-controller="Cars" asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning">Edit</a>
+                <a asp-controller="Cars" asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Delete</a>
+                }
+                *@
+                </div>
+            </div>
+        </div>
+    }
+</div>

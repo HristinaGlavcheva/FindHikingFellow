@@ -29,7 +29,7 @@ namespace FindHikingFellow.Controllers
         public async Task<IActionResult> Index()
         {
             var destinationViewModels = await destinationService.GetMostPopularDestinationsAsync();
-            var tourServiceModels = await tourService.GetMostResentToursAsync();
+            var tourViewModels = await tourService.GetSoonestUpcomingToursAsync();
 
             var indexViewModel = new IndexViewModel
             {
@@ -43,7 +43,7 @@ namespace FindHikingFellow.Controllers
                     })
                 .ToList()
                 },
-                Tours = tourServiceModels.Select(t => new TourViewModel
+                Tours = tourViewModels.Select(t => new TourViewModel
                 {
                     Name = t.Name,
                     ImageUrl = t.ImageUrl,

@@ -1,5 +1,5 @@
 ﻿using FindHikingFellow.Core.Contracts;
-using FindHikingFellow.Core.Models.Feature;
+using FindHikingFellow.Core.Enumerations;
 using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
@@ -10,17 +10,77 @@ namespace FindHikingFellow.Core.Services
     public class TourService : ITourService
     {
         private readonly IRepository tourRepository;
-        private readonly IRepository featureRepository;
         private readonly IRepository keyPointRepository;
 
         public TourService(
             IRepository _tourRepository,
-            IRepository _featureRepository,
             IRepository _keyPointRepository)
         {
             tourRepository = _tourRepository;
-            featureRepository = _featureRepository;
             keyPointRepository = _keyPointRepository;
+        }
+
+        public async Task<TourQueryServiceModel> AllAsync(
+            string? destination = null, 
+            string? searchTerm = null, 
+            TourSorting sorting = TourSorting.Newest,
+            int currentPage = 1,
+            int toursPerPage = 3)
+        {
+            var toursToShow = tourRepository.AllAsNoTracking<Tour>();
+
+            if(!string.IsNullOrWhiteSpace(destination))
+            {
+                toursToShow = toursToShow
+                    .Where(t => t.Destination.Name == destination);
+            }
+
+            if(!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                toursToShow = toursToShow
+                    .Where(t =>
+                    t.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.Description.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.Destination.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.MeetingPoint.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.KeyPoints.Select(kp => kp.KeyPoint.Name.ToLower()).Contains(searchTerm.ToLower()));
+            }
+
+            toursToShow = sorting switch
+            {
+                TourSorting.Soonest => toursToShow.Where(t=> t.MeetingTime >= DateTime.Now).OrderBy(t => t.MeetingTime).ThenBy(t=>t.Name),
+                TourSorting.MostPopular => toursToShow.OrderByDescending(t => t.Participants.Count).ThenByDescending(t => t.Id),
+                TourSorting.Finished => toursToShow.Where(t => t.MeetingTime < DateTime.Now).OrderBy(t => t.MeetingTime).ThenBy(t => t.Name),
+                TourSorting.Newest or _=> toursToShow.OrderByDescending(t => t.Id)
+            };
+
+            var totalTours = await toursToShow.CountAsync();
+
+            var tours = await toursToShow
+                .Skip((currentPage - 1) * toursPerPage)
+                .Take(toursPerPage)
+                .Select(t => new TourServiceModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Destination = t.Destination.Name,
+                    MeetingTime = t.MeetingTime.Date,
+                    ParticipantsCount = t.Participants.Count,
+                    Upcoming = t.MeetingTime > DateTime.Now
+                }).ToListAsync();
+
+            return new TourQueryServiceModel
+            {
+                TotalToursCount = totalTours,
+                Tours = tours
+            };
+        }
+
+        public async Task<IEnumerable<string>> AllDestinationsNamesAsync()
+        {
+            return await tourRepository.AllAsNoTracking<Destination>()
+                .Select(d => d.Name)
+                .ToListAsync();
         }
 
         public async Task<int> CreateTourAsync(CreateTourFormModel input, string organiserId)
@@ -73,12 +133,12 @@ namespace FindHikingFellow.Core.Services
             return newTour.Id;
         }
 
-        public async Task<IEnumerable<TourServiceModel>> GetMostResentToursAsync()
+        public async Task<IEnumerable<TourViewModel>> GetSoonestUpcomingToursAsync()
         {
             var tours = tourRepository
                 .AllAsNoTracking<Tour>()
                 .OrderByDescending(t => t.MeetingTime)
-                .Select(t => new TourServiceModel
+                .Select(t => new TourViewModel
                 {
                     Name = t.Name,
                     ImageUrl = t.Destination.ImageUrl,

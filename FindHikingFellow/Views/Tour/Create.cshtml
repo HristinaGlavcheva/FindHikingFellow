@@ -54,7 +54,7 @@
 
             <div class="form-group mt-2">
                 <label asp-for="MeetingTime">Meeting time</label>
-                <input asp-for="MeetingTime" class="form-control" placeholder="@DateTime.Now" />
+                <input asp-for="MeetingTime" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd H:mm")" />
                 <span asp-validation-for="MeetingTime" class="text-danger"></span>
             </div>
             <div class="form-group mt-2">
@@ -79,6 +79,16 @@
             </div>
         </div>
         <div class="col-md-5 offset-1">
+
+            <div class="form-group mt-2">
+@*                 <label asp-for="Whatever"></label>
+                <input asp-for="Whatever" />
+                <span asp-validation-for="Whatever" class="text-danger"></span>
+ *@                  @foreach (var feature in Model.Features)
+                {
+                    <partial name="_FeaturesPartial" model=feature/>
+                }
+            </div>
 
             @*             <label for="@Model.Features">Features:</label>
             <div id="Features">
@@ -128,6 +138,17 @@
             *@
 
 
+@*             @foreach (var feature in Model.Features)
+            {
+                <input type="checkbox" id=@feature.Id name="@feature.Name" value="@feature.Name">
+                <label for="@feature.Name"> I have a @feature.Name</label>
+
+                <br>
+                <input type="submit" class="btn btn-primary mt-3" value="Save" />
+
+            }
+ *@
+
 
             <div id="KeyPointsContainer" class="col-md-5 offset-1">
                 <label asp-for="KeyPoints"></label>
@@ -138,6 +159,7 @@
         </div>
     </div>
 </form>
+
 
 @section Scripts {
     <script>

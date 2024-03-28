@@ -35,8 +35,7 @@ namespace FindHikingFellow.Core.Models.Tour
         public string Duration { get; set; } = null!;
 
         [Display(Name = "Meeting time")]
-        [IsNotPassed(ErrorMessage = "Meeting time should be in the future")]
-        [DisplayFormat(DataFormatString ="dd.MM.yyyy hh:mm")]
+        [IsInTheFuture(ErrorMessage = "Meeting time should be in the future")]
         public DateTime MeetingTime { get; set; }
 
         [Required(ErrorMessage = RequiredMessage)]
