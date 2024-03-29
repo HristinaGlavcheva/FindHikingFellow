@@ -42,8 +42,7 @@ namespace FindHikingFellow.Core.Services
                     t.Name.ToLower().Contains(searchTerm.ToLower()) ||
                     t.Description.ToLower().Contains(searchTerm.ToLower()) ||
                     t.Destination.Name.ToLower().Contains(searchTerm.ToLower()) ||
-                    t.MeetingPoint.ToLower().Contains(searchTerm.ToLower()) ||
-                    t.KeyPoints.Select(kp => kp.KeyPoint.Name.ToLower()).Contains(searchTerm.ToLower()));
+                    t.MeetingPoint.ToLower().Contains(searchTerm.ToLower()));
             }
 
             toursToShow = sorting switch
@@ -53,6 +52,17 @@ namespace FindHikingFellow.Core.Services
                 TourSorting.Finished => toursToShow.Where(t => t.MeetingTime < DateTime.Now).OrderBy(t => t.MeetingTime).ThenBy(t => t.Name),
                 TourSorting.Newest or _=> toursToShow.OrderByDescending(t => t.Id)
             };
+
+            var tourKeyPoints = keyPointRepository.AllAsNoTracking<TourKeyPoint>().Where(tkp => tkp.KeyPoint.Name.Contains(searchTerm));
+            var toursByKeyPoints = await tourKeyPoints.Select(t => new TourServiceModel
+            {
+                Id = t.TourId,
+                Name = t.Tour.Name,
+                Destination = t.Tour.Destination.Name,
+                MeetingTime = t.Tour.MeetingTime,
+                ParticipantsCount = t.Tour.Participants.Count,
+                Upcoming = t.Tour.MeetingTime > DateTime.Now
+            }).ToListAsync();
 
             var totalTours = await toursToShow.CountAsync();
 
@@ -68,6 +78,8 @@ namespace FindHikingFellow.Core.Services
                     ParticipantsCount = t.Participants.Count,
                     Upcoming = t.MeetingTime > DateTime.Now
                 }).ToListAsync();
+
+            tours.AddRange(toursByKeyPoints);
 
             return new TourQueryServiceModel
             {
