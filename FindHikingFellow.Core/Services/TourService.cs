@@ -21,21 +21,21 @@ namespace FindHikingFellow.Core.Services
         }
 
         public async Task<TourQueryServiceModel> AllAsync(
-            string? destination = null, 
-            string? searchTerm = null, 
+            string? destination = null,
+            string? searchTerm = null,
             TourSorting sorting = TourSorting.Newest,
             int currentPage = 1,
             int toursPerPage = 3)
         {
             var toursToShow = tourRepository.AllAsNoTracking<Tour>();
 
-            if(!string.IsNullOrWhiteSpace(destination))
+            if (!string.IsNullOrWhiteSpace(destination))
             {
                 toursToShow = toursToShow
                     .Where(t => t.Destination.Name == destination);
             }
 
-            if(!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 toursToShow = toursToShow
                     .Where(t =>
@@ -47,38 +47,35 @@ namespace FindHikingFellow.Core.Services
 
             toursToShow = sorting switch
             {
-                TourSorting.Soonest => toursToShow.Where(t=> t.MeetingTime >= DateTime.Now).OrderBy(t => t.MeetingTime).ThenBy(t=>t.Name),
+                TourSorting.Soonest => toursToShow.Where(t => t.MeetingTime >= DateTime.Now).OrderBy(t => t.MeetingTime).ThenBy(t => t.Name),
                 TourSorting.MostPopular => toursToShow.OrderByDescending(t => t.Participants.Count).ThenByDescending(t => t.Id),
                 TourSorting.Finished => toursToShow.Where(t => t.MeetingTime < DateTime.Now).OrderBy(t => t.MeetingTime).ThenBy(t => t.Name),
-                TourSorting.Newest or _=> toursToShow.OrderByDescending(t => t.Id)
+                TourSorting.Newest or _ => toursToShow.OrderByDescending(t => t.Id)
             };
 
-            var tourKeyPoints = keyPointRepository.AllAsNoTracking<TourKeyPoint>().Where(tkp => tkp.KeyPoint.Name.Contains(searchTerm));
-            var toursByKeyPoints = await tourKeyPoints.Select(t => new TourServiceModel
-            {
-                Id = t.TourId,
-                Name = t.Tour.Name,
-                Destination = t.Tour.Destination.Name,
-                MeetingTime = t.Tour.MeetingTime,
-                ParticipantsCount = t.Tour.Participants.Count,
-                Upcoming = t.Tour.MeetingTime > DateTime.Now
-            }).ToListAsync();
+            var tourKeyPoints = keyPointRepository
+                .AllAsNoTracking<TourKeyPoint>()
+                .Where(tkp => tkp.KeyPoint.Name.Contains(searchTerm));
+
+            var toursByKeyPoints = await tourKeyPoints
+                .Select(t => new TourServiceModel
+                {
+                    Id = t.TourId,
+                    ImageUrl = t.Tour.ImageUrl,
+                    Name = t.Tour.Name,
+                    Destination = t.Tour.Destination.Name,
+                    MeetingTime = t.Tour.MeetingTime,
+                    ParticipantsCount = t.Tour.Participants.Count,
+                    Upcoming = t.Tour.MeetingTime > DateTime.Now
+                }).ToListAsync();
 
             var totalTours = await toursToShow.CountAsync();
 
             var tours = await toursToShow
                 .Skip((currentPage - 1) * toursPerPage)
                 .Take(toursPerPage)
-                .Select(t => new TourServiceModel
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    ImageUrl = t.ImageUrl,
-                    Destination = t.Destination.Name,
-                    MeetingTime = t.MeetingTime.Date,
-                    ParticipantsCount = t.Participants.Count,
-                    Upcoming = t.MeetingTime > DateTime.Now
-                }).ToListAsync();
+                .ProjectToTourServiceModel()
+                .ToListAsync();
 
 
             tours.AddRange(toursByKeyPoints);
@@ -95,6 +92,24 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository.AllAsNoTracking<Destination>()
                 .Select(d => d.Name)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TourServiceModel>> AllToursByOrganiserId(string userId)
+        {
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.OrganiserId == userId)
+                .ProjectToTourServiceModel()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TourServiceModel>> AllToursByUserId(string userId)
+        {
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.Participants.Any(tp => tp.ParticipantId == userId))
+                .ProjectToTourServiceModel()
                 .ToListAsync();
         }
 

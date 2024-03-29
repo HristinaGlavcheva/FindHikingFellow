@@ -1,0 +1,24 @@
+﻿@using FindHikingFellow.Core.Models.Tour
+@model MyToursServiceModel
+
+@{
+    ViewData["Title"] = "My Tours";
+}
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+@if (!Model.Organised.Any() && !Model.Joined.Any())
+{
+    <h3 class="text-center">You have no tours yet!</h3>
+}
+@if (Model.Organised.Any())
+{
+    <h2 class="text-center">Organised</h2>
+    <partial name="_TourPartial" model="@Model.Organised" />
+}
+<br />
+@if (Model.Joined.Any())
+{
+    <h2 class="text-center">Joined</h2>
+    <partial name="_TourPartial" model="@Model.Joined" />
+}
+

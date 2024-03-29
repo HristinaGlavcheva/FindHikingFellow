@@ -19,5 +19,9 @@ namespace FindHikingFellow.Core.Contracts
             int toursPerPage = 3);
 
         Task<IEnumerable<string>> AllDestinationsNamesAsync();
+
+        Task<IEnumerable<TourServiceModel>> AllToursByOrganiserId(string userId);
+
+        Task<IEnumerable<TourServiceModel>> AllToursByUserId(string userId);
     }
 }

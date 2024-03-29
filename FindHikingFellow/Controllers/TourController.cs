@@ -85,5 +85,21 @@ namespace FindHikingFellow.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> MyTours()
+        {
+            var userId = User.Id();
+
+            var organised = await tourService.AllToursByOrganiserId(userId);
+            var joined = await tourService.AllToursByUserId(userId);
+
+            var model = new MyToursServiceModel
+            {
+                Joined = joined,
+                Organised = organised
+            };
+
+            return View(model);
+        }
     }
 }

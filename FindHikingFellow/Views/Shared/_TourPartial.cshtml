@@ -1,6 +1,10 @@
 ﻿@using FindHikingFellow.Core.Models.Tour
 @model IEnumerable<TourServiceModel>
 
+@{
+    ViewBag.Title = "My Tours";
+}
+
 <div class="row">
     @foreach (var tour in Model)
     {
@@ -10,7 +14,7 @@
                     <div class="card-body text-center">
                     <h5 class="card-title text-center">@tour.Name</h5>
                     <h5 class="card-title text-center">@tour.Destination</h5>
-                    <h5 class="card-title text-center">@tour.MeetingTime.Date </h5>
+                    <h5 class="card-title text-center">@tour.MeetingTime.ToString("MM/dd/yyyy") </h5>
                     @if (tour.Upcoming)
                     {
                         <div class="btn btn-success">Upcoming</div>
