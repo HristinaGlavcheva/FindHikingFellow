@@ -73,18 +73,21 @@ namespace FindHikingFellow.Core.Services
                 {
                     Id = t.Id,
                     Name = t.Name,
+                    ImageUrl = t.ImageUrl,
                     Destination = t.Destination.Name,
                     MeetingTime = t.MeetingTime.Date,
                     ParticipantsCount = t.Participants.Count,
                     Upcoming = t.MeetingTime > DateTime.Now
                 }).ToListAsync();
 
+
             tours.AddRange(toursByKeyPoints);
+            var uniqueTours = tours.GroupBy(t => t.Id).Select(x => x.FirstOrDefault());
 
             return new TourQueryServiceModel
             {
                 TotalToursCount = totalTours,
-                Tours = tours
+                Tours = uniqueTours
             };
         }
 
@@ -100,6 +103,7 @@ namespace FindHikingFellow.Core.Services
             var newTour = new Tour
             {
                 Name = input.Name,
+                ImageUrl = input.ImageUrl,
                 Description = input.Description,
                 DestinationId = input.DestinationId,
                 Difficulty = input.Difficulty,

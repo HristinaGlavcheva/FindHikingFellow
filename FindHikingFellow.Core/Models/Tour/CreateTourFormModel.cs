@@ -19,6 +19,14 @@ namespace FindHikingFellow.Core.Models.Tour
         [RegularExpression("[A-Z][^_]+", ErrorMessage = TourNameRegexMessage)]
         public string Name { get; set; } = null!;
 
+        [Url]
+        [Required(ErrorMessage = RequiredMessage)]
+        [StringLength(ImageUrlMaxLength,
+            MinimumLength = ImageUrlMinLength,
+            ErrorMessage = LengthMessage)]
+        [Display(Name="Image URL")]
+        public string ImageUrl { get; set; } = string.Empty!;
+
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(TourDescriptionMaxLength,
             MinimumLength = TourDescriptionMinLength,
@@ -59,7 +67,6 @@ namespace FindHikingFellow.Core.Models.Tour
         public IEnumerable<ListDestinationsViewModel> Destinations { get; set; } = new HashSet<ListDestinationsViewModel>();
 
         public IEnumerable<TourKeyPointInputModel> KeyPoints { get; set; } = new HashSet<TourKeyPointInputModel>();
-
 
         public List<ListFeaturesViewModel> Features { get; set; } = new List<ListFeaturesViewModel>();
 

@@ -8,6 +8,8 @@ namespace FindHikingFellow.Core.Models.Tour
 
         public string Name { get; set; } = string.Empty;
 
+        public string ImageUrl { get; set; } = string.Empty;
+
         public string Destination { get; set; } = string.Empty;
 
         [Display(Name = "Start date")]

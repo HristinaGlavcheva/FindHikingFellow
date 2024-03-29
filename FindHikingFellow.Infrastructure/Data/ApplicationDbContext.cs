@@ -1,5 +1,4 @@
-﻿using FindHikingFellow.Infrastructure.Data.Configurations;
-using FindHikingFellow.Infrastructure.Data.Models;
+﻿using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -41,12 +40,6 @@ namespace FindHikingFellow.Infrastructure.Data
                 Assembly.GetAssembly(typeof(ApplicationDbContext)) ?? Assembly.GetExecutingAssembly();
 
             builder.ApplyConfigurationsFromAssembly(configAssembly);
-
-            //builder.ApplyConfiguration(new DestinationConfiguration());
-            //builder.ApplyConfiguration(new TourFeatureConfiguration());
-            //builder.ApplyConfiguration(new TourKeyPointConfiguration());
-            //builder.ApplyConfiguration(new TourParticipantConfiguration());
-            //builder.ApplyConfiguration(new TourPersonalListConfiguration());
 
             base.OnModelCreating(builder);
 

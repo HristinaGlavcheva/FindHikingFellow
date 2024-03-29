@@ -15,6 +15,11 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [RegularExpression("[A-Z][^_]+")]
         public string Name { get; set; } = string.Empty;
 
+        [Url]
+        [Required]
+        [MaxLength(ImageUrlMaxLength)]
+        public string ImageUrl { get; set; } = string.Empty;
+
         [Required]
         [MaxLength(TourDescriptionMaxLength)]
         public string Description { get; set; } = string.Empty;

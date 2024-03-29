@@ -29,7 +29,7 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
             {
                 Id = 2,
                 Name = "Rila",
-                ImageUrl = "https://novavarna.net/wp-content/uploads/2020/06/rila_maliovica-1280x720.jpg"
+                ImageUrl = "https://vedri.bg/media/fufl535h/national-park-rila-bulgaria.jpg"
             };
             destinations.Add(destination);
 

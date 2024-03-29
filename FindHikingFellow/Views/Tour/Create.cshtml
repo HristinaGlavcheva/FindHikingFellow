@@ -32,6 +32,12 @@
                 </div>
             </div>
             <div class="form-group mt-3">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Image URL"/>
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
                 <label asp-for="Description"></label>
                 <textarea asp-for="Description" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
@@ -148,6 +154,20 @@
 
             }
  *@
+
+            @* <div class="col form-group col-md-8 mt-2">
+                <label asp-for="Features">Choose features from the list</label>
+                <select asp-for="Features" class="form-control" multiple>
+                    @foreach (var feature in Model.Features)
+                    {
+                        <option value="@feature">@feature.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="DestinationId" class="text-danger"></span>
+            </div>
+ *@
+
+
 
 
             <div id="KeyPointsContainer" class="col-md-5 offset-1">

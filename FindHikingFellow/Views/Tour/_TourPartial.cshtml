@@ -6,9 +6,11 @@
     {
         <div class="col-md-4 mt-5">
             <div class="card mb-3">
-                @*                 <img class="card-img-top" src="@tour.Destination" alt="@tour.Destination @car.Model - @car.Year (@car.CategoryName)">
-            *@                <div class="card-body text-center">
-                    <h5 class="card-title text-center">@tour.Name - @tour.Destination - @tour.MeetingTime </h5>
+                <img class="card-img-top" src="@tour.ImageUrl" alt="@tour.Name @tour.Destination">
+                    <div class="card-body text-center">
+                    <h5 class="card-title text-center">@tour.Name</h5>
+                    <h5 class="card-title text-center">@tour.Destination</h5>
+                    <h5 class="card-title text-center">@tour.MeetingTime.Date </h5>
                     @if (tour.Upcoming)
                     {
                         <div class="btn btn-success">Upcoming</div>
