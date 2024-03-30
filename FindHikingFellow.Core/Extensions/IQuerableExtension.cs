@@ -14,7 +14,6 @@ namespace System.Linq
                 ImageUrl = t.ImageUrl,
                 Destination = t.Destination.Name,
                 MeetingTime = t.MeetingTime.Date,
-                ParticipantsCount = t.Participants.Count,
                 Upcoming = t.MeetingTime > DateTime.Now
             });
         }

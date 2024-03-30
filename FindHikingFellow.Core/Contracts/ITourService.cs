@@ -23,5 +23,9 @@ namespace FindHikingFellow.Core.Contracts
         Task<IEnumerable<TourServiceModel>> AllToursByOrganiserId(string userId);
 
         Task<IEnumerable<TourServiceModel>> AllToursByUserId(string userId);
+
+        Task<bool> ExistsAsync(int id);
+
+        Task<TourDetailsServiceModel> TourDetailsByIdAsync(int id);
     }
 }

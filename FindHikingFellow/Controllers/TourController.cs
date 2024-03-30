@@ -101,5 +101,17 @@ namespace FindHikingFellow.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            if(await tourService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var model = await tourService.TourDetailsByIdAsync(id);
+            
+            return View(model);
+        }
     }
 }

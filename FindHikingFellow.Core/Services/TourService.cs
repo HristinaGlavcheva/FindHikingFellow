@@ -65,7 +65,6 @@ namespace FindHikingFellow.Core.Services
                     Name = t.Tour.Name,
                     Destination = t.Tour.Destination.Name,
                     MeetingTime = t.Tour.MeetingTime,
-                    ParticipantsCount = t.Tour.Participants.Count,
                     Upcoming = t.Tour.MeetingTime > DateTime.Now
                 }).ToListAsync();
 
@@ -164,6 +163,13 @@ namespace FindHikingFellow.Core.Services
             return newTour.Id;
         }
 
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .AnyAsync(t => t.Id == id);
+        }
+
         public async Task<IEnumerable<TourViewModel>> GetSoonestUpcomingToursAsync()
         {
             var tours = tourRepository
@@ -177,6 +183,34 @@ namespace FindHikingFellow.Core.Services
                 .ToListAsync();
 
             return await tours;
+        }
+
+        public async Task<TourDetailsServiceModel> TourDetailsByIdAsync(int id)
+        {
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.Id == id)
+                .Select(t => new TourDetailsServiceModel
+                {
+                    Name = t.Name,
+                    ImageUrl = t.ImageUrl,
+                    Description = t.Description,
+                    Destination = t.Destination.Name,
+                    Difficulty = t.Difficulty,
+                    Duration = t.Duration,
+                    ActivityType = t.ActivityType,
+                    ElevationGain = t.ElevationGain,
+                    Id = t.Id,
+                    Length = t.Length,
+                    MeetingPoint = t.MeetingPoint,
+                    MeetingTime = t.MeetingTime,
+                    RouteType = t.RouteType,
+                    Upcoming = t.MeetingTime > DateTime.Now,
+                    ParticipantsCount = t.Participants.Count,
+                    KeyPoints = t.KeyPoints.Select(t => t.KeyPoint.Name).ToList(),
+                    Features = t.Features.Select(t => t.Feature.Name).ToList()
+                })
+                .FirstAsync();
         }
 
         public async Task<bool> TourWithSameNameExists(string name)

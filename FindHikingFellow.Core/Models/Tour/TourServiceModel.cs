@@ -16,9 +16,6 @@ namespace FindHikingFellow.Core.Models.Tour
         [DataType(DataType.Date)]
         public DateTime MeetingTime { get; set; }
 
-        [Display(Name="Participants")]
-        public int ParticipantsCount { get; set; }
-
         public bool Upcoming { get; set; }
     }
 }
