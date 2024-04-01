@@ -1,8 +1,11 @@
-﻿@using FindHikingFellow.Core.Models.Tour
+﻿@using FindHikingFellow.Core.Contracts
+@using FindHikingFellow.Core.Models.Tour
+@using System.Security.Claims
 @model IEnumerable<TourServiceModel>
+@inject ITourService tourService
 
 @{
-    ViewBag.Title = "My Tours";
+    ViewData["Title"] = "My Tours";
 }
 
 <div class="row">
@@ -11,27 +14,51 @@
         <div class="col-md-4 mt-5">
             <div class="card mb-3">
                 <img class="card-img-top" src="@tour.ImageUrl" alt="@tour.Name @tour.Destination">
-                    <div class="card-body text-center">
+                <div class="card-body text-center">
                     <h5 class="card-title text-center">@tour.Name</h5>
                     <h5 class="card-title text-center">@tour.Destination</h5>
                     <h5 class="card-title text-center">@tour.MeetingTime.ToString("MM/dd/yyyy") </h5>
                     @if (tour.Upcoming)
                     {
-                        <div class="btn btn-success">Upcoming</div>
+                        <div class="btn btn-outline-success">Upcoming</div>
                     }
                     else
                     {
-                        <div class="btn btn-danger">Finished</div>
-
+                        <div class="btn btn-outline-danger">Finished</div>
                     }
 
-@*                     <a asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id" asp-route-information="@tour.GetInformation()" class="btn btn-primary">Details</a>
- *@                @*@if (ViewBag.AllowCarEdit == true || User.IsAdmin())
-                {
-                <a asp-controller="Cars" asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning">Edit</a>
-                <a asp-controller="Cars" asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Delete</a>
-                }
-                *@
+                    <div class="mt-3">
+                        <a asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id" class="btn btn-primary">Details</a>
+
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            if (await tourService.IsOrganisedBy(tour.Id, User.Id()))
+                            {
+                                <a asp-controller="Tour" asp-action="Edit" asp-route-id="@tour.Id"
+                                   class="btn btn-warning">Edit</a>
+                                <a asp-controller="Tour" asp-action="Delete" asp-route-id="@tour.Id"
+                                   class="btn btn-danger">Delete</a>
+                            }
+                            else
+                            {
+                                <p></p>
+
+                                @if (!tourService.AllToursByUserId(User.Id()).Result.Any(t => t.Id == tour.Id))
+                                {
+                                    <form class="input-group-sm" asp-controller="Tour" asp-action="Join" asp-route-id="@tour.Id" method="post">
+                                        <input class="btn btn-success" type="submit" value="Join" />
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-controller="Tour" asp-action="Leave"
+                                          asp-route-id="@tour.Id" method="post">
+                                        <input class="btn btn-primary" type="submit" value="Leave" />
+                                    </form>
+                                }
+                            }
+                        }
+                    </div>
                 </div>
             </div>
         </div>

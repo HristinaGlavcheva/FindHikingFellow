@@ -104,7 +104,7 @@ namespace FindHikingFellow.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            if(await tourService.ExistsAsync(id))
+            if(!await tourService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -113,5 +113,10 @@ namespace FindHikingFellow.Controllers
             
             return View(model);
         }
+
+        //public async Task<IActionResult> GetToursByDestinationAsync(string destinationName)
+        //{
+        //    await tourService.GetToursByDestinationAsync(destinationName);
+        //}
     }
 }

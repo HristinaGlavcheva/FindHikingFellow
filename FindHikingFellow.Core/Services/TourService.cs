@@ -213,11 +213,33 @@ namespace FindHikingFellow.Core.Services
                 .FirstAsync();
         }
 
+        public async Task<IEnumerable<TourViewModel>> GetToursByDestinationAsync(string destinationName)
+        {
+            var tours = await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.Destination.Name == destinationName)
+                .Select(t => new TourViewModel
+                {
+                    Name = t.Name,
+                    ImageUrl    = t.ImageUrl
+                })
+                .ToListAsync();
+
+            return tours;
+        }
+
         public async Task<bool> TourWithSameNameExists(string name)
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
                 .AnyAsync(t => t.Name == name);
+        }
+
+        public async Task<bool> IsOrganisedBy(int tourId, string userId)
+        {
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .AnyAsync(t => t.Id == tourId && t.OrganiserId == userId);
         }
     }
 }
