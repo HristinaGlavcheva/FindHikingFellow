@@ -1,5 +1,6 @@
 ﻿using FindHikingFellow.Core.Models;
 using FindHikingFellow.Core.Models.Destination;
+using FindHikingFellow.Core.Models.Tour;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FindHikingFellow.Core.Contracts
@@ -8,9 +9,9 @@ namespace FindHikingFellow.Core.Contracts
     {
         Task<IEnumerable<ListDestinationsViewModel>> ListDestinationsAsync();
 
-        Task<AllDestinationsViewModel> GetAllDestinationsAsync();
+        Task<IEnumerable<DestinationViewModel>> GetAllDestinationsAsync();
 
-        Task<IEnumerable<AddDestinationFormModel>> GetMostPopularDestinationsAsync();
+        Task<IEnumerable<DestinationViewModel>> GetMostPopularDestinationsAsync();
 
         Task<bool> DestinationExistsByIdAsync(int destinationId);
 

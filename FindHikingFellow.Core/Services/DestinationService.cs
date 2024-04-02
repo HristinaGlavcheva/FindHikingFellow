@@ -1,6 +1,7 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models;
 using FindHikingFellow.Core.Models.Destination;
+using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +17,15 @@ namespace FindHikingFellow.Core.Services
             destinationRepository = _destinationRepository;
         }
 
-        public async Task<IEnumerable<AddDestinationFormModel>> GetMostPopularDestinationsAsync()
+        public async Task<IEnumerable<DestinationViewModel>> GetMostPopularDestinationsAsync()
         {
             var destinations = destinationRepository
                .AllAsNoTracking<Destination>()
                .OrderByDescending(d => d.Tours.Count())
                .Take(6)
-               .Select(d => new AddDestinationFormModel
+               .Select(d => new DestinationViewModel
                {
+                   Id = d.Id,
                    Name = d.Name,
                    ImageUrl = d.ImageUrl,
                })
@@ -32,24 +34,20 @@ namespace FindHikingFellow.Core.Services
             return await destinations;
         }
 
-        public async Task<AllDestinationsViewModel> GetAllDestinationsAsync()
+        public async Task<IEnumerable<DestinationViewModel>> GetAllDestinationsAsync()
         {
             var destinations = await destinationRepository
                .AllAsNoTracking<Destination>()
                .OrderBy(d => d.Name)
-               .Select(d => new AddDestinationFormModel
+               .Select(d => new DestinationViewModel
                {
+                   Id = d.Id,
                    Name = d.Name,
                    ImageUrl = d.ImageUrl,
                })
                .ToListAsync();
 
-            var allDestinationsViewModel = new AllDestinationsViewModel
-            {
-                AllDestinations = destinations
-            };
-
-            return allDestinationsViewModel;
+            return destinations;
         }
 
         public async Task<IEnumerable<ListDestinationsViewModel>> ListDestinationsAsync()
@@ -87,12 +85,11 @@ namespace FindHikingFellow.Core.Services
                 .AnyAsync(d => d.Id == destinationId);
         }
 
-        public async Task<bool> DestinationExistsByNameAsync(string destinationName)
+        public async Task<bool> DestinationExistsByNameAsync(string destination)
         {
             return await destinationRepository
                 .AllAsNoTracking<Destination>()
-                .AnyAsync(d => d.Name == destinationName);
+                .AnyAsync(d => d.Name == destination);
         }
-
     }
 }

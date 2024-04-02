@@ -1,4 +1,5 @@
 ﻿using FindHikingFellow.Core.Enumerations;
+using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Tour;
 
 namespace FindHikingFellow.Core.Contracts
@@ -30,6 +31,6 @@ namespace FindHikingFellow.Core.Contracts
 
         Task<TourDetailsServiceModel> TourDetailsByIdAsync(int id);
 
-        Task<IEnumerable<TourViewModel>> GetToursByDestinationAsync(string destinationName);
+        Task<IEnumerable<TourServiceModel>> GetToursByDestinationAsync(string destination);
     }
 }

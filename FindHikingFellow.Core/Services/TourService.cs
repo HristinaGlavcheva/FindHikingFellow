@@ -1,5 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Enumerations;
+using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
@@ -58,14 +59,14 @@ namespace FindHikingFellow.Core.Services
                 .Where(tkp => tkp.KeyPoint.Name.Contains(searchTerm));
 
             var toursByKeyPoints = await tourKeyPoints
-                .Select(t => new TourServiceModel
+                .Select(tkp => new TourServiceModel
                 {
-                    Id = t.TourId,
-                    ImageUrl = t.Tour.ImageUrl,
-                    Name = t.Tour.Name,
-                    Destination = t.Tour.Destination.Name,
-                    MeetingTime = t.Tour.MeetingTime,
-                    Upcoming = t.Tour.MeetingTime > DateTime.Now
+                    Id = tkp.TourId,
+                    ImageUrl = tkp.Tour.ImageUrl,
+                    Name = tkp.Tour.Name,
+                    Destination = tkp.Tour.Destination.Name,
+                    MeetingTime = tkp.Tour.MeetingTime,
+                    Upcoming = tkp.Tour.MeetingTime > DateTime.Now
                 }).ToListAsync();
 
             var totalTours = await toursToShow.CountAsync();
@@ -213,21 +214,6 @@ namespace FindHikingFellow.Core.Services
                 .FirstAsync();
         }
 
-        public async Task<IEnumerable<TourViewModel>> GetToursByDestinationAsync(string destinationName)
-        {
-            var tours = await tourRepository
-                .AllAsNoTracking<Tour>()
-                .Where(t => t.Destination.Name == destinationName)
-                .Select(t => new TourViewModel
-                {
-                    Name = t.Name,
-                    ImageUrl    = t.ImageUrl
-                })
-                .ToListAsync();
-
-            return tours;
-        }
-
         public async Task<bool> TourWithSameNameExists(string name)
         {
             return await tourRepository
@@ -240,6 +226,17 @@ namespace FindHikingFellow.Core.Services
             return await tourRepository
                 .AllAsNoTracking<Tour>()
                 .AnyAsync(t => t.Id == tourId && t.OrganiserId == userId);
+        }
+
+        public async Task<IEnumerable<TourServiceModel>> GetToursByDestinationAsync(string destination)
+        {
+            var tours = await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.Destination.Name == destination)
+                .ProjectToTourServiceModel()
+                .ToListAsync();
+
+            return tours;
         }
     }
 }

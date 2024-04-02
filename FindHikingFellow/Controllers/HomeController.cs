@@ -33,38 +33,35 @@ namespace FindHikingFellow.Controllers
 
             var indexViewModel = new IndexViewModel
             {
-                Destinations = new AllDestinationsViewModel
-                {
-                    AllDestinations = destinationViewModels
-                    .Select(d => new AddDestinationFormModel
+                Destinations = destinationViewModels
+                    .Select(d => new DestinationViewModel
                     {
                         Name = d.Name,
-                        ImageUrl = d.ImageUrl,
+                        ImageUrl = d.ImageUrl
                     })
-                .ToList()
-                },
+                .ToList(),
                 Tours = tourViewModels.Select(t => new TourViewModel
                 {
                     Name = t.Name,
                     ImageUrl = t.ImageUrl,
                 })
-                .ToList(),
+                .ToList()
             };
 
-            return this.View(indexViewModel);
-    }
+            return View(indexViewModel);
+        }
 
-    [AllowAnonymous]
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        [AllowAnonymous]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
-    [AllowAnonymous]
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        [AllowAnonymous]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
-}
 }

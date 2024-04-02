@@ -1,5 +1,5 @@
 ﻿@using FindHikingFellow.Core.Models.Destination
-@model AllDestinationsViewModel
+@model IEnumerable<DestinationViewModel>
 
 @{
     this.ViewData["Title"] = "All Destinations";
@@ -9,12 +9,13 @@
     <h2>Let you find a fellow to share your hiking adventure with</h2>
     <h5>Choose your hiking destination:</h5>
     <div class="row">
-        @foreach (var destination in Model.AllDestinations)
+        @foreach (var destination in Model)
         {
             <div class="col-md-4">
                 <div class="card mt-5">
-                    <a asp-controller="Tours" asp-action="GetToursByDestination" asp-route-id="btn btn-primary">
+                    <a asp-controller="Tour" asp-action="ToursByDestination" asp-route-destination=@destination.Name>
                         <h5 class="card-title text-center">@destination.Name</h5>
+                        <h5>Destination Id: @destination.Id</h5>
                         <img class="card-img-top" src="@destination.ImageUrl" alt="@destination.Name">View tours
                     </a>
                 </div>

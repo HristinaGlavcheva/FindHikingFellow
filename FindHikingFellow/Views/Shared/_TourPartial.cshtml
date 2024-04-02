@@ -4,10 +4,6 @@
 @model IEnumerable<TourServiceModel>
 @inject ITourService tourService
 
-@{
-    ViewData["Title"] = "My Tours";
-}
-
 <div class="row">
     @foreach (var tour in Model)
     {

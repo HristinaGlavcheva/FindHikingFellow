@@ -1,4 +1,5 @@
 ﻿using FindHikingFellow.Core.Contracts;
+using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Tour;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -102,6 +103,7 @@ namespace FindHikingFellow.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             if(!await tourService.ExistsAsync(id))
@@ -114,9 +116,14 @@ namespace FindHikingFellow.Controllers
             return View(model);
         }
 
-        //public async Task<IActionResult> GetToursByDestinationAsync(string destinationName)
-        //{
-        //    await tourService.GetToursByDestinationAsync(destinationName);
-        //}
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> ToursByDestination(string destination)
+        {
+            var model = await tourService.GetToursByDestinationAsync(destination);
+
+            return View(model);
+        }
     }
 }
