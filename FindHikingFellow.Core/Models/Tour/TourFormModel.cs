@@ -10,7 +10,7 @@ using static FindHikingFellow.Infrastructure.Constants.DataConstants;
 
 namespace FindHikingFellow.Core.Models.Tour
 {
-    public class CreateTourFormModel
+    public class TourFormModel
     {
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(TourNameMaxLength,
@@ -66,7 +66,7 @@ namespace FindHikingFellow.Core.Models.Tour
 
         public IEnumerable<ListDestinationsViewModel> Destinations { get; set; } = new HashSet<ListDestinationsViewModel>();
 
-        public IEnumerable<TourKeyPointInputModel> KeyPoints { get; set; } = new HashSet<TourKeyPointInputModel>();
+        public IEnumerable<TourKeyPointModel> KeyPoints { get; set; } = new HashSet<TourKeyPointModel>();
 
         public List<ListFeaturesViewModel> Features { get; set; } = new List<ListFeaturesViewModel>();
 
