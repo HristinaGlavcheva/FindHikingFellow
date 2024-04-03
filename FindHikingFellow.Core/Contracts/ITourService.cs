@@ -1,6 +1,6 @@
 ﻿using FindHikingFellow.Core.Enumerations;
-using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Tour;
+using FindHikingFellow.Core.Models.TourKeyPoint;
 
 namespace FindHikingFellow.Core.Contracts
 {
@@ -8,7 +8,9 @@ namespace FindHikingFellow.Core.Contracts
     {
         Task<IEnumerable<TourViewModel>> GetSoonestUpcomingToursAsync();
 
-        Task<int> CreateTourAsync(CreateTourFormModel input, string organiserId);
+        Task<int> CreateTourAsync(TourFormModel input, string organiserId);
+
+        Task EditTourAsync(TourFormModel input, int tourId);
 
         Task<bool> TourWithSameNameExists(string name);
 
@@ -32,5 +34,9 @@ namespace FindHikingFellow.Core.Contracts
         Task<TourDetailsServiceModel> TourDetailsByIdAsync(int id);
 
         Task<IEnumerable<TourServiceModel>> GetToursByDestinationAsync(string destination);
+
+        Task<TourFormModel?> GetTourFormModelByIdAsync(int id);
+
+        Task<IEnumerable<TourKeyPointModel>> ListKeyPointsAsync(int id);
     }
 }

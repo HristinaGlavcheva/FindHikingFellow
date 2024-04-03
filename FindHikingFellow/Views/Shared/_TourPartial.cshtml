@@ -30,8 +30,11 @@
                         {
                             if (await tourService.IsOrganisedBy(tour.Id, User.Id()))
                             {
-                                <a asp-controller="Tour" asp-action="Edit" asp-route-id="@tour.Id"
-                                   class="btn btn-warning">Edit</a>
+                                if (tour.Upcoming)
+                                {
+                                    <a asp-controller="Tour" asp-action="Edit" asp-route-id="@tour.Id"
+                                       class="btn btn-warning">Edit</a>
+                                }
                                 <a asp-controller="Tour" asp-action="Delete" asp-route-id="@tour.Id"
                                    class="btn btn-danger">Delete</a>
                             }

@@ -1,7 +1,7 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Enumerations;
-using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Tour;
+using FindHikingFellow.Core.Models.TourKeyPoint;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -113,7 +113,7 @@ namespace FindHikingFellow.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<int> CreateTourAsync(CreateTourFormModel input, string organiserId)
+        public async Task<int> CreateTourAsync(TourFormModel input, string organiserId)
         {
             var newTour = new Tour
             {
@@ -139,7 +139,10 @@ namespace FindHikingFellow.Core.Services
 
             foreach (var inputKeyPoint in input.KeyPoints)
             {
-                var keyPoint = keyPointRepository.AllAsNoTracking<KeyPoint>().FirstOrDefault(kp => kp.Name == inputKeyPoint.KeyPointName);
+                var keyPoint = keyPointRepository
+                    .AllAsNoTracking<KeyPoint>()
+                    .FirstOrDefault(kp => kp.Name == inputKeyPoint.KeyPointName);
+
                 if (keyPoint == null)
                 {
                     keyPoint = new KeyPoint { Name = inputKeyPoint.KeyPointName };
@@ -237,6 +240,65 @@ namespace FindHikingFellow.Core.Services
                 .ToListAsync();
 
             return tours;
+        }
+
+        public async Task EditTourAsync(TourFormModel input, int tourId)
+        {
+            var tour = await tourRepository.GetByIdAsync<Tour>(tourId);
+
+            if(tour != null)
+            {
+                tour.Name = input.Name;
+                tour.DestinationId = input.DestinationId;
+                tour.Description = input.Description;
+                tour.Duration = input.Duration;
+                tour.Difficulty = input.Difficulty;
+                tour.ActivityType = input.ActivityType;
+                tour.ElevationGain = input.ElevationGain;
+                tour.RouteType = input.RouteType;
+                tour.ImageUrl = input.ImageUrl;
+                tour.MeetingPoint = input.MeetingPoint;
+                tour.MeetingTime = input.MeetingTime;
+                tour.Length = input.Length;
+
+                await tourRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<TourFormModel?> GetTourFormModelByIdAsync(int id)
+        {
+            var tour = await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.Id == id).FirstOrDefaultAsync();
+
+            var model = new TourFormModel()
+            {
+                Name = tour.Name,
+                ImageUrl = tour.ImageUrl,
+                Description = tour.Description,
+                Difficulty = tour.Difficulty,
+                Duration = tour.Duration,
+                ActivityType = tour.ActivityType,
+                ElevationGain = tour.ElevationGain,
+                Length = tour.Length,
+                MeetingPoint = tour.MeetingPoint,
+                MeetingTime = tour.MeetingTime,
+                RouteType = tour.RouteType,
+                DestinationId = tour.DestinationId,
+            };
+
+            return model;
+        }
+
+        public async Task<IEnumerable<TourKeyPointModel>> ListKeyPointsAsync(int id)
+        {
+            return await keyPointRepository
+                .AllAsNoTracking<TourKeyPoint>()
+                .Where(tkp =>tkp.Tour.Id == id)
+                .Select(tkp => new TourKeyPointModel()
+                {
+                    KeyPointName = tkp.KeyPoint.Name
+                }).ToListAsync();
         }
     }
 }

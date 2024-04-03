@@ -26,6 +26,11 @@ namespace FindHikingFellow.Infrastructure.Data.Common
             return DbSet<T>().AsNoTracking();
         }
 
+        public async Task<T?> GetByIdAsync<T>(object id) where T : class
+        {
+            return await DbSet<T>().FindAsync(id);
+        }
+
         public Task RemoveAsync<T>(T entity) where T : class
         {
             throw new NotImplementedException();

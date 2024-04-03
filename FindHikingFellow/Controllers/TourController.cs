@@ -1,5 +1,4 @@
 ﻿using FindHikingFellow.Core.Contracts;
-using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Tour;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +25,7 @@ namespace FindHikingFellow.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var model = new CreateTourFormModel()
+            var model = new TourFormModel()
             {
                 MeetingTime = DateTime.UtcNow,
                 Destinations = await destinationService.ListDestinationsAsync(),
@@ -37,7 +36,7 @@ namespace FindHikingFellow.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTourFormModel input)
+        public async Task<IActionResult> Create(TourFormModel input)
         {
             if (await tourService.TourWithSameNameExists(input.Name) == true)
             {
@@ -56,10 +55,9 @@ namespace FindHikingFellow.Controllers
                 return this.View(input);
             }
 
-            await tourService.CreateTourAsync(input, User.Id());
+            var newTourId = await tourService.CreateTourAsync(input, User.Id());
             
-            // TODO: Redirect to tour details page
-            return this.Redirect("/");
+            return RedirectToAction(nameof(Details), new {id = newTourId});
         }
 
         [AllowAnonymous]
@@ -116,7 +114,6 @@ namespace FindHikingFellow.Controllers
             return View(model);
         }
 
-
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> ToursByDestination(string destination)
@@ -124,6 +121,58 @@ namespace FindHikingFellow.Controllers
             var model = await tourService.GetToursByDestinationAsync(destination);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if(await tourService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await tourService.IsOrganisedBy(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await tourService.GetTourFormModelByIdAsync(id);
+
+            model.Destinations = await destinationService.ListDestinationsAsync();
+            model.Features = await featureService.ListFeaturesAsync();
+            model.KeyPoints = await tourService.ListKeyPointsAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, TourFormModel input)
+        {
+            if (await tourService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await tourService.IsOrganisedBy(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if (await destinationService.DestinationExistsByIdAsync(input.DestinationId) == false)
+            {
+                ModelState.AddModelError(nameof(input.DestinationId), "This destination does not exist");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                input.Destinations = await destinationService.ListDestinationsAsync();
+                input.Features = await featureService.ListFeaturesAsync();
+                return View(input);
+            }
+
+            await tourService.EditTourAsync(input, id);
+
+            return RedirectToAction(nameof(Details), new { id });
         }
     }
 }
