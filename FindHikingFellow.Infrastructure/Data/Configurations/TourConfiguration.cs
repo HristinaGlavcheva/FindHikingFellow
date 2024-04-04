@@ -10,6 +10,10 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Tour> builder)
         {
+            builder
+                .Property(t => t.IsDeleted)
+                .HasDefaultValue(false);
+
             builder.HasData(SeedTour());
         }
 

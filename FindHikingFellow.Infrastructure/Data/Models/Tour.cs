@@ -58,6 +58,8 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [Comment("The User who added the tour")]
         public IdentityUser Organiser { get; set; } = null!;
 
+        public bool IsDeleted { get; set; }
+
         [Comment("Specific points or places which the tour is going to pass near by")]
         public ICollection<TourKeyPoint> KeyPoints { get; init; } = new HashSet<TourKeyPoint>();
 
