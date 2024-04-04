@@ -340,10 +340,10 @@ namespace FindHikingFellow.Core.Services
         {
             var tourParticipant = await tourParticipantRepository
                 .AllAsNoTracking<TourParticipant>()
-                .Where(tp => tp.ParticipantId == userId && tp.TourId == tourId)
+                .Where(tp => tp.ParticipantId == userId && tp.TourId == tourId && !tp.Tour.IsDeleted)
                 .FirstOrDefaultAsync();
 
-            if(tourParticipant == null)
+            if (tourParticipant == null)
             {
                 return false;
             }
@@ -351,9 +351,13 @@ namespace FindHikingFellow.Core.Services
             return true;
         }
 
-        public async Task Join(int id, string userId)
+        public async Task JoinAsync(int id, string userId)
         {
-            if(await IsJoinedByUserWithIdAsync(id, userId) == false)
+            var tour = await tourRepository
+                .AllAsNoTracking<Tour>()
+                .FirstAsync(t => t.Id == id);
+
+            if (await IsJoinedByUserWithIdAsync(id, userId) == false && !tour.IsDeleted)
             {
                 var tourParticipant = new TourParticipant
                 {
@@ -364,6 +368,22 @@ namespace FindHikingFellow.Core.Services
                 await tourParticipantRepository.AddAsync(tourParticipant);
                 await tourParticipantRepository.SaveChangesAsync();
             }
+        }
+
+        public async Task LeaveAsync(int id, string userId)
+        {
+            var tourParticipant = await tourParticipantRepository
+                .AllAsNoTracking<TourParticipant>()
+                .Where(tp => tp.ParticipantId == userId && tp.TourId == id)
+                .FirstOrDefaultAsync();
+
+            if (tourParticipant != null)
+            {
+                await tourParticipantRepository
+                    .RemoveEntityAsync(tourParticipant);
+            }
+
+            await tourParticipantRepository.SaveChangesAsync();
         }
     }
 }

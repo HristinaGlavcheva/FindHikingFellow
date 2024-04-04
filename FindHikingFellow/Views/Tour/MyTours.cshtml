@@ -16,9 +16,13 @@
     <partial name="_TourPartial" model="@Model.Organised" />
 }
 <br />
-@if (Model.Joined.Any())
+<h2 class="text-center">Joined</h2>
+@if (!Model.Joined.Any())
 {
-    <h2 class="text-center">Joined</h2>
+    <h5>You have not joined any tours at the moment.</h5>
+}
+else
+{
     <partial name="_TourPartial" model="@Model.Joined" />
 }
 

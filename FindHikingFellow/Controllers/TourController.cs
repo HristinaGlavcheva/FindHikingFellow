@@ -57,13 +57,13 @@ namespace FindHikingFellow.Controllers
             }
 
             var newTourId = await tourService.CreateTourAsync(input, User.Id());
-            
-            return RedirectToAction(nameof(Details), new {id = newTourId});
+
+            return RedirectToAction(nameof(Details), new { id = newTourId });
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery]AllToursQueryModel query)
+        public async Task<IActionResult> All([FromQuery] AllToursQueryModel query)
         {
             var queryResult = await tourService.AllAsync(
                 query.Destination,
@@ -112,7 +112,7 @@ namespace FindHikingFellow.Controllers
             }
 
             var model = await tourService.TourDetailsByIdAsync(id);
-            
+
             return View(model);
         }
 
@@ -137,7 +137,7 @@ namespace FindHikingFellow.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            if(await tourService.ExistsAsync(id) == false)
+            if (await tourService.ExistsAsync(id) == false)
             {
                 return BadRequest();
             }
@@ -189,12 +189,12 @@ namespace FindHikingFellow.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            if(await tourService.ExistsAsync(id) == false)
+            if (await tourService.ExistsAsync(id) == false)
             {
                 return BadRequest();
             }
 
-            if(await tourService.IsOrganisedBy(id, User.Id()) == false)
+            if (await tourService.IsOrganisedBy(id, User.Id()) == false)
             {
                 return Unauthorized();
             }
@@ -224,17 +224,42 @@ namespace FindHikingFellow.Controllers
 
         public async Task<IActionResult> Join(int id)
         {
-            if(await tourService.ExistsAsync(id) == false)
+            if (await tourService.ExistsAsync(id) == false)
             {
                 return BadRequest();
             }
 
-            if(await tourService.IsJoinedByUserWithIdAsync(id, User.Id()) == false)
+            if (await tourService.IsOrganisedBy(id, User.Id()))
             {
-                await tourService.Join(id, User.Id());
+                return Unauthorized();
+            }
+
+            if (await tourService.IsJoinedByUserWithIdAsync(id, User.Id()) == false)
+            {
+                await tourService.JoinAsync(id, User.Id());
             }
 
             return RedirectToAction(nameof(MyTours));
+        }
+
+        public async Task<IActionResult> Leave(int id)
+        {
+            if (await tourService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await tourService.IsOrganisedBy(id, User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            if(await tourService.IsJoinedByUserWithIdAsync(id, User.Id()) == true)
+            {
+                await tourService.LeaveAsync(id, User.Id());
+            }
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

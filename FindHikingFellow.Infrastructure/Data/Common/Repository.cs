@@ -8,7 +8,7 @@ namespace FindHikingFellow.Infrastructure.Data.Common
 
         public Repository(ApplicationDbContext _dbContext)
         {
-           dbContext = _dbContext;
+            dbContext = _dbContext;
         }
 
         public async Task AddAsync<T>(T entity) where T : class
@@ -31,10 +31,18 @@ namespace FindHikingFellow.Infrastructure.Data.Common
             return await DbSet<T>().FindAsync(id);
         }
 
-        public async Task RemoveAsync<T>(object id) where T : class
+        public async Task RemoveByIdAsync<T>(object id) where T : class
         {
             T? entity = await GetByIdAsync<T>(id);
 
+            if (entity != null)
+            {
+                DbSet<T>().Remove(entity);
+            }
+        }
+
+        public async Task RemoveEntityAsync<T>(T entity) where T : class
+        {
             if(entity != null)
             {
                 DbSet<T>().Remove(entity);

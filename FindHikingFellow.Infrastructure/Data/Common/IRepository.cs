@@ -8,7 +8,9 @@
 
         Task AddAsync<T>(T entity) where T : class;
 
-        Task RemoveAsync<T>(object id) where T : class;
+        Task RemoveByIdAsync<T>(object id) where T : class;
+
+        Task RemoveEntityAsync<T>(T entity) where T : class;
 
         Task RemoveRangeAsync<T>(T entity) where T : class;
 
