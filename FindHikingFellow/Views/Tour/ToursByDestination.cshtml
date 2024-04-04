@@ -7,7 +7,15 @@
 
 @if (@Model.Select(t => t.Destination).FirstOrDefault() == null)
 {
-    <h3 class="text-center">There are no tours for the chosen destination</h3>
+    <h2 class="text-center">There are no tours for the chosen destination.</h2>
+    <div class="row">
+        <h4 class="col-md-6 mt-5">If you have planned one you can add it from here:</h4>
+        @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            <a asp-controller="Tour" asp-action="Create" class="col-md-2 mt-5 btn btn-primary btn-lg" role="button">Create Tour</a>
+        }
+
+    </div>
 }
 else
 {

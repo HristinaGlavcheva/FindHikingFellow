@@ -40,8 +40,9 @@ namespace FindHikingFellow.Controllers
                         ImageUrl = d.ImageUrl
                     })
                 .ToList(),
-                Tours = tourViewModels.Select(t => new TourViewModel
+                Tours = tourViewModels.Select(t => new TourServiceModel
                 {
+                    Id = t.Id,
                     Name = t.Name,
                     ImageUrl = t.ImageUrl,
                 })

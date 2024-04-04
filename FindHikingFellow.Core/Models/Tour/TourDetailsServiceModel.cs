@@ -1,6 +1,4 @@
-﻿using FindHikingFellow.Core.Models.Feature;
-using FindHikingFellow.Core.Models.TourKeyPoint;
-using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
+﻿using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
 
 namespace FindHikingFellow.Core.Models.Tour

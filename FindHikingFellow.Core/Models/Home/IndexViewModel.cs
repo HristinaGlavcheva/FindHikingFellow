@@ -7,6 +7,6 @@ namespace FindHikingFellow.Core.Models.Home
     {
         public IEnumerable<DestinationViewModel> Destinations { get; set; } = null!;
 
-        public IEnumerable<TourViewModel> Tours { get; set; } = null!;
+        public IEnumerable<TourServiceModel> Tours { get; set; } = null!;
     }
 }

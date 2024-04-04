@@ -174,13 +174,17 @@ namespace FindHikingFellow.Core.Services
                 .AnyAsync(t => t.Id == id);
         }
 
-        public async Task<IEnumerable<TourViewModel>> GetSoonestUpcomingToursAsync()
+        public async Task<IEnumerable<TourServiceModel>> GetSoonestUpcomingToursAsync()
         {
             var tours = tourRepository
                 .AllAsNoTracking<Tour>()
-                .OrderByDescending(t => t.MeetingTime)
-                .Select(t => new TourViewModel
+                .Where(t => t.MeetingTime >= DateTime.Now)
+                .OrderBy(t => t.MeetingTime)
+                .ThenBy(t => t.Name)
+                .Take(3)
+                .Select(t => new TourServiceModel
                 {
+                    Id = t.Id,
                     Name = t.Name,
                     ImageUrl = t.Destination.ImageUrl,
                 })
@@ -236,6 +240,7 @@ namespace FindHikingFellow.Core.Services
             var tours = await tourRepository
                 .AllAsNoTracking<Tour>()
                 .Where(t => t.Destination.Name == destination)
+                .OrderByDescending(t => t.Id)
                 .ProjectToTourServiceModel()
                 .ToListAsync();
 
@@ -246,7 +251,7 @@ namespace FindHikingFellow.Core.Services
         {
             var tour = await tourRepository.GetByIdAsync<Tour>(tourId);
 
-            if(tour != null)
+            if (tour != null)
             {
                 tour.Name = input.Name;
                 tour.DestinationId = input.DestinationId;
@@ -294,11 +299,17 @@ namespace FindHikingFellow.Core.Services
         {
             return await keyPointRepository
                 .AllAsNoTracking<TourKeyPoint>()
-                .Where(tkp =>tkp.Tour.Id == id)
+                .Where(tkp => tkp.Tour.Id == id)
                 .Select(tkp => new TourKeyPointModel()
                 {
                     KeyPointName = tkp.KeyPoint.Name
                 }).ToListAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await tourRepository.RemoveAsync<Tour>(id);
+            await tourRepository.SaveChangesAsync();
         }
     }
 }

@@ -19,6 +19,6 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = string.Empty;
 
-        public ICollection<Tour> Tours { get; init; } = new HashSet<Tour>();
+        public ICollection<Tour> Tours { get; set; } = new HashSet<Tour>();
     }
 }

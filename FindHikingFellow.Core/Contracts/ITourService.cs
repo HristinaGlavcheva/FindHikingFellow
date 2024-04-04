@@ -6,7 +6,7 @@ namespace FindHikingFellow.Core.Contracts
 {
     public interface ITourService
     {
-        Task<IEnumerable<TourViewModel>> GetSoonestUpcomingToursAsync();
+        Task<IEnumerable<TourServiceModel>> GetSoonestUpcomingToursAsync();
 
         Task<int> CreateTourAsync(TourFormModel input, string organiserId);
 
@@ -38,5 +38,7 @@ namespace FindHikingFellow.Core.Contracts
         Task<TourFormModel?> GetTourFormModelByIdAsync(int id);
 
         Task<IEnumerable<TourKeyPointModel>> ListKeyPointsAsync(int id);
+
+        Task DeleteAsync(int id);
     }
 }

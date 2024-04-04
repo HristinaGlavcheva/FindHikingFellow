@@ -101,10 +101,11 @@ namespace FindHikingFellow.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            if(!await tourService.ExistsAsync(id))
+            if (!await tourService.ExistsAsync(id))
             {
                 return BadRequest();
             }
@@ -119,6 +120,15 @@ namespace FindHikingFellow.Controllers
         public async Task<IActionResult> ToursByDestination(string destination)
         {
             var model = await tourService.GetToursByDestinationAsync(destination);
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> SoonestUpcoming()
+        {
+            var model = await tourService.GetSoonestUpcomingToursAsync();
 
             return View(model);
         }
@@ -173,6 +183,27 @@ namespace FindHikingFellow.Controllers
             await tourService.EditTourAsync(input, id);
 
             return RedirectToAction(nameof(Details), new { id });
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            if(await tourService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if(await tourService.IsOrganisedBy(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var tour = tourService.TourDetailsByIdAsync(id);
+            var model = new TourServiceModel()
+            {
+
+            };
+
+            return View(model);
         }
     }
 }

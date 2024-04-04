@@ -22,7 +22,7 @@ namespace FindHikingFellow.Core.Services
             var destinations = destinationRepository
                .AllAsNoTracking<Destination>()
                .OrderByDescending(d => d.Tours.Count())
-               .Take(6)
+               .Take(3)
                .Select(d => new DestinationViewModel
                {
                    Id = d.Id,

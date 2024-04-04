@@ -31,9 +31,14 @@ namespace FindHikingFellow.Infrastructure.Data.Common
             return await DbSet<T>().FindAsync(id);
         }
 
-        public Task RemoveAsync<T>(T entity) where T : class
+        public async Task RemoveAsync<T>(object id) where T : class
         {
-            throw new NotImplementedException();
+            T? entity = await GetByIdAsync<T>(id);
+
+            if(entity != null)
+            {
+                DbSet<T>().Remove(entity);
+            }
         }
 
         public Task RemoveRangeAsync<T>(T entity) where T : class
