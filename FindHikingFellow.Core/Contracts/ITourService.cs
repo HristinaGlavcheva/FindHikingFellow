@@ -43,5 +43,8 @@ namespace FindHikingFellow.Core.Contracts
 
         Task DeleteTourByIdAsync(int tourId);
 
+        Task<bool> IsJoinedByUserWithIdAsync(int tourId, string userId);
+
+        Task Join(int id, string userId);
     }
 }

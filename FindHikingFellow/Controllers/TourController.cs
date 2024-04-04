@@ -1,5 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Tour;
+using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,6 @@ namespace FindHikingFellow.Controllers
         {
             var model = new TourFormModel()
             {
-                MeetingTime = DateTime.UtcNow,
                 Destinations = await destinationService.ListDestinationsAsync(),
                 Features = await featureService.ListFeaturesAsync()
             };
@@ -218,6 +218,21 @@ namespace FindHikingFellow.Controllers
             }
 
             await tourService.DeleteTourByIdAsync(model.Id);
+
+            return RedirectToAction(nameof(MyTours));
+        }
+
+        public async Task<IActionResult> Join(int id)
+        {
+            if(await tourService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if(await tourService.IsJoinedByUserWithIdAsync(id, User.Id()) == false)
+            {
+                await tourService.Join(id, User.Id());
+            }
 
             return RedirectToAction(nameof(MyTours));
         }

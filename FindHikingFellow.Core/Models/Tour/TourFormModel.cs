@@ -4,6 +4,7 @@ using FindHikingFellow.Core.Models.TourKeyPoint;
 using FindHikingFellow.Infrastructure.Data.Models;
 using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using static FindHikingFellow.Core.Constants.MessageConstants;
 using static FindHikingFellow.Infrastructure.Constants.DataConstants;
 

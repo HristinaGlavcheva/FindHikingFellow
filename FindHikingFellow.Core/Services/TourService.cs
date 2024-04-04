@@ -12,13 +12,16 @@ namespace FindHikingFellow.Core.Services
     {
         private readonly IRepository tourRepository;
         private readonly IRepository keyPointRepository;
+        private readonly IRepository tourParticipantRepository;
 
         public TourService(
             IRepository _tourRepository,
-            IRepository _keyPointRepository)
+            IRepository _keyPointRepository,
+            IRepository _tourParticipantRepository)
         {
             tourRepository = _tourRepository;
             keyPointRepository = _keyPointRepository;
+            tourParticipantRepository = _tourParticipantRepository;
         }
 
         public async Task<TourQueryServiceModel> AllAsync(
@@ -331,6 +334,36 @@ namespace FindHikingFellow.Core.Services
             tourToDelete.IsDeleted = true;
 
             await tourRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsJoinedByUserWithIdAsync(int tourId, string userId)
+        {
+            var tourParticipant = await tourParticipantRepository
+                .AllAsNoTracking<TourParticipant>()
+                .Where(tp => tp.ParticipantId == userId && tp.TourId == tourId)
+                .FirstOrDefaultAsync();
+
+            if(tourParticipant == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task Join(int id, string userId)
+        {
+            if(await IsJoinedByUserWithIdAsync(id, userId) == false)
+            {
+                var tourParticipant = new TourParticipant
+                {
+                    TourId = id,
+                    ParticipantId = userId
+                };
+
+                await tourParticipantRepository.AddAsync(tourParticipant);
+                await tourParticipantRepository.SaveChangesAsync();
+            }
         }
     }
 }

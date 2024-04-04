@@ -8,7 +8,7 @@ namespace FindHikingFellow.Core.Models.Tour
         public string Description { get; set; } = null!;
 
         [Display(Name = "Participants")]
-        public int ParticipantsCount { get; set; }
+        public int ParticipantsCount { get; set; } = 1;
 
         [Display(Name = "Length in km")]
         public double? Length { get; set; }
@@ -20,7 +20,7 @@ namespace FindHikingFellow.Core.Models.Tour
 
         [Display(Name = "Meeting Point")]
         public string MeetingPoint { get; set; } = null!;
-
+       
         [Display(Name = "Rout Type")]
         public RouteType RouteType { get; set; }
 
