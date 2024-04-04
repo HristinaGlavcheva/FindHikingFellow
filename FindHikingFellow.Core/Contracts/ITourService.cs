@@ -39,6 +39,9 @@ namespace FindHikingFellow.Core.Contracts
 
         Task<IEnumerable<TourKeyPointModel>> ListKeyPointsAsync(int id);
 
-        Task DeleteAsync(int id);
+        Task<TourToBeDeletedServiceModel> TourToBeDeletedById(int id);
+
+        Task DeleteTourByIdAsync(int tourId);
+
     }
 }

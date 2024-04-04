@@ -1,0 +1,30 @@
+﻿@using FindHikingFellow.Core.Models.Tour
+@model TourToBeDeletedServiceModel
+
+@{
+    ViewData["Title"] = "Delete House";
+}
+
+<h2 class="text-center">@ViewData["Title"] </h2>
+<hr />
+
+<form asp-action="Delete">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="card-img-top" src="@Model.ImageUrl" alt="Tour Image">
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control mt-1" disabled="disabled"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Destination" class="control-label mt-3"></label>
+                <input asp-for="Destination" class="form-control mt-1" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger mt-2" />
+            </div>
+        </div>
+    </div>
+</form>

@@ -2,6 +2,7 @@
 using FindHikingFellow.Core.Models.Tour;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace FindHikingFellow.Controllers
@@ -185,6 +186,7 @@ namespace FindHikingFellow.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             if(await tourService.ExistsAsync(id) == false)
@@ -197,13 +199,27 @@ namespace FindHikingFellow.Controllers
                 return Unauthorized();
             }
 
-            var tour = tourService.TourDetailsByIdAsync(id);
-            var model = new TourServiceModel()
-            {
-
-            };
+            var model = await tourService.TourToBeDeletedById(id);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(TourServiceModel model)
+        {
+            if (await tourService.ExistsAsync(model.Id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await tourService.IsOrganisedBy(model.Id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await tourService.DeleteTourByIdAsync(model.Id);
+
+            return RedirectToAction(nameof(MyTours));
         }
     }
 }

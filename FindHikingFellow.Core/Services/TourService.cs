@@ -72,6 +72,7 @@ namespace FindHikingFellow.Core.Services
             var totalTours = await toursToShow.CountAsync();
 
             var tours = await toursToShow
+                .Where(t => !t.IsDeleted)
                 .Skip((currentPage - 1) * toursPerPage)
                 .Take(toursPerPage)
                 .ProjectToTourServiceModel()
@@ -99,7 +100,7 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
-                .Where(t => t.OrganiserId == userId)
+                .Where(t => t.OrganiserId == userId && !t.IsDeleted)
                 .ProjectToTourServiceModel()
                 .ToListAsync();
         }
@@ -108,7 +109,7 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
-                .Where(t => t.Participants.Any(tp => tp.ParticipantId == userId))
+                .Where(t => t.Participants.Any(tp => tp.ParticipantId == userId && !t.IsDeleted))
                 .ProjectToTourServiceModel()
                 .ToListAsync();
         }
@@ -171,14 +172,14 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
-                .AnyAsync(t => t.Id == id);
+                .AnyAsync(t => t.Id == id && !t.IsDeleted);
         }
 
         public async Task<IEnumerable<TourServiceModel>> GetSoonestUpcomingToursAsync()
         {
             var tours = tourRepository
                 .AllAsNoTracking<Tour>()
-                .Where(t => t.MeetingTime >= DateTime.Now)
+                .Where(t => t.MeetingTime >= DateTime.Now && !t.IsDeleted)
                 .OrderBy(t => t.MeetingTime)
                 .ThenBy(t => t.Name)
                 .Take(3)
@@ -197,7 +198,7 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
-                .Where(t => t.Id == id)
+                .Where(t => t.Id == id && !t.IsDeleted)
                 .Select(t => new TourDetailsServiceModel
                 {
                     Name = t.Name,
@@ -225,21 +226,21 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
-                .AnyAsync(t => t.Name == name);
+                .AnyAsync(t => t.Name == name && !t.IsDeleted);
         }
 
         public async Task<bool> IsOrganisedBy(int tourId, string userId)
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
-                .AnyAsync(t => t.Id == tourId && t.OrganiserId == userId);
+                .AnyAsync(t => t.Id == tourId && t.OrganiserId == userId && !t.IsDeleted);
         }
 
         public async Task<IEnumerable<TourServiceModel>> GetToursByDestinationAsync(string destination)
         {
             var tours = await tourRepository
                 .AllAsNoTracking<Tour>()
-                .Where(t => t.Destination.Name == destination)
+                .Where(t => t.Destination.Name == destination && !t.IsDeleted)
                 .OrderByDescending(t => t.Id)
                 .ProjectToTourServiceModel()
                 .ToListAsync();
@@ -251,7 +252,7 @@ namespace FindHikingFellow.Core.Services
         {
             var tour = await tourRepository.GetByIdAsync<Tour>(tourId);
 
-            if (tour != null)
+            if (tour != null && !tour.IsDeleted)
             {
                 tour.Name = input.Name;
                 tour.DestinationId = input.DestinationId;
@@ -274,7 +275,7 @@ namespace FindHikingFellow.Core.Services
         {
             var tour = await tourRepository
                 .AllAsNoTracking<Tour>()
-                .Where(t => t.Id == id).FirstOrDefaultAsync();
+                .Where(t => t.Id == id && !t.IsDeleted).FirstOrDefaultAsync();
 
             var model = new TourFormModel()
             {
@@ -306,9 +307,29 @@ namespace FindHikingFellow.Core.Services
                 }).ToListAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<TourToBeDeletedServiceModel> TourToBeDeletedById(int id)
         {
-            await tourRepository.RemoveAsync<Tour>(id);
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.Id == id && !t.IsDeleted)
+                .Select(t => new TourToBeDeletedServiceModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Destination = t.Destination.Name,
+                    ImageUrl = t.ImageUrl
+                }).FirstAsync();
+        }
+
+        public async Task DeleteTourByIdAsync(int tourId)
+        {
+            Tour tourToDelete = await tourRepository
+                .All<Tour>()
+                .Where(t => !t.IsDeleted)
+                .FirstAsync(t => t.Id == tourId);
+
+            tourToDelete.IsDeleted = true;
+
             await tourRepository.SaveChangesAsync();
         }
     }
