@@ -15,7 +15,6 @@
                 <div class="card mt-5">
                     <a asp-controller="Tour" asp-action="ToursByDestination" asp-route-destination=@destination.Name>
                         <h5 class="card-title text-center">@destination.Name</h5>
-                        <h5>Destination Id: @destination.Id</h5>
                         <img class="card-img-top" src="@destination.ImageUrl" alt="@destination.Name">View tours
                     </a>
                 </div>
