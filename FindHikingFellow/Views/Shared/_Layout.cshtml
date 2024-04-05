@@ -32,7 +32,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Today.Year - FindHikingFellow
+            &copy; @DateTime.Today.Year - FindHikingFellow -    
+            @await Component.InvokeAsync(nameof(FindHikingFellow.Components.RegisteredUsersComponent), new { title = "Registered users"})
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
