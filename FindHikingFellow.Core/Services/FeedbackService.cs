@@ -29,7 +29,7 @@ namespace FindHikingFellow.Core.Services
                 AuthorId = userId,
                 Review = input.Review,
                 Rate = input.Rate,
-                CreatedOn = input.CreatedOn,
+                CreatedOn = input.CompletedOn,
                 ActivityType = input.ActivityType
             };
 

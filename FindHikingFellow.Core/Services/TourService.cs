@@ -201,7 +201,6 @@ namespace FindHikingFellow.Core.Services
 
         public async Task<TourDetailsServiceModel> TourDetailsByIdAsync(int id)
         {
-            var averageRating = AverageRating(id);
 
             var tour = await tourRepository
                 .AllAsNoTracking<Tour>()
@@ -226,7 +225,6 @@ namespace FindHikingFellow.Core.Services
                     MeetingPoint = t.MeetingPoint,
                     MeetingTime = t.MeetingTime,
                     RouteType = t.RouteType,
-                    Rating = averageRating,
                     Upcoming = t.MeetingTime > DateTime.Now,
                     ParticipantsCount = t.Participants.Count,
                     KeyPoints = t.KeyPoints.Select(t => t.KeyPoint.Name).ToList(),
@@ -235,16 +233,15 @@ namespace FindHikingFellow.Core.Services
                     {
                         Rating = f.Rate,
                         Author = f.Author.UserName,
-                        CreatedOn = f.CreatedOn,
+                        CompletedOn = f.CreatedOn,
                         Review = f.Review
-                    }).ToList()
+                    }).ToList(),
                 })
                 .FirstAsync();
 
-            //foreach (var feedback in tour.FeedBacks)
-            //{
-            //    model.Reviews.Add(new Models.Feedback.ReviewViewModel { Review = feedback.Review});
-            //}
+            model.AverageRating = model.Feedbacks.Select(x => x.Rating).Count() == 0 ? 0 : model.Feedbacks.Select(x => x.Rating).Average();
+            model.AverageRating = Math.Round(model.AverageRating, 2);
+                
             return model;
         }
 
@@ -407,21 +404,6 @@ namespace FindHikingFellow.Core.Services
             }
 
             await tourParticipantRepository.SaveChangesAsync();
-        }
-
-        private double AverageRating(int tourId)
-        {
-            var tour = tourRepository.GetById<Tour>(tourId);
-            double averageRate = 0.0;
-
-            if (tour != null)
-            {
-                var allRates = tour.FeedBacks.Select(x => x.Rate);
-                averageRate = allRates.Count() == 0 ? 0 : allRates.Average();
-                return averageRate;
-            }
-
-            return averageRate;
         }
     }
 }
