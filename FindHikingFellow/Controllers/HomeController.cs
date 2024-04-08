@@ -2,10 +2,8 @@
 using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Home;
 using FindHikingFellow.Core.Models.Tour;
-using FindHikingFellow.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace FindHikingFellow.Controllers
 {

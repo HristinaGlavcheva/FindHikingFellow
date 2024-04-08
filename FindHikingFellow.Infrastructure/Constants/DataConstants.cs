@@ -1,6 +1,4 @@
-﻿using System.Collections.Specialized;
-
-namespace FindHikingFellow.Infrastructure.Constants
+﻿namespace FindHikingFellow.Infrastructure.Constants
 {
     public static class DataConstants
     {
@@ -20,6 +18,10 @@ namespace FindHikingFellow.Infrastructure.Constants
         //Destination
         public const int DestinationNameMinLength = 3;
         public const int DestinationNameMaxLength = 40;
+
+        //Feedback
+        public const int ReviewMinLength = 3;
+        public const int ReviewMaxLength = 10000;
 
         //PersonalListNameMaxLength
         public const int PersonalListNameMinLength = 3;

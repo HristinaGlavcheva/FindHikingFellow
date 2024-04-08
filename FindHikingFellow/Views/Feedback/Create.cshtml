@@ -1,0 +1,46 @@
+﻿@using FindHikingFellow.Core.Models.Feedback
+@using FindHikingFellow.Infrastructure.Data.Models.Enumerations
+@model FeedbackFormModel
+
+@{
+    this.ViewData["Title"] = "Add Review";
+}
+
+<h3>You can leave your feedback of that tour here!</h3>
+<p>Feel free to rate the tour and/or tell a story about your adventure, give some tips and tricks or usefull advices.</p>
+
+<form method="post" asp-action="Create" asp-controller="Feedback">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group mt-3">
+                <label asp-for="Rate" class="fw-bold">Rate from 1 to 5</label>
+                <input asp-for="Rate" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            <div class=" form-group mt-2">
+                    <label asp-for="ActivityType" class="fw-bold"></label>
+                    <select asp-for="ActivityType" class="form-control" asp-items="@Html.GetEnumSelectList<ActivityType>()"></select>
+                    <span asp-validation-for="ActivityType" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <label asp-for="CreatedOn" class="fw-bold">Tour completed on</label>
+                <input asp-for="CreatedOn" class="form-control" />
+                <span asp-validation-for="CreatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Review" class="fw-bold">Your story here:</label>
+                <textarea asp-for="Review" class="form-control" rows="15"></textarea>
+                <span asp-validation-for="Review" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-5 offset-1">
+
+            <input type="submit" class="btn btn-primary mt-3" value="Save" />
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

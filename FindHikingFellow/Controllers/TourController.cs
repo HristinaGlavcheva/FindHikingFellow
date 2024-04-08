@@ -1,5 +1,7 @@
 ﻿using FindHikingFellow.Core.Contracts;
+using FindHikingFellow.Core.Models.Feedback;
 using FindHikingFellow.Core.Models.Tour;
+using FindHikingFellow.Core.Services;
 using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +15,18 @@ namespace FindHikingFellow.Controllers
         private readonly ITourService tourService;
         private readonly IDestinationService destinationService;
         private readonly IFeatureService featureService;
+        private readonly IFeedbackService feedbackService;
 
         public TourController(
             ITourService _tourService,
             IDestinationService _destinationService,
-            IFeatureService _featureService)
+            IFeatureService _featureService,
+            IFeedbackService _feedbackService)
         {
             tourService = _tourService;
             destinationService = _destinationService;
             featureService = _featureService;
+            feedbackService = _feedbackService;
         }
 
         [HttpGet]
@@ -114,6 +119,24 @@ namespace FindHikingFellow.Controllers
             var model = await tourService.TourDetailsByIdAsync(id);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Details(FeedbackFormModel input, int id)
+        {
+            if (!await tourService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            var newFeedback = await feedbackService.CreateFeedbackAsync(input, id, User.Id());
+
+            return RedirectToAction(nameof(Details));
         }
 
         [AllowAnonymous]

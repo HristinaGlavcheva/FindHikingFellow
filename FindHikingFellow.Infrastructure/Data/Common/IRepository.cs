@@ -17,5 +17,7 @@
         Task<int> SaveChangesAsync();
 
         Task<T?> GetByIdAsync<T>(object id) where T : class;
+
+        T? GetById<T>(object id) where T : class;
     }
 }

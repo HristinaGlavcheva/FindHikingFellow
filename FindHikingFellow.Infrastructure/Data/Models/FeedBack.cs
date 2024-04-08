@@ -9,7 +9,7 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public int Id { get; init; }
 
         [Range(0, 5)]
-        public int Rate { get; set; }
+        public double Rate { get; set; }
 
         public string Review { get; set; } = string.Empty;
 

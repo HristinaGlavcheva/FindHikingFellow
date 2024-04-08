@@ -1,4 +1,5 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
+﻿using FindHikingFellow.Core.Models.Feedback;
+using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
 
 namespace FindHikingFellow.Core.Models.Tour
@@ -29,9 +30,16 @@ namespace FindHikingFellow.Core.Models.Tour
         [Display(Name = "Activity Type")]
         public ActivityType ActivityType { get; set; }
 
+        public double Rating { get; set; }
+
+        [Range(1.0, 5.0)]
+        public double AverageRating { get; set; }
+
         [Display(Name="Key Points")]
         public List<string> KeyPoints { get; set; } = new List<string>();
 
         public List<string> Features { get; set; } = new List<string>();
+
+        public List<FeedbackViewModel> Feedbacks { get; set; } = new List<FeedbackViewModel>();
     }
 }

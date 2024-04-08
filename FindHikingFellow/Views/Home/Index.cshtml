@@ -15,9 +15,9 @@
         {
             <div class="col-md-4">
                 <div class="card mt-2">
-                    <a asp-controller="Tour" asp-action="ToursByDestination" asp-route-destination="@destination.Name" class="btn btn-success">
+                    <a asp-controller="Tour" asp-action="ToursByDestination" asp-route-destination="@destination.Name">
                         <h5 class="card-title text-center">@destination.Name</h5>
-                        <img class="card-img-top" src="@destination.ImageUrl" alt="@destination.Name" />View tours
+                        <img class="card-img-top rounded-circle" src="@destination.ImageUrl" alt="@destination.Name" />View tours
                     </a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="col-md-4 text-start">
-        <a asp-controller="Destination" asp-action="All" class="btn btn-success mt-3">View All Destinations</a>
+        <a asp-controller="Destination" asp-action="All" class="btn btn-outline-info mt-3">View All Destinations</a>
     </div>
 </div>
 
@@ -36,16 +36,16 @@
     {
         <div class="col-md-4">
             <div class="card mt-2">
-                <a asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id" class="btn btn-primary">
+                <a asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id">
                     <h5 class="card-title text-center">@tour.Name</h5>
-                    <img class="card-img-top" src="@tour.ImageUrl" alt="@tour.Name" />View details
+                    <img class="card-img-top rounded-circle" src="@tour.ImageUrl" alt="@tour.Name" />View details
                 </a>
             </div>
         </div>
     }
 
     <div class="col-md-4 text-start">
-        <a asp-controller="Tour" asp-action="All" class="btn btn-primary mt-3">View All Tours</a>
+        <a asp-controller="Tour" asp-action="All" class="btn btn-outline-warning mt-3">View All Tours</a>
     </div>
 </div>
 

@@ -85,10 +85,10 @@
                 @*                 <label asp-for="Whatever"></label>
                 <input asp-for="Whatever" />
                 <span asp-validation-for="Whatever" class="text-danger"></span>
-                *@                  @foreach (var feature in Model.Features)
+                *@                  @* !!!!!!!!!!!!!!!!!!@foreach (var feature in Model.Features)
                 {
                     <partial name="_FeaturesPartial" model=feature />
-                }
+                } *@
             </div>
 
             @*             <label for="@Model.Features">Features:</label>

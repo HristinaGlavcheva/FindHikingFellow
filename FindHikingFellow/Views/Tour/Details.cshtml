@@ -28,6 +28,28 @@
     <div class="row justify-content-center">
         <div class="col-md-4 text-center">
             <img src="@Model.ImageUrl" class="img-fluid" alt="Tour Image" style="max-width: 100%;" />
+            <p>@Model.Rating</p>
+            @*             <div class="single-meta">
+            <ul class="item-rating">
+            <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+            <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
+            <li class="star-fill" data-vote="3"><i class="fas fa-star"></i></li>
+            <li class="star-fill" data-vote="4"><i class="fas fa-star"></i></li>
+            <li class="star-fill" data-vote="5"><i class="fas fa-star"></i></li>
+            <li><span id="Rating">@Model.AverageRating.ToString("0.0")</span><span> / 5.0 </span> </li>
+            <li><span class="@Model.AverageRating ? "text-warning" : "text-muted")">&#9733;</span> </li>
+            </ul>
+            </div>
+            *@            <div class="star-rating">
+                @for (double i = 1; i <= 5.0; i++)
+                {
+                    <span class="@(i <= Model.Rating ? "text-warning" : "text-muted")">&#9733;</span>
+                }
+            </div>
+            <div class="mt-4">
+                <a asp-controller="Feedback" asp-action="Create" class="btn btn-primary" asp-route-id="@Model.Id">Add review</a>
+            </div>
+
         </div>
         <div class="col-md-8">
             <p><strong>Destination:</strong> @Model.Destination</p>
@@ -63,6 +85,28 @@
                 </p>
             }
         </div>
+        <hr />
+        <div class="mt-4 mb-4">
+            <h3>Reviews(@Model.Feedbacks.Count)</h3>
+            <h4>Average Rate: @Model.AverageRating</h4>
+        </div>
+        <div>
+            @foreach (var feedback in Model.Feedbacks)
+            {
+                <p><strong>Author: </strong>@feedback.Author</p>
+                <p><strong>Date: </strong>@feedback.CreatedOn.ToString("MM/dd/yyyy")</p>
+                <p><strong>Rating: </strong>@feedback.Rating</p>
+                <div>
+                    @if (@feedback.Review.Length > 0)
+                    {
+                        <p><strong>Review:</strong></p>
+                        <p>@feedback.Review</p>
+                    }
+                </div>
+                <hr />
+            }
+        </div>
     </div>
-    </div>
+</div>
+
 

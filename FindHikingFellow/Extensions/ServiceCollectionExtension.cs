@@ -14,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ITourService, TourService>();
             services.AddScoped<IDestinationService, DestinationService>();
             services.AddScoped<IFeatureService, FeatureService>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IRegisteredUsersService, RegisteredUsersService>();
 
             return services;

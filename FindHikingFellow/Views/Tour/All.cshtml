@@ -78,8 +78,8 @@
         <a class="btn btn-primary mt-3 float-end @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
            asp-controller="Tour"
            asp-action="All"
-           asp-route-currentPage="@(Model.CurrentPage + 1)"
            asp-route-destination="@Model.Destination"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-sorting="@((int)Model.Sorting)">>></a>
     </div>

@@ -1,5 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Enumerations;
+using FindHikingFellow.Core.Models.Feedback;
 using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Core.Models.TourKeyPoint;
 using FindHikingFellow.Infrastructure.Data.Common;
@@ -152,6 +153,7 @@ namespace FindHikingFellow.Core.Services
                     keyPoint = new KeyPoint { Name = inputKeyPoint.KeyPointName };
                 }
 
+
                 newTour.KeyPoints.Add(new TourKeyPoint { KeyPoint = keyPoint });
             }
 
@@ -199,7 +201,14 @@ namespace FindHikingFellow.Core.Services
 
         public async Task<TourDetailsServiceModel> TourDetailsByIdAsync(int id)
         {
-            return await tourRepository
+            var averageRating = AverageRating(id);
+
+            var tour = await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.Id == id && !t.IsDeleted)
+                .FirstAsync();
+
+            var model = await tourRepository
                 .AllAsNoTracking<Tour>()
                 .Where(t => t.Id == id && !t.IsDeleted)
                 .Select(t => new TourDetailsServiceModel
@@ -217,12 +226,26 @@ namespace FindHikingFellow.Core.Services
                     MeetingPoint = t.MeetingPoint,
                     MeetingTime = t.MeetingTime,
                     RouteType = t.RouteType,
+                    Rating = averageRating,
                     Upcoming = t.MeetingTime > DateTime.Now,
                     ParticipantsCount = t.Participants.Count,
                     KeyPoints = t.KeyPoints.Select(t => t.KeyPoint.Name).ToList(),
-                    Features = t.Features.Select(t => t.Feature.Name).ToList()
+                    Features = t.Features.Select(t => t.Feature.Name).ToList(),
+                    Feedbacks = t.FeedBacks.Select(f => new FeedbackViewModel
+                    {
+                        Rating = f.Rate,
+                        Author = f.Author.UserName,
+                        CreatedOn = f.CreatedOn,
+                        Review = f.Review
+                    }).ToList()
                 })
                 .FirstAsync();
+
+            //foreach (var feedback in tour.FeedBacks)
+            //{
+            //    model.Reviews.Add(new Models.Feedback.ReviewViewModel { Review = feedback.Review});
+            //}
+            return model;
         }
 
         public async Task<bool> TourWithSameNameExists(string name)
@@ -384,6 +407,21 @@ namespace FindHikingFellow.Core.Services
             }
 
             await tourParticipantRepository.SaveChangesAsync();
+        }
+
+        private double AverageRating(int tourId)
+        {
+            var tour = tourRepository.GetById<Tour>(tourId);
+            double averageRate = 0.0;
+
+            if (tour != null)
+            {
+                var allRates = tour.FeedBacks.Select(x => x.Rate);
+                averageRate = allRates.Count() == 0 ? 0 : allRates.Average();
+                return averageRate;
+            }
+
+            return averageRate;
         }
     }
 }
