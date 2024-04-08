@@ -37,9 +37,9 @@ namespace FindHikingFellow.Controllers
                 return this.View(input);
             }
 
-            var newFeedback = await feedbackService.CreateFeedbackAsync(input, id, User.Id());
+            await feedbackService.CreateFeedbackAsync(input, id, User.Id());
 
-            return RedirectToAction("All", "Tour");
+            return RedirectToAction("Details", "Tour", new { id = id });
         }
     }
 }
