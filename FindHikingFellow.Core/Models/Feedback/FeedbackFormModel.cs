@@ -1,4 +1,6 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
+﻿using FindHikingFellow.Attributes;
+using FindHikingFellow.Infrastructure.Attributes;
+using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +18,7 @@ namespace FindHikingFellow.Core.Models.Feedback
 
         public ActivityType ActivityType { get; set; }
 
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        [HasPassed(ErrorMessage = "Completed on should be passed in the last 20 years")]
+        public DateTime CompletedOn { get; set; }
     }
 }

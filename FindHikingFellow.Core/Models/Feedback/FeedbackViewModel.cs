@@ -4,7 +4,7 @@
     {
         public string Author { get; set; } = string.Empty;
 
-        public DateTime CreatedOn { get; set; }
+        public DateTime CompletedOn { get; set; }
 
         public double Rating { get; set; }
 
