@@ -1,6 +1,5 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Destination;
-using FindHikingFellow.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FindHikingFellow.Controllers

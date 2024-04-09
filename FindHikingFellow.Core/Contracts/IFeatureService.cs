@@ -4,6 +4,6 @@ namespace FindHikingFellow.Core.Contracts
 {
     public interface IFeatureService
     {
-        Task<List<ListFeaturesViewModel>> ListFeaturesAsync();
+        Task<List<FeatureViewModel>> ListFeaturesAsync();
     }
 }

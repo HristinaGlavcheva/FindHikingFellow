@@ -1,11 +1,9 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Feedback;
+using FindHikingFellow.Core.Models.PersonalList;
 using FindHikingFellow.Core.Models.Tour;
-using FindHikingFellow.Core.Services;
-using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace FindHikingFellow.Controllers
@@ -16,17 +14,20 @@ namespace FindHikingFellow.Controllers
         private readonly IDestinationService destinationService;
         private readonly IFeatureService featureService;
         private readonly IFeedbackService feedbackService;
+        private readonly IPersonalListService personalListService;
 
         public TourController(
             ITourService _tourService,
             IDestinationService _destinationService,
             IFeatureService _featureService,
-            IFeedbackService _feedbackService)
+            IFeedbackService _feedbackService,
+            IPersonalListService _personalListService)
         {
             tourService = _tourService;
             destinationService = _destinationService;
             featureService = _featureService;
             feedbackService = _feedbackService;
+            personalListService = _personalListService;
         }
 
         [HttpGet]
@@ -57,7 +58,6 @@ namespace FindHikingFellow.Controllers
             if (!ModelState.IsValid)
             {
                 input.Destinations = await destinationService.ListDestinationsAsync();
-                input.Features = await featureService.ListFeaturesAsync();
                 return this.View(input);
             }
 
@@ -283,6 +283,41 @@ namespace FindHikingFellow.Controllers
             }
 
             return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddToList()
+        {
+            var model = new AddToListFormModel()
+            {
+                Lists = await personalListService.ViewListsAsync()
+            };
+
+            return View(model);
+        }
+        public async Task<IActionResult> Create(FeedbackFormModel input, int id)
+        {
+            if (!await tourService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await feedbackService.CreateFeedbackAsync(input, id, User.Id());
+
+            return RedirectToAction("Details", "Tour", new { id = id });
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddToList(AddToListFormModel input, int id)
+        {
+
+            return RedirectToAction(nameof(Details), new { id = id });
         }
     }
 }

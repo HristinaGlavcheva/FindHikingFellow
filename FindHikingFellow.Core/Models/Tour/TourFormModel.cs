@@ -68,7 +68,8 @@ namespace FindHikingFellow.Core.Models.Tour
 
         public IEnumerable<TourKeyPointModel> KeyPoints { get; set; } = new HashSet<TourKeyPointModel>();
 
-        public List<ListFeaturesViewModel> Features { get; set; } = new List<ListFeaturesViewModel>();
+        public List<FeatureViewModel> Features { get; set; } 
+        public List<string> selectedFeatures { get; set; } 
 
         public ICollection<Image> Images { get; init; } = new HashSet<Image>();
     }

@@ -1,8 +1,8 @@
 ﻿@using FindHikingFellow.Core.Models.Feature
-@model ListFeaturesViewModel
+@model FeatureViewModel
 
 <div class="form-group">
-    <label asp-for=@Model.Name>@Model.Name</label>
+    <label asp-for=@Model.Description>@Model.Description</label>
     <input asp-for="IsChecked" />
     <span asp-validation-for="IsChecked" class="text-danger"></span>
 </div>

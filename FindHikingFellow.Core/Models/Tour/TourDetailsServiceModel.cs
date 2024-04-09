@@ -1,4 +1,6 @@
-﻿using FindHikingFellow.Core.Models.Feedback;
+﻿using FindHikingFellow.Core.Models.Feature;
+using FindHikingFellow.Core.Models.Feedback;
+using FindHikingFellow.Core.Models.PersonalList;
 using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
 
@@ -38,8 +40,11 @@ namespace FindHikingFellow.Core.Models.Tour
         [Display(Name="Key Points")]
         public List<string> KeyPoints { get; set; } = new List<string>();
 
-        public List<string> Features { get; set; } = new List<string>();
+        public List<FeatureViewModel> Features { get; set; } = new List<FeatureViewModel>();
 
         public List<FeedbackViewModel> Feedbacks { get; set; } = new List<FeedbackViewModel>();
+
+        public List<ListViewModel> Lists { get; set; } = new List<ListViewModel>();
+
     }
 }

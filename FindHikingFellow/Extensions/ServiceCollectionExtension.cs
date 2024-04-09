@@ -16,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IFeatureService, FeatureService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IRegisteredUsersService, RegisteredUsersService>();
+            services.AddScoped<IPersonalListService, PersonalListService>();
 
             return services;
         }

@@ -1,5 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Enumerations;
+using FindHikingFellow.Core.Models.Feature;
 using FindHikingFellow.Core.Models.Feedback;
 using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Core.Models.TourKeyPoint;
@@ -135,11 +136,11 @@ namespace FindHikingFellow.Core.Services
                 ElevationGain = input.ElevationGain,
                 Length = input.Length,
                 OrganiserId = organiserId,
-                Features = input.Features.Select(f => new TourFeature
-                {
-                    FeatureId = f.Id,
+                //Features = input.Features.Select(f => new TourFeature
+                //{
+                //    FeatureId = f.Id,
 
-                }).ToList()
+                //}).ToList()
             };
 
             foreach (var inputKeyPoint in input.KeyPoints)
@@ -157,15 +158,15 @@ namespace FindHikingFellow.Core.Services
                 newTour.KeyPoints.Add(new TourKeyPoint { KeyPoint = keyPoint });
             }
 
-            foreach (var inputFeature in input.Features)
-            {
-                var feature = new Feature
-                {
-                    Name = inputFeature.Name
-                };
+            //foreach (var inputFeature in input.Features)
+            //{
+            //    var feature = new Feature
+            //    {
+            //        Name = inputFeature.Name
+            //    };
 
-                newTour.Features.Add(new TourFeature { Feature = feature });
-            }
+            //    newTour.Features.Add(new TourFeature { Feature = feature });
+            //}
 
             await tourRepository.AddAsync(newTour);
             await tourRepository.SaveChangesAsync();
@@ -228,7 +229,6 @@ namespace FindHikingFellow.Core.Services
                     Upcoming = t.MeetingTime > DateTime.Now,
                     ParticipantsCount = t.Participants.Count,
                     KeyPoints = t.KeyPoints.Select(t => t.KeyPoint.Name).ToList(),
-                    Features = t.Features.Select(t => t.Feature.Name).ToList(),
                     Feedbacks = t.FeedBacks.Select(f => new FeedbackViewModel
                     {
                         Rating = f.Rate,

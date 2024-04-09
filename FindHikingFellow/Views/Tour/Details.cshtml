@@ -20,6 +20,12 @@
     <div class="col">
         <h2>@Model.Name</h2>
     </div>
+    <div class="col">
+        <a asp-controller="Tour" asp-action="AddToList" class="btn btn-warning" asp-route-id="@Model.Id">Add to list</a>
+    </div>
+    <div class="col">
+        <a asp-controller="Feedback" asp-action="Create" class="btn btn-primary" asp-route-id="@Model.Id">Add review</a>
+    </div>
 
 </div>
 <hr />
@@ -55,26 +61,26 @@
             <p><strong>Meeting Time:</strong> @Model.MeetingTime</p>
             <p><strong>Participants Count:</strong> @Model.ParticipantsCount</p>
 
-                @if (Model.KeyPoints.Any())
-                {
+            @if (Model.KeyPoints.Any())
+            {
                 <p>
                     <strong>Key Points:</strong>
-                        @foreach (var keyPoint in Model.KeyPoints)
-                        {
+                    @foreach (var keyPoint in Model.KeyPoints)
+                    {
                         <div class="btn btn-outline-success">@keyPoint</div>
-                        }
+                    }
                 </p>
-                }
-                @if (Model.Features.Any())
-                {
+            }
+            @if (Model.Features.Any())
+            {
                 <p>
                     <strong>Features:</strong>
-                        @foreach (var feature in Model.Features)
-                        {
+                    @foreach (var feature in Model.Features)
+                    {
                         <div class="btn btn-outline-warning">@feature</div>
-                        }
+                    }
                 </p>
-                }
+            }
         </div>
         <hr />
         <div class="mt-4 mb-4">
@@ -82,20 +88,20 @@
             <h4>Average Rate: @Model.AverageRating.ToString("0.0")</h4>
         </div>
         <div>
-                @foreach (var feedback in Model.Feedbacks)
-                {
+            @foreach (var feedback in Model.Feedbacks)
+            {
                 <p style="background-color:powderblue"><strong>Author: </strong>@feedback.Author</p>
                 <p><strong>Date: </strong>@feedback.CompletedOn.ToString("MM/dd/yyyy")</p>
                 <p><strong>Rating: </strong>@feedback.Rating</p>
                 <div>
-                        @if (@feedback.Review.Length > 0)
-                        {
+                    @if (@feedback.Review.Length > 0)
+                    {
                         <p><strong>Review:</strong></p>
                         <p>@feedback.Review</p>
-                        }
+                    }
                 </div>
                 <hr />
-                }
+            }
         </div>
     </div>
 </div>

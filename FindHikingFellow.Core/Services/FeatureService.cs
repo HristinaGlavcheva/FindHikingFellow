@@ -15,14 +15,15 @@ namespace FindHikingFellow.Core.Services
             featureRepository = _featureRepository;
         }
 
-        public async Task<List<ListFeaturesViewModel>> ListFeaturesAsync()
+        public async Task<List<FeatureViewModel>> ListFeaturesAsync()
         {
             var features = featureRepository
                 .AllAsNoTracking<Feature>()
-                .Select(f => new ListFeaturesViewModel
+                .Select(f => new FeatureViewModel
                 {
-                    Id = f.Id,
-                    Name = f.Name
+                    IsChecked = true,
+                    Description = f.Name,
+                    Value = f.Name
                 })
                 .ToListAsync();
 
