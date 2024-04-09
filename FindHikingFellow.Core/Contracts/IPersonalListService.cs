@@ -4,7 +4,7 @@ namespace FindHikingFellow.Core.Contracts
 {
     public interface IPersonalListService
     {
-        Task<IEnumerable<ListViewModel>> ViewListsAsync();
+        Task<IEnumerable<ListViewModel>> ViewListsNamesAsync();
 
         //Task<bool> TourIsAlreadyInTheList(string name);
 

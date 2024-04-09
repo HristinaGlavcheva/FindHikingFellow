@@ -52,7 +52,7 @@ namespace FindHikingFellow.Core.Services
         //        .AnyAsync(tpl => tpl.PersonalList.Name == name && tpl.PersonalList.)
         //}
 
-        public async Task<IEnumerable<ListViewModel>> ViewListsAsync()
+        public async Task<IEnumerable<ListViewModel>> ViewListsNamesAsync()
         {
             var lists = await personalListRepository
                 .AllAsNoTracking<PersonalList>()

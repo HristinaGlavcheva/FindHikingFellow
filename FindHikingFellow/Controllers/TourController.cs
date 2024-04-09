@@ -286,35 +286,18 @@ namespace FindHikingFellow.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddToList()
+        public async Task<IActionResult> CreateListForUser()
         {
             var model = new AddToListFormModel()
             {
-                Lists = await personalListService.ViewListsAsync()
+                Lists = await personalListService.ViewListsNamesAsync()
             };
 
             return View(model);
         }
-        public async Task<IActionResult> Create(FeedbackFormModel input, int id)
-        {
-            if (!await tourService.ExistsAsync(id))
-            {
-                return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
-            await feedbackService.CreateFeedbackAsync(input, id, User.Id());
-
-            return RedirectToAction("Details", "Tour", new { id = id });
-        }
-
 
         [HttpPost]
-        public async Task<IActionResult> AddToList(AddToListFormModel input, int id)
+        public async Task<IActionResult> CreateListForUser(AddToListFormModel input, int id)
         {
 
             return RedirectToAction(nameof(Details), new { id = id });

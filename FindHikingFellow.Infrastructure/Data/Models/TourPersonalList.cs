@@ -9,5 +9,9 @@
         public int PersonalListId { get; set; }
 
         public PersonalList PersonalList { get; set; } = null!;
+
+        public string OwnerId { get; set; } = null!;
+
+        public string Owner { get; set; } = null!;
     }
 }
