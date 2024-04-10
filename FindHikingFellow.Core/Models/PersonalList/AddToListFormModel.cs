@@ -13,6 +13,6 @@ namespace FindHikingFellow.Core.Models.PersonalList
 
         public int UserId { get; set; }
 
-        public IEnumerable<ListViewModel> Lists { get; set; } = new HashSet<ListViewModel>();
+        public IEnumerable<ListNameViewModel> Lists { get; set; } = new HashSet<ListNameViewModel>();
     }
 }

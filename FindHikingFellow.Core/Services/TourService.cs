@@ -371,13 +371,22 @@ namespace FindHikingFellow.Core.Services
             return true;
         }
 
+        public async Task<bool> IsTourFinished(int id)
+        {
+            var tour = await tourRepository
+                .AllAsNoTracking<Tour>()
+                .FirstAsync(t => t.Id == id);
+
+            return tour.MeetingTime <= DateTime.Now;
+        }
+
         public async Task JoinAsync(int id, string userId)
         {
             var tour = await tourRepository
                 .AllAsNoTracking<Tour>()
                 .FirstAsync(t => t.Id == id);
 
-            if (await IsJoinedByUserWithIdAsync(id, userId) == false && !tour.IsDeleted)
+            if (await IsJoinedByUserWithIdAsync(id, userId) == false && !tour.IsDeleted && await IsTourFinished(id) == false)
             {
                 var tourParticipant = new TourParticipant
                 {

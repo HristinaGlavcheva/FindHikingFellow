@@ -1,5 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.PersonalList;
+using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -42,11 +43,11 @@ namespace FindHikingFellow.Core.Services
                 .AnyAsync(l => l.Name == listName);
         }
 
-        public async Task<IEnumerable<ListViewModel>> ViewListsNamesAsync()
+        public async Task<IEnumerable<ListNameViewModel>> ViewListsNamesAsync()
         {
             var lists = await personalListRepository
                 .AllAsNoTracking<PersonalList>()
-                .Select(l => new ListViewModel
+                .Select(l => new ListNameViewModel
                 {
                     Id = l.Id,
                     Name = l.Name
@@ -94,6 +95,45 @@ namespace FindHikingFellow.Core.Services
                 await tourPersonalListRepository.AddAsync(tourPersonaList);
                 await tourPersonalListRepository.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<MyListViewModel>> GetMyListsAsync(string userId)
+        {
+            var myLists = await personalListRepository
+                .AllAsNoTracking<TourPersonalList>()
+                .Where(tpl => tpl.OwnerId == userId)
+                .GroupBy(tpl => tpl.PersonalListId)
+                .Select(group => new MyListViewModel
+                {
+                    Id = group.Key,
+                    Name = group.First().PersonalList.Name, 
+                    Tours = group.Select(tpl => new TourServiceModel
+                    {
+                        Id = tpl.Tour.Id,
+                        Name = tpl.Tour.Name,
+                        Destination = tpl.Tour.Destination.Name,
+                        ImageUrl = tpl.Tour.ImageUrl,
+                        MeetingTime = tpl.Tour.MeetingTime
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return myLists;
+        }
+
+        public async Task RemoveFromListAsync(int tourId, int listId)
+        {
+            var tourPersonalList = await tourPersonalListRepository
+                .All<TourPersonalList>()
+                .Where(tpl => tpl.TourId == tourId && tpl.PersonalListId == listId)
+                .FirstOrDefaultAsync();
+
+            if(tourPersonalList != null)
+            {
+                await tourPersonalListRepository.RemoveEntityAsync(tourPersonalList);
+            }
+
+            await tourPersonalListRepository.SaveChangesAsync();
         }
     }
 }

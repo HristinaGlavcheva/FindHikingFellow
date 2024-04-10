@@ -262,6 +262,12 @@ namespace FindHikingFellow.Controllers
                 ModelState.AddModelError(nameof(id), "You have already joined this tour");
             }
 
+            if (await tourService.IsTourFinished(id))
+            {
+                ModelState.AddModelError(nameof(id), "You cannot join finished tour");
+
+            }
+
             await tourService.JoinAsync(id, User.Id());
 
             return RedirectToAction(nameof(MyTours));
@@ -313,7 +319,7 @@ namespace FindHikingFellow.Controllers
 
             if (await personalListService.IsTheTourAddedToThisListAsync(input.ListId, id, User.Id()))
             {
-                ModelState.AddModelError(nameof(input.ListId), "You have already added the thour to this list");
+                ModelState.AddModelError(nameof(input.ListId), "You have already added the tour to this list");
             }
 
             if (!ModelState.IsValid)
@@ -324,7 +330,7 @@ namespace FindHikingFellow.Controllers
 
             await personalListService.AddToListAsync(input.ListId, id, User.Id());
 
-            return RedirectToAction(nameof(Details), new { id = id});
+            return RedirectToAction("MyLists", "PersonalList");
         }
     }
 }

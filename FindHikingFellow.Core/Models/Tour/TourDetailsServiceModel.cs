@@ -44,7 +44,7 @@ namespace FindHikingFellow.Core.Models.Tour
 
         public List<FeedbackViewModel> Feedbacks { get; set; } = new List<FeedbackViewModel>();
 
-        public List<ListViewModel> Lists { get; set; } = new List<ListViewModel>();
+        public List<ListNameViewModel> Lists { get; set; } = new List<ListNameViewModel>();
 
     }
 }

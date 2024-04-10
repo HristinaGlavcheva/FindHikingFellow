@@ -45,6 +45,8 @@ namespace FindHikingFellow.Core.Contracts
 
         Task<bool> IsJoinedByUserWithIdAsync(int tourId, string userId);
 
+        Task<bool> IsTourFinished(int id);
+
         Task JoinAsync(int id, string userId);
 
         Task LeaveAsync(int id, string userId);

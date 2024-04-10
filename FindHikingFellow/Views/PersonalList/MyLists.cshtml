@@ -1,0 +1,74 @@
+﻿@using FindHikingFellow.Core.Models.PersonalList
+
+@model IEnumerable<MyListViewModel>
+
+@{
+    ViewData["Title"] = "My Lists";
+}
+
+<h3 class="text-center">@this.ViewData["Title"]</h3>
+
+@if (Model.Count() == 0)
+{
+    <h4>You have no lists yet</h4>
+}
+
+@foreach (var list in Model)
+{
+    @if (!list.Tours.Any())
+    {
+        <h4 class="text-center">You have no tours in this list!</h4>
+    }
+
+    <h4 class="text-center mt-5">@list.Name</h4>
+    <table class="table table-sm mt-3">
+        <thead class="table-info">
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Tour</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tour in list.Tours)
+            {
+                <tr class="table-success">
+                    <td>
+                        <img src="@tour.ImageUrl" class="img-fluid" alt="Tour Image" style="max-width: 100%;" />
+                    </td>
+                    <td>
+                        <p><strong>Name: </strong>@tour.Name</p>
+                        <p><strong>Destination: </strong>@tour.Destination</p>
+                        <p><strong>Date: </strong>@tour.MeetingTime.Date.ToString("MM/dd/yyyy")</p>
+                        <div class="mt-4">
+                            <form asp-controller="PersonalList" asp-action="RemoveFromList" method="post">
+                                <input type="hidden" name="tourId" value="@tour.Id" />
+                                <input type="hidden" name="listId" value="@list.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">Remove from list</button>
+                            </form>
+
+@*                             <form asp-action="RemoveFromList" method="post">
+                                <input type="submit" value="RemoveFromList" class="btn btn-danger mt-2" />
+
+                                <input type="hidden" asp-for="@tour.Id" />
+                                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                            </form>
+
+       
+                            <a asp-controller="PersonalList" asp-action="RemoveFromList" class="btn btn-danger btn-sm" asp-route-id="@tour.Id">Remove from list</a>
+ *@                        </div>
+
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+}
+
+<style>
+    table{
+        table-layout: fixed;
+        width: 100%;
+    }
+</style>
