@@ -11,5 +11,11 @@ namespace FindHikingFellow.Core.Contracts
         Task<bool> ListExistsByNameAsync(string listName);
 
         Task<int> AddListAsync(AddListFormModel input);
+
+        Task<bool> ListExistsByIdAsync(int listId);
+
+        Task AddToListAsync(int listId, int tourId, string userId);
+
+        Task<bool> IsTheTourAddedToThisListAsync(int listId, int tourId, string userId);
     }
 }

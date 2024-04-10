@@ -7,7 +7,5 @@ namespace FindHikingFellow.Core.Models.PersonalList
         public int Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
-
-        public  IEnumerable<TourViewModel> Tours { get; set; }
     }
 }

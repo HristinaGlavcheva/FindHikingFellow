@@ -257,10 +257,12 @@ namespace FindHikingFellow.Controllers
                 return Unauthorized();
             }
 
-            if (await tourService.IsJoinedByUserWithIdAsync(id, User.Id()) == false)
+            if (await tourService.IsJoinedByUserWithIdAsync(id, User.Id()))
             {
-                await tourService.JoinAsync(id, User.Id());
+                ModelState.AddModelError(nameof(id), "You have already joined this tour");
             }
+
+            await tourService.JoinAsync(id, User.Id());
 
             return RedirectToAction(nameof(MyTours));
         }
@@ -286,7 +288,7 @@ namespace FindHikingFellow.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateListForUser()
+        public async Task<IActionResult> AddToList()
         {
             var model = new AddToListFormModel()
             {
@@ -297,10 +299,32 @@ namespace FindHikingFellow.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateListForUser(AddToListFormModel input, int id)
+        public async Task<IActionResult> AddToList(AddToListFormModel input, int id)
         {
+            if (!await tourService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
 
-            return RedirectToAction(nameof(Details), new { id = id });
+            if (await personalListService.ListExistsByIdAsync(input.ListId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await personalListService.IsTheTourAddedToThisListAsync(input.ListId, id, User.Id()))
+            {
+                ModelState.AddModelError(nameof(input.ListId), "You have already added the thour to this list");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                input.Lists = await personalListService.ViewListsNamesAsync();
+                return this.View(input);
+            }
+
+            await personalListService.AddToListAsync(input.ListId, id, User.Id());
+
+            return RedirectToAction(nameof(Details), new { id = id});
         }
     }
 }

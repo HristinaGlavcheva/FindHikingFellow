@@ -1,4 +1,6 @@
-﻿namespace FindHikingFellow.Infrastructure.Data.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace FindHikingFellow.Infrastructure.Data.Models
 {
     public class TourPersonalList
     {
@@ -12,6 +14,6 @@
 
         public string OwnerId { get; set; } = null!;
 
-        public string Owner { get; set; } = null!;
+        public IdentityUser Owner { get; set; } = null!;
     }
 }
