@@ -49,3 +49,31 @@
     </div>
 </div>
 
+<div class="mb-5"></div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-outline-success" id="statistics-button">Show Statistics</button>
+    </div>
+</div>
+
+<div class="mt-4 p-5 bg-transparent d-none" id="statistics">
+    <div class="row">
+        <h5 class="col-md-2 offset-4 text-center" id="total-tours"></h5>
+        <h5 class="col-md-2 text-center" id="total-participants"></h5>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('/api/statistic', data => {
+                $('#total-tours').text(data.totalTours + ' Tours');
+                $('#total-participants').text(data.totalParticipants + ' Participants');
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            });
+        });
+    </script>
+}
+
