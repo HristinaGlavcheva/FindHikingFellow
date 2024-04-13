@@ -1,4 +1,5 @@
 ﻿using FindHikingFellow.Core.Contracts;
+using FindHikingFellow.Core.Extensions;
 using FindHikingFellow.Core.Models.Feedback;
 using FindHikingFellow.Core.Models.PersonalList;
 using FindHikingFellow.Core.Models.Tour;
@@ -63,7 +64,7 @@ namespace FindHikingFellow.Controllers
 
             var newTourId = await tourService.CreateTourAsync(input, User.Id());
 
-            return RedirectToAction(nameof(Details), new { id = newTourId });
+            return RedirectToAction(nameof(Details), new { id = newTourId, information = input.GetInformation() });
         }
 
         [AllowAnonymous]
@@ -86,11 +87,6 @@ namespace FindHikingFellow.Controllers
             return View(query);
         }
 
-        public IActionResult Archive()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> MyTours()
         {
             var userId = User.Id();
@@ -109,7 +105,7 @@ namespace FindHikingFellow.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             if (!await tourService.ExistsAsync(id))
             {
@@ -117,6 +113,11 @@ namespace FindHikingFellow.Controllers
             }
 
             var model = await tourService.TourDetailsByIdAsync(id);
+
+            if(information != model.GetInformation())
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }
@@ -206,11 +207,11 @@ namespace FindHikingFellow.Controllers
 
             await tourService.EditTourAsync(input, id);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id, information = input.GetInformation() });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, string information)
         {
             if (await tourService.ExistsAsync(id) == false)
             {
@@ -223,6 +224,11 @@ namespace FindHikingFellow.Controllers
             }
 
             var model = await tourService.TourToBeDeletedById(id);
+
+            if (information != model.GetInformation())
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }

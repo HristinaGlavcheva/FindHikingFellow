@@ -8,8 +8,6 @@ namespace FindHikingFellow.Core.Models.Tour
 {
     public class TourDetailsServiceModel : TourServiceModel
     {
-        public string Description { get; set; } = null!;
-
         [Display(Name = "Participants")]
         public int ParticipantsCount { get; set; } = 1;
 

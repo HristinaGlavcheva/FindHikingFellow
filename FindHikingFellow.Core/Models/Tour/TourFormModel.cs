@@ -1,4 +1,5 @@
 ﻿using FindHikingFellow.Attributes;
+using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Feature;
 using FindHikingFellow.Core.Models.TourKeyPoint;
 using FindHikingFellow.Infrastructure.Data.Models;
@@ -10,7 +11,7 @@ using static FindHikingFellow.Infrastructure.Constants.DataConstants;
 
 namespace FindHikingFellow.Core.Models.Tour
 {
-    public class TourFormModel
+    public class TourFormModel : ITourModel
     {
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(TourNameMaxLength,
@@ -68,8 +69,9 @@ namespace FindHikingFellow.Core.Models.Tour
 
         public IEnumerable<TourKeyPointModel> KeyPoints { get; set; } = new HashSet<TourKeyPointModel>();
 
-        public List<FeatureViewModel> Features { get; set; } 
-        public List<string> selectedFeatures { get; set; } 
+        public List<FeatureViewModel> Features { get; set; } = new List<FeatureViewModel>();
+
+        public List<string> selectedFeatures { get; set; } = new List<string>();
 
         public ICollection<Image> Images { get; init; } = new HashSet<Image>();
     }

@@ -70,6 +70,7 @@ namespace FindHikingFellow.Core.Services
                     ImageUrl = tkp.Tour.ImageUrl,
                     Name = tkp.Tour.Name,
                     Destination = tkp.Tour.Destination.Name,
+                    Description = tkp.Tour.Description,
                     MeetingTime = tkp.Tour.MeetingTime,
                     Upcoming = tkp.Tour.MeetingTime > DateTime.Now
                 }).ToListAsync();
@@ -154,7 +155,6 @@ namespace FindHikingFellow.Core.Services
                     keyPoint = new KeyPoint { Name = inputKeyPoint.KeyPointName };
                 }
 
-
                 newTour.KeyPoints.Add(new TourKeyPoint { KeyPoint = keyPoint });
             }
 
@@ -194,6 +194,7 @@ namespace FindHikingFellow.Core.Services
                     Id = t.Id,
                     Name = t.Name,
                     ImageUrl = t.Destination.ImageUrl,
+                    Description = t.Description,
                 })
                 .ToListAsync();
 
@@ -339,6 +340,7 @@ namespace FindHikingFellow.Core.Services
                 {
                     Id = t.Id,
                     Name = t.Name,
+                    Description = t.Description,
                     Destination = t.Destination.Name,
                     ImageUrl = t.ImageUrl
                 }).FirstAsync();

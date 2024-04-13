@@ -11,6 +11,7 @@ namespace System.Linq
             {
                 Id = t.Id,
                 Name = t.Name,
+                Description = t.Description,
                 ImageUrl = t.ImageUrl,
                 Destination = t.Destination.Name,
                 MeetingTime = t.MeetingTime.Date,

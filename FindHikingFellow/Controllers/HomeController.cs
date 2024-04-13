@@ -43,6 +43,7 @@ namespace FindHikingFellow.Controllers
                     Id = t.Id,
                     Name = t.Name,
                     ImageUrl = t.ImageUrl,
+                    Description = t.Description
                 })
                 .ToList()
             };

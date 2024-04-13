@@ -36,7 +36,7 @@
     {
         <div class="col-md-4">
             <div class="card mt-2">
-                <a asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id">
+                <a asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id" asp-route-information="@tour.GetInformation()">
                     <h5 class="card-title text-center">@tour.Name</h5>
                     <img class="card-img-top rounded-circle" src="@tour.ImageUrl" alt="@tour.Name" />View details
                 </a>
