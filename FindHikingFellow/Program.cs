@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace FindHikingFellow
 {
     public class Program
@@ -9,7 +11,8 @@ namespace FindHikingFellow
             builder.Services.AddApplicationDbContext(builder.Configuration);
             builder.Services.AddApplicationIdentity(builder.Configuration);
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
 
             builder.Services.AddApplicationServices();
 
@@ -36,10 +39,16 @@ namespace FindHikingFellow
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Tour Details",
+                    pattern: "/Tour/Details/{id}/{information}",
+                    defaults: new { Controller = "Tour", Action = "Details" }
+                    );
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
 
             await app.RunAsync();
         }
