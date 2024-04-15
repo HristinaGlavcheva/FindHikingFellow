@@ -44,6 +44,6 @@
         public const int UserFirstNameMinLength = 1;
 
         public const int UserLastNameMaxLength = 50;
-        public const int UserFirsLasttNameMinLength = 3;
+        public const int UserLastNameMinLength = 3;
     }
 }
