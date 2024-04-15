@@ -48,6 +48,9 @@ namespace FindHikingFellow.Infrastructure.Data.Models
 
         public ActivityType ActivityType { get; set; }
 
+        [Comment("Is tour approved by admin")]
+        public bool IsApproved  { get; set; }
+
         public int DestinationId { get; set; }
 
         [Comment("The mountain or region the tour is located")]

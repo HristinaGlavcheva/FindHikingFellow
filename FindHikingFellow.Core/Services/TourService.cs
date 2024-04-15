@@ -33,7 +33,8 @@ namespace FindHikingFellow.Core.Services
             int currentPage = 1,
             int toursPerPage = 3)
         {
-            var toursToShow = tourRepository.AllAsNoTracking<Tour>();
+            var toursToShow = tourRepository.AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved);
 
             if (!string.IsNullOrWhiteSpace(destination))
             {
@@ -106,6 +107,7 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved)
                 .Where(t => t.OrganiserId == userId && !t.IsDeleted)
                 .ProjectToTourServiceModel()
                 .ToListAsync();
@@ -115,6 +117,7 @@ namespace FindHikingFellow.Core.Services
         {
             return await tourRepository
                 .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved)
                 .Where(t => t.Participants.Any(tp => tp.ParticipantId == userId && !t.IsDeleted))
                 .ProjectToTourServiceModel()
                 .ToListAsync();
@@ -185,6 +188,7 @@ namespace FindHikingFellow.Core.Services
         {
             var tours = tourRepository
                 .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved)
                 .Where(t => t.MeetingTime >= DateTime.Now && !t.IsDeleted)
                 .OrderBy(t => t.MeetingTime)
                 .ThenBy(t => t.Name)
@@ -211,6 +215,7 @@ namespace FindHikingFellow.Core.Services
 
             var model = await tourRepository
                 .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved)
                 .Where(t => t.Id == id && !t.IsDeleted)
                 .Select(t => new TourDetailsServiceModel
                 {
@@ -265,6 +270,7 @@ namespace FindHikingFellow.Core.Services
         {
             var tours = await tourRepository
                 .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved)
                 .Where(t => t.Destination.Name == destination && !t.IsDeleted)
                 .OrderByDescending(t => t.Id)
                 .ProjectToTourServiceModel()
@@ -300,6 +306,7 @@ namespace FindHikingFellow.Core.Services
         {
             var tour = await tourRepository
                 .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved)
                 .Where(t => t.Id == id && !t.IsDeleted).FirstOrDefaultAsync();
 
             var model = new TourFormModel()

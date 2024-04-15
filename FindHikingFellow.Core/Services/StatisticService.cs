@@ -21,6 +21,7 @@ namespace FindHikingFellow.Core.Services
         {
             var totalTours = await tourRepository
                 .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved)
                 .CountAsync();
 
             var totalParticipants = await tourParticipantsRepository
