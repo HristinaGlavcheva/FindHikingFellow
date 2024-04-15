@@ -53,6 +53,8 @@ namespace FindHikingFellow
                 endpoints.MapRazorPages();
             });
 
+            await app.CreateAdminRoleAsync();
+
             await app.RunAsync();
         }
     }

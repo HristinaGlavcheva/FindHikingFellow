@@ -48,6 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.Password.RequireUppercase = config.GetValue<bool>("Identity:Password:RequireUppercase");
                     options.Password.RequiredLength = config.GetValue<int>("Identity:Password:RequiredLength");
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;

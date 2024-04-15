@@ -25,11 +25,27 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
                 Id = "9baea4e0-3afa-4b47-80d3-cfcd4b43e79b",
                 UserName = "organiser@gmail.com",
                 NormalizedUserName = "ORGANISER@GMAIL.COM",
-                Email = "ORGANISER@GMAIL.COM",
+                Email = "organiser@gmail.com",
                 NormalizedEmail = "ORGANISER@GMAIL.COM",
+                FirstName = "Organiser",
+                LastName = "First"
             };
 
             user.PasswordHash = hasher.HashPassword(user, "organiser1");
+            users.Add(user);
+
+            user = new ApplicationUser()
+            {
+                Id = "7d23c6db-4f9c-44c2-8a7d-c4ef9030122d",
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "ADMIN@GMAIL.COM",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                FirstName = "Admin",
+                LastName = "First"
+            };
+
+            user.PasswordHash = hasher.HashPassword(user, "admin1");
             users.Add(user);
 
             user = new ApplicationUser()
@@ -38,7 +54,9 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
                 UserName = "participant1@gmail.com",
                 NormalizedUserName = "PARTICIPANT1@GMAIL.COM",
                 Email = "participant1@gmail.com",
-                NormalizedEmail = "PARTICIPANT1@GMAIL.COM"
+                NormalizedEmail = "PARTICIPANT1@GMAIL.COM",
+                FirstName = "Participant",
+                LastName = "First"
             };
 
             user.PasswordHash = hasher.HashPassword(user, "participant1");
@@ -50,7 +68,9 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
                 UserName = "participant2@gmail.com",
                 NormalizedUserName = "PARTICIPANT2@GMAIL.COM",
                 Email = "participant2@gmail.com",
-                NormalizedEmail = "PARTICIPANT2@GMAIL.COM"
+                NormalizedEmail = "PARTICIPANT2@GMAIL.COM",
+                FirstName = "Participant",
+                LastName = "Second"
             };
 
             user.PasswordHash = hasher.HashPassword(user, "participant2");
