@@ -1,7 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
-using FindHikingFellow.Infrastructure.Data;
 using FindHikingFellow.Infrastructure.Data.Common;
-using Microsoft.AspNetCore.Identity;
+using FindHikingFellow.Infrastructure.Data.Models;
 
 namespace FindHikingFellow.Core.Services
 {
@@ -16,7 +15,7 @@ namespace FindHikingFellow.Core.Services
 
         public int RegisteredUsersCount()
         {
-            return userRepository.AllAsNoTracking<IdentityUser>().Count();
+            return userRepository.AllAsNoTracking<ApplicationUser>().Count();
         }
     }
 }

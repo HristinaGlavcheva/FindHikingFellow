@@ -24,7 +24,7 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
             {
                 Id = "9baea4e0-3afa-4b47-80d3-cfcd4b43e79b",
                 UserName = "organiser@gmail.com",
-                NormalizedUserName = "ORGANISER",
+                NormalizedUserName = "ORGANISER@GMAIL.COM",
                 Email = "ORGANISER@GMAIL.COM",
                 NormalizedEmail = "ORGANISER@GMAIL.COM",
             };
