@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using static FindHikingFellow.Infrastructure.Constants.DataConstants;
 
 namespace FindHikingFellow.Infrastructure.Data.Models

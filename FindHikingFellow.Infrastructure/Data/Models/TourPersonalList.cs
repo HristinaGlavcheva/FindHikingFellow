@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FindHikingFellow.Infrastructure.Data.Models
 {
@@ -12,8 +12,9 @@ namespace FindHikingFellow.Infrastructure.Data.Models
 
         public PersonalList PersonalList { get; set; } = null!;
 
+        [Required]
         public string OwnerId { get; set; } = null!;
 
-        public IdentityUser Owner { get; set; } = null!;
+        public ApplicationUser Owner { get; set; } = null!;
     }
 }

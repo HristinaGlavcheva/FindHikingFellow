@@ -12,6 +12,6 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [Required]
         public string ParticipantId { get; set; } = string.Empty;   
 
-        public IdentityUser Participant { get; set; } = null!;
+        public ApplicationUser Participant { get; set; } = null!;
     }
 }

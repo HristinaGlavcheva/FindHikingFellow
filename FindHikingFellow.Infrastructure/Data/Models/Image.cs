@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace FindHikingFellow.Infrastructure.Data.Models
@@ -16,7 +15,7 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public string AddedByUserId { get; set; } = string.Empty;
 
         [Comment("The user that added the Image")]
-        public IdentityUser AddedByUser { get; set; } = null!;
+        public ApplicationUser AddedByUser { get; set; } = null!;
 
         public int TourId { get; set; }
 

@@ -38,9 +38,7 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
                 Duration = "About 6 hours inlucding breaks for pictures and a lunch break",
                 MeetingPoint = "Vihren hut",
                 MeetingTime = new DateTime(2024, 08, 13, 7, 0, 0),
-                OrganiserId = "9baea4e0-3afa-4b47-80d3-cfcd4b43e79b",
-                Participants = new HashSet<TourParticipant>() { }
-
+                OrganiserId = "9baea4e0-3afa-4b47-80d3-cfcd4b43e79b"
             };
 
             tours.Add(tour);

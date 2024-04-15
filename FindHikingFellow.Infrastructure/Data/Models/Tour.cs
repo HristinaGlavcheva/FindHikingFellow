@@ -1,7 +1,8 @@
 ﻿using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+
 using static FindHikingFellow.Infrastructure.Constants.DataConstants;
 
 namespace FindHikingFellow.Infrastructure.Data.Models
@@ -56,7 +57,7 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         public string OrganiserId { get; set; } = null!;
 
         [Comment("The User who added the tour")]
-        public IdentityUser Organiser { get; set; } = null!;
+        public ApplicationUser Organiser { get; set; } = null!;
 
         public bool IsDeleted { get; set; }
 

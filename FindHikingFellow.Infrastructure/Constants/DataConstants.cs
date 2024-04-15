@@ -35,20 +35,15 @@
         public const int FeatureNameMinLength = 3;
         public const int FeatureNameMaxLength = 30;
 
-        //Adventure story
-        public const int AdventureStoryTitleMinLength = 3;
-        public const int AdventureStoryTitleMaxLength = 100;
-
-        public const int AdventureStoryContentMinLength = 300;
-        public const int AdventureStoryContentMaxLength = 20000;
-
-        //Tips & tricks
-        public const int TipsAndTricksContentMinLength = 10;
-        public const int TipsAndTricksContentMaxLength = 1000;
-
         //ImageUrl
         public const int ImageUrlMinLength = 5;
         public const int ImageUrlMaxLength = 250;
 
+        //ApplicationUser
+        public const int UserFirstNameMaxLength = 20;
+        public const int UserFirstNameMinLength = 1;
+
+        public const int UserLastNameMaxLength = 50;
+        public const int UserFirsLasttNameMinLength = 3;
     }
 }

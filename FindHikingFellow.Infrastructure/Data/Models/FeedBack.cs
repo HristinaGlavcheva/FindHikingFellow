@@ -1,7 +1,6 @@
 ﻿using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-
 namespace FindHikingFellow.Infrastructure.Data.Models
 {
     public class FeedBack
@@ -26,6 +25,6 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [Required]
         public string AuthorId { get; set; } = null!;
 
-        public IdentityUser Author { get; set; } = null!;
+        public ApplicationUser Author { get; set; } = null!;
     }
 }
