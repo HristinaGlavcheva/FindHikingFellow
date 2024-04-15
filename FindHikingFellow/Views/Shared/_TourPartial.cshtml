@@ -29,9 +29,9 @@
 
                         @if (this.User.Identity.IsAuthenticated)
                         {
-                            if (await tourService.IsOrganisedBy(tour.Id, User.Id()))
+                            if (await tourService.IsOrganisedBy(tour.Id, User.Id()) || User.IsAdmin())
                             {
-                                if (tour.Upcoming)
+                                if (tour.Upcoming || User.IsAdmin())
                                 {
                                     <a asp-controller="Tour" asp-action="Edit" asp-route-id="@tour.Id"
                                        class="btn btn-warning">Edit</a>
@@ -43,7 +43,8 @@
                             {
                                 <p></p>
 
-                                @if (!tourService.AllToursByUserId(User.Id()).Result.Any(t => t.Id == tour.Id))
+                                @if (!tourService.AllToursByUserId(User.Id()).Result.Any(t => t.Id == tour.Id)
+                                || User.IsAdmin())
                                 {
                                     <form class="input-group-sm" asp-controller="Tour" asp-action="Join" asp-route-id="@tour.Id" method="post">
                                         <input class="btn btn-success" type="submit" value="Join" />

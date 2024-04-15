@@ -114,7 +114,7 @@ namespace FindHikingFellow.Controllers
 
             var model = await tourService.TourDetailsByIdAsync(id);
 
-            if(information != model.GetInformation())
+            if (information != model.GetInformation())
             {
                 return BadRequest();
             }
@@ -166,7 +166,7 @@ namespace FindHikingFellow.Controllers
                 return BadRequest();
             }
 
-            if (await tourService.IsOrganisedBy(id, User.Id()) == false)
+            if (await tourService.IsOrganisedBy(id, User.Id()) == false && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -188,9 +188,14 @@ namespace FindHikingFellow.Controllers
                 return BadRequest();
             }
 
-            if (await tourService.IsOrganisedBy(id, User.Id()) == false)
+            if (await tourService.IsOrganisedBy(id, User.Id()) == false && !User.IsAdmin())
             {
                 return Unauthorized();
+            }
+
+            if (await tourService.IsTourFinished(id) && User.IsAdmin() == false)
+            {
+                return BadRequest();
             }
 
             if (await destinationService.DestinationExistsByIdAsync(input.DestinationId) == false)
@@ -218,7 +223,7 @@ namespace FindHikingFellow.Controllers
                 return BadRequest();
             }
 
-            if (await tourService.IsOrganisedBy(id, User.Id()) == false)
+            if (await tourService.IsOrganisedBy(id, User.Id()) == false && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -241,7 +246,7 @@ namespace FindHikingFellow.Controllers
                 return BadRequest();
             }
 
-            if (await tourService.IsOrganisedBy(model.Id, User.Id()) == false)
+            if (await tourService.IsOrganisedBy(model.Id, User.Id()) == false && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -258,7 +263,7 @@ namespace FindHikingFellow.Controllers
                 return BadRequest();
             }
 
-            if (await tourService.IsOrganisedBy(id, User.Id()))
+            if (await tourService.IsOrganisedBy(id, User.Id()) && !User.IsAdmin())
             {
                 return Unauthorized();
             }
