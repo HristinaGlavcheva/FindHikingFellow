@@ -223,6 +223,7 @@ namespace FindHikingFellow.Core.Services
                     ActivityType = t.ActivityType,
                     ElevationGain = t.ElevationGain,
                     Id = t.Id,
+                    OrganiserName = string.IsNullOrWhiteSpace($"{t.Organiser.FirstName} {t.Organiser.LastName}") ? t.Organiser.UserName : $"{t.Organiser.FirstName} {t.Organiser.LastName}",
                     Length = t.Length,
                     MeetingPoint = t.MeetingPoint,
                     MeetingTime = t.MeetingTime,

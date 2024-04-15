@@ -15,6 +15,9 @@ namespace FindHikingFellow.Core.Models.Tour
 
         public string Destination { get; set; } = string.Empty;
 
+        [Display(Name = "Full Name")]   
+        public string OrganiserName { get; set; } = string.Empty;
+
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
         public DateTime MeetingTime { get; set; }
