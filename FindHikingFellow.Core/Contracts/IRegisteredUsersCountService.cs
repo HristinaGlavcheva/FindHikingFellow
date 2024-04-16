@@ -1,6 +1,6 @@
 ﻿namespace FindHikingFellow.Core.Contracts
 {
-    public interface IRegisteredUsersService
+    public interface IRegisteredUsersCountService
     {
         int RegisteredUsersCount();
     }

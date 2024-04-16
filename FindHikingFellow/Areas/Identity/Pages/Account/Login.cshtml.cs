@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-using static FindHikingFellow.Core.Constants.RoleConstants;
+using static FindHikingFellow.Core.Constants.AdministratorConstants;
 
 namespace FindHikingFellow.Areas.Identity.Pages.Account
 {

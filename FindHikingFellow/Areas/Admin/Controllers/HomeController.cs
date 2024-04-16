@@ -9,7 +9,7 @@ namespace FindHikingFellow.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ForReview()
+        public async Task<IActionResult> ForFeview()
         {
             return View();
         }

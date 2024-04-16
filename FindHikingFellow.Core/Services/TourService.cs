@@ -34,6 +34,7 @@ namespace FindHikingFellow.Core.Services
             int toursPerPage = 3)
         {
             var toursToShow = tourRepository.AllAsNoTracking<Tour>()
+                .Where(t => !t.IsDeleted)
                 .Where(t => t.IsApproved);
 
             if (!string.IsNullOrWhiteSpace(destination))
@@ -423,6 +424,36 @@ namespace FindHikingFellow.Core.Services
             }
 
             await tourParticipantRepository.SaveChangesAsync();
+        }
+
+        public async Task ApproveTourAsync(int tourId)
+        {
+            var tour = await tourRepository.GetByIdAsync<Tour>(tourId);
+
+            if(tour != null && tour.IsApproved == false)
+            {
+                tour.IsApproved = true;
+
+                await tourRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<TourServiceModel>> GetUnApprovedAsync()
+        {
+            return await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where(t => t.IsApproved == false)
+                .Select(t => new TourServiceModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    OrganiserName = $"{t.Organiser.FirstName} {t.Organiser.LastName}",
+                    ImageUrl = t.ImageUrl,
+                    Description = t.Description,
+                    Destination = t.Destination.Name,
+                    MeetingTime = t.MeetingTime,
+                })
+                .ToListAsync();
         }
     }
 }

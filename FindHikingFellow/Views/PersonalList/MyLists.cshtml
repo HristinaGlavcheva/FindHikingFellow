@@ -45,17 +45,7 @@
                                 <input type="hidden" name="listId" value="@list.Id" />
                                 <button type="submit" class="btn btn-danger btn-sm">Remove from list</button>
                             </form>
-
-@*                             <form asp-action="RemoveFromList" method="post">
-                                <input type="submit" value="RemoveFromList" class="btn btn-danger mt-2" />
-
-                                <input type="hidden" asp-for="@tour.Id" />
-                                <button type="submit" class="btn btn-danger">Confirm Delete</button>
-                            </form>
-
-       
-                            <a asp-controller="PersonalList" asp-action="RemoveFromList" class="btn btn-danger btn-sm" asp-route-id="@tour.Id">Remove from list</a>
- *@                        </div>
+                        </div>
 
                     </td>
 
@@ -67,7 +57,7 @@
 }
 
 <style>
-    table{
+    table {
         table-layout: fixed;
         width: 100%;
     }

@@ -6,9 +6,9 @@ namespace FindHikingFellow.Components
 {
     public class RegisteredUsersComponent : ViewComponent
     {
-        private readonly IRegisteredUsersService usersService;
+        private readonly IRegisteredUsersCountService usersService;
 
-        public RegisteredUsersComponent(IRegisteredUsersService _usersService)
+        public RegisteredUsersComponent(IRegisteredUsersCountService _usersService)
         {
             usersService = _usersService;
         }

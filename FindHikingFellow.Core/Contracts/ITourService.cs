@@ -50,5 +50,9 @@ namespace FindHikingFellow.Core.Contracts
         Task JoinAsync(int id, string userId);
 
         Task LeaveAsync(int id, string userId);
+
+        Task ApproveTourAsync(int tourId);
+
+        Task<IEnumerable<TourServiceModel>> GetUnApprovedAsync();
     }
 }

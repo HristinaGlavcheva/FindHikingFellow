@@ -1,7 +1,7 @@
 ﻿using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
-using static FindHikingFellow.Core.Constants.RoleConstants;
+using static FindHikingFellow.Core.Constants.AdministratorConstants;
 
 namespace Microsoft.AspNetCore.Builder
 {

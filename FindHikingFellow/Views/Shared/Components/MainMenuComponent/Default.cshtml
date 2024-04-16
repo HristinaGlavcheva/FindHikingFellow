@@ -1,8 +1,16 @@
-﻿<ul class="navbar-nav flex-grow-1">
+﻿@using static FindHikingFellow.Core.Constants.AdministratorConstants
+
+<ul class="navbar-nav flex-grow-1">
+    @if (this.User.IsInRole(AdminRole))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-primary text-decoration-underline" asp-area="Admin" asp-controller="Home" asp-action="DashBoard">AdminArea</a>
+        </li>
+    }
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Tour" asp-action="All">All Tours</a>
-    </li>
-    @if(this.User?.Identity?.IsAuthenticated ?? false)
+    </li>   
+    @if (this.User?.Identity?.IsAuthenticated ?? false)
     {
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Tour" asp-action="MyTours">My Tours</a>

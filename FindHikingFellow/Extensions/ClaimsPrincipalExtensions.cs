@@ -1,4 +1,4 @@
-﻿using static FindHikingFellow.Core.Constants.RoleConstants;
+﻿using static FindHikingFellow.Core.Constants.AdministratorConstants;
 
 namespace System.Security.Claims
 {

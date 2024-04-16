@@ -24,8 +24,8 @@
                     }
 
                     <div class="mt-3">
-                        <a asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id"
-                        asp-route-information="@tour.GetInformation()" class="btn btn-primary">Details</a>
+                        <a asp-area="" asp-controller="Tour" asp-action="Details" asp-route-id="@tour.Id"
+                           asp-route-information="@tour.GetInformation()" class="btn btn-primary">Details</a>
 
                         @if (this.User.Identity.IsAuthenticated)
                         {
@@ -33,30 +33,26 @@
                             {
                                 if (tour.Upcoming || User.IsAdmin())
                                 {
-                                    <a asp-controller="Tour" asp-action="Edit" asp-route-id="@tour.Id"
+                                    <a asp-area="" asp-controller="Tour" asp-action="Edit" asp-route-id="@tour.Id"
                                        class="btn btn-warning">Edit</a>
                                 }
-                                <a asp-controller="Tour" asp-action="Delete" asp-route-id="@tour.Id"
+                                <a asp-area="" asp-controller="Tour" asp-action="Delete" asp-route-id="@tour.Id"
                                    asp-route-information="@tour.GetInformation()" class="btn btn-danger">Delete</a>
                             }
-                            else
-                            {
-                                <p></p>
 
-                                @if (!tourService.AllToursByUserId(User.Id()).Result.Any(t => t.Id == tour.Id)
-                                || User.IsAdmin())
-                                {
-                                    <form class="input-group-sm" asp-controller="Tour" asp-action="Join" asp-route-id="@tour.Id" method="post">
-                                        <input class="btn btn-success" type="submit" value="Join" />
-                                    </form>
-                                }
-                                else
-                                {
-                                    <form asp-controller="Tour" asp-action="Leave"
-                                          asp-route-id="@tour.Id" method="post">
-                                        <input class="btn btn-primary" type="submit" value="Leave" />
-                                    </form>
-                                }
+                            <p></p>
+
+                            @if (await tourService.IsJoinedByUserWithIdAsync(tour.Id, User.Id()) == false)
+                            {
+                                <form class="input-group-sm" asp-controller="Tour" asp-action="Join" asp-area="" asp-route-id="@tour.Id" method="post">
+                                    <input class="btn btn-success" type="submit" value="Join" />
+                                </form>
+                            }
+                            else if (await tourService.IsJoinedByUserWithIdAsync(tour.Id, User.Id()))
+                            {
+                                <form asp-controller="Tour" asp-action="Leave" asp-area="" asp-route-id="@tour.Id" method="post">
+                                    <input class="btn btn-success" type="submit" value="Leave" />
+                                </form>
                             }
                         }
                     </div>

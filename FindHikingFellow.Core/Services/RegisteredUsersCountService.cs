@@ -4,11 +4,11 @@ using FindHikingFellow.Infrastructure.Data.Models;
 
 namespace FindHikingFellow.Core.Services
 {
-    public class RegisteredUsersService : IRegisteredUsersService
+    public class RegisteredUsersCountService : IRegisteredUsersCountService
     {
         private readonly IRepository userRepository;
 
-        public RegisteredUsersService(IRepository _userRepository)
+        public RegisteredUsersCountService(IRepository _userRepository)
         {
             userRepository = _userRepository;
         }
