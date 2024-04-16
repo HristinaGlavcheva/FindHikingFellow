@@ -1,7 +1,6 @@
 ﻿using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models;
 using FindHikingFellow.Core.Models.Destination;
-using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -11,16 +10,19 @@ namespace FindHikingFellow.Core.Services
     public class DestinationService : IDestinationService
     {
         private readonly IRepository destinationRepository;
+        private readonly IRepository tourRepository;
 
-        public DestinationService(IRepository _destinationRepository)
+        public DestinationService(IRepository _destinationRepository, IRepository _tourRepository)
         {
             destinationRepository = _destinationRepository;
+            tourRepository = _tourRepository;
         }
 
         public async Task<IEnumerable<DestinationViewModel>> GetMostPopularDestinationsAsync()
         {
             var destinations = destinationRepository
                .AllAsNoTracking<Destination>()
+               .Where(d => !d.IsDeleted)
                .OrderByDescending(d => d.Tours.Count())
                .Take(3)
                .Select(d => new DestinationViewModel
@@ -38,7 +40,7 @@ namespace FindHikingFellow.Core.Services
         {
             var destinations = await destinationRepository
                .AllAsNoTracking<Destination>()
-               .OrderBy(d => d.Name)
+               .Where(d => !d.IsDeleted)
                .Select(d => new DestinationViewModel
                {
                    Id = d.Id,
@@ -54,6 +56,7 @@ namespace FindHikingFellow.Core.Services
         {
             var destinations = destinationRepository
                 .AllAsNoTracking<Destination>()
+                .Where(d => !d.IsDeleted)
                 .Select(d => new ListDestinationsViewModel
                 {
                     Id = d.Id,
@@ -64,7 +67,7 @@ namespace FindHikingFellow.Core.Services
             return await destinations;
         }
 
-        public async Task<int> AddDestinationAsync(AddDestinationFormModel input)
+        public async Task<int> AddDestinationAsync(DestinationFormModel input)
         {
             var newDestination = new Destination
             {
@@ -90,6 +93,75 @@ namespace FindHikingFellow.Core.Services
             return await destinationRepository
                 .AllAsNoTracking<Destination>()
                 .AnyAsync(d => d.Name == destination);
+        }
+
+        public async Task<DestinationFormModel?> GetDestinationFormModelByIdAsync(int id)
+        {
+            var destination = await destinationRepository
+                .AllAsNoTracking<Destination>()
+                 .Where(d => !d.IsDeleted)
+                .Where(d => d.Id == id).FirstOrDefaultAsync();
+
+            var model = new DestinationFormModel
+            {
+                Name = destination.Name,
+                ImageUrl = destination.ImageUrl
+            };
+
+            return model;
+        }
+
+        public async Task EditDestinationAsync(DestinationFormModel input, int id)
+        {
+            var destination = await destinationRepository.GetByIdAsync<Destination>(id);
+
+            if(destination != null)
+            {
+                destination.Name = input.Name;
+                destination.ImageUrl = input.ImageUrl;
+
+                await destinationRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<DestinationFormModel> DestinationToBeDeletedById(int id)
+        {
+            var destination = await destinationRepository
+                .AllAsNoTracking<Destination>()
+                .Where(d => d.Id == id && !d.IsDeleted)
+                .Select(d => new DestinationFormModel
+                {
+                    Name = d.Name,
+                    ImageUrl = d.ImageUrl
+                }).FirstAsync();
+
+            return destination;
+        }
+
+        public async Task<int> DeleteDestinationByIdAsync(int id)
+        {
+            Destination destinationToDelete = await destinationRepository
+                .All<Destination>()
+                .Where(d => !d.IsDeleted)
+                .FirstAsync(d => d.Id == id);
+
+            if (await DestinationHasTours(id) == false)
+            {
+                destinationToDelete.IsDeleted = true;
+                await destinationRepository.SaveChangesAsync();
+            }
+
+            return id;
+        }
+
+        public async Task<bool> DestinationHasTours(int id)
+        {
+            var tours = await tourRepository
+                .AllAsNoTracking<Tour>()
+                .Where (t => t.DestinationId == id && !t.IsDeleted)
+                .ToListAsync();
+
+            return tours.Count > 0;
         }
     }
 }

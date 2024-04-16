@@ -17,6 +17,16 @@ namespace FindHikingFellow.Core.Contracts
 
         Task<bool> DestinationExistsByNameAsync(string destinationName);
 
-        Task<int> AddDestinationAsync(AddDestinationFormModel input);
+        Task<int> AddDestinationAsync(DestinationFormModel input);
+
+        Task<DestinationFormModel?> GetDestinationFormModelByIdAsync(int id);
+
+        Task EditDestinationAsync(DestinationFormModel input, int id);
+
+        Task<DestinationFormModel> DestinationToBeDeletedById(int id);
+
+        Task<int> DeleteDestinationByIdAsync(int id);
+
+        Task<bool> DestinationHasTours(int id);
     }
 }

@@ -276,7 +276,6 @@ namespace FindHikingFellow.Controllers
             if (await tourService.IsTourFinished(id))
             {
                 ModelState.AddModelError(nameof(id), "You cannot join finished tour");
-
             }
 
             await tourService.JoinAsync(id, User.Id());

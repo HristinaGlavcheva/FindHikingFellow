@@ -1,0 +1,39 @@
+﻿@using FindHikingFellow.Core.Models.Destination
+@model IEnumerable<DestinationViewModel>
+
+@{
+    this.ViewData["Title"] = "All Destinations";
+}
+
+<div class="text-center">
+    <h2>Let you find a fellow to share your hiking adventure with</h2>
+    <h5>Choose your hiking destination:</h5>
+    <div class="row">
+        @foreach (var destination in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mt-5">
+                    <a asp-area="" asp-controller="Tour" asp-action="ToursByDestination" asp-route-destination=@destination.Name>
+                        <h5 class="card-title text-center">@destination.Name</h5>
+                        <img class="card-img-top" src="@destination.ImageUrl" alt="@destination.Name">View tours
+                    </a>
+                    <div>
+                        <a asp-area="Admin" asp-controller="Destination" asp-action="Edit" asp-route-id="@destination.Id"
+                           class="btn btn-warning">Edit destination</a>
+                        @* <form asp-controller="PersonalList" asp-action="RemoveFromList" method="post">
+                            <input type="hidden" name="tourId" value="@tour.Id" />
+                            <input type="hidden" name="listId" value="@list.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remove from list</button>
+                        </form> *@
+
+                        <form asp-area="Admin" asp-controller="Destination" asp-action="Delete" asp-route-id="@destination.Id"
+                           method="post">
+                            <button type="submit" class="btn btn-danger mt-1">Delete destination</button>
+                           
+                       </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

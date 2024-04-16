@@ -5,7 +5,7 @@ using static FindHikingFellow.Infrastructure.Constants.DataConstants;
 
 namespace FindHikingFellow.Core.Models.Destination
 {
-    public class AddDestinationFormModel
+    public class DestinationFormModel
     {
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(DestinationNameMaxLength,

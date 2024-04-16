@@ -23,13 +23,13 @@ namespace FindHikingFellow.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            var model = new AddDestinationFormModel();
+            var model = new DestinationFormModel();
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddDestinationFormModel input)
+        public async Task<IActionResult> Add(DestinationFormModel input)
         {
             if (await destinationService.DestinationExistsByNameAsync(input.Name) == true)
             {
