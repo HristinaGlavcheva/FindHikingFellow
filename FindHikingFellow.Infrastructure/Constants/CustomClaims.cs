@@ -2,6 +2,6 @@
 {
     public class CustomClaims
     {
-        public const string UserFullName = "user:fullname";
+        public const string UserFullNameClaim = "user:fullname";
     }
 }

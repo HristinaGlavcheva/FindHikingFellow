@@ -9,7 +9,7 @@
 
     if (SignInManager.IsSignedIn(User))
     {
-        userName = User.FindFirstValue(FindHikingFellow.Core.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
+        userName = User.FindFirstValue(FindHikingFellow.Infrastructure.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
     }
 }
 

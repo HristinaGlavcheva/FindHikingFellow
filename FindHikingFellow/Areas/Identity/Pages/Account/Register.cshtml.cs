@@ -14,7 +14,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 
 using static FindHikingFellow.Infrastructure.Constants.DataConstants;
-using static FindHikingFellow.Core.Constants.CustomClaims;
+using static FindHikingFellow.Infrastructure.Constants.CustomClaims;
 
 
 namespace FindHikingFellow.Areas.Identity.Pages.Account
