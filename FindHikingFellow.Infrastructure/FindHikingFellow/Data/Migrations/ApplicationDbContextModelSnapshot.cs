@@ -194,7 +194,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Destinations");
+                    b.ToTable("Destinations", (string)null);
 
                     b.HasComment("Mountain or region that the tour moves through");
 
@@ -273,7 +273,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasIndex("TourId");
 
-                    b.ToTable("FeedBacks");
+                    b.ToTable("FeedBacks", (string)null);
 
                     b.HasData(
                         new
@@ -313,7 +313,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KeyPoints");
+                    b.ToTable("KeyPoints", (string)null);
 
                     b.HasComment("Specific point or place that the tour moves through or near by");
 
@@ -385,7 +385,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PersonalLists");
+                    b.ToTable("PersonalLists", (string)null);
 
                     b.HasData(
                         new
@@ -486,7 +486,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasIndex("OrganiserId");
 
-                    b.ToTable("Tours");
+                    b.ToTable("Tours", (string)null);
 
                     b.HasData(
                         new
@@ -541,7 +541,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasIndex("KeyPointId");
 
-                    b.ToTable("TourKeyPoints");
+                    b.ToTable("TourKeyPoints", (string)null);
 
                     b.HasData(
                         new
@@ -568,7 +568,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("TourParticipants");
+                    b.ToTable("TourParticipants", (string)null);
 
                     b.HasData(
                         new
@@ -596,7 +596,7 @@ namespace FindHikingFellow.Data.Migrations
 
                     b.HasIndex("PersonalListId");
 
-                    b.ToTable("TourPersonalLists");
+                    b.ToTable("TourPersonalLists", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
