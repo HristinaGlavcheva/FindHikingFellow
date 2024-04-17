@@ -63,6 +63,44 @@ namespace FindHikingFellow.Infrastructure.Data.Configurations
 
             tours.Add(tour);
 
+            //tour = new Tour
+            //{
+            //    Id = 3003,
+            //    Name = "Hotnitsa Waterfall",
+            //    DestinationId = 3001,
+            //    ImageUrl = "https://www.gptravel.bg/img/uploads/tours/5633/40475_orig.webp",
+            //    Difficulty = Difficulty.Easy,
+            //    ActivityType = ActivityType.Walking,
+            //    RouteType = RouteType.OutAndBack,
+            //    Description = "Amaizing waterfall, there is an ecotrail but I don't know its condition.",
+            //    Duration = "It depends of the ecotrail condition",
+            //    MeetingPoint = "Hotnitsa Village",
+            //    MeetingTime = new DateTime(2024, 05, 20, 9, 0, 0),
+            //    OrganiserId = "aac8a25a-876d-46d7-a2ba-d82658bbc066",
+            //};
+
+            //tours.Add(tour);
+
+            //tour = new Tour
+            //{
+            //    Id = 3,
+            //    Name = "Seven Rila Lakes",
+            //    DestinationId = 2,
+            //    ImageUrl = "https://luckybansko.bg/wp-content/uploads/2019/03/rila1.jpg",
+            //    Difficulty = Difficulty.Medium,
+            //    ActivityType = ActivityType.Hiking,
+            //    RouteType = RouteType.Loop,
+            //    Length = 10,
+            //    ElevationGain = 533,
+            //    Description = "One of the most popular hikes in Rila mountain. We will enjoy great view during entire hike. It is very crowded on weekends so I suppose a Wednesday to be ok to visit.",
+            //    Duration = "4.5 hours with lunch and pictures stops",
+            //    MeetingPoint = "Pionerska Hut",
+            //    MeetingTime = new DateTime(2024, 09, 25, 8, 30, 0),
+            //    OrganiserId = "c5ea995b-0f28-450e-a11c-06e6a93798c3",
+            //};
+
+            //tours.Add(tour);
+
             return tours.ToArray();
         }
     }
