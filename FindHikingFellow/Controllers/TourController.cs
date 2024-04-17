@@ -6,6 +6,7 @@ using FindHikingFellow.Core.Extensions;
 using FindHikingFellow.Core.Models.Feedback;
 using FindHikingFellow.Core.Models.PersonalList;
 using FindHikingFellow.Core.Models.Tour;
+using FindHikingFellow.Infrastructure.Data.Models;
 
 namespace FindHikingFellow.Controllers
 {
@@ -55,7 +56,7 @@ namespace FindHikingFellow.Controllers
             if (!ModelState.IsValid)
             {
                 input.Destinations = await destinationService.ListDestinationsAsync();
-                return this.View(input);
+                return View(input);
             }
 
             var newTourId = await tourService.CreateTourAsync(input, User.Id());

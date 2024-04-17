@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Feedback;
+using FindHikingFellow.Core.Extensions;
 
 namespace FindHikingFellow.Controllers
 {
@@ -34,12 +35,14 @@ namespace FindHikingFellow.Controllers
 
             if (!ModelState.IsValid)
             {
-                return this.View(input);
+                return View(input);
             }
 
             await feedbackService.CreateFeedbackAsync(input, id, User.Id());
 
-            return RedirectToAction("Details", "Tour", new { id = id });
+            var tour = await tourService.TourDetailsByIdAsync(id);
+
+            return RedirectToAction("Details", "Tour", new { id = id, information = tour.GetInformation() });
         }
     }
 }

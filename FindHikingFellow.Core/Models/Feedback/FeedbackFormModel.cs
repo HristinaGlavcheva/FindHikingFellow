@@ -10,6 +10,7 @@ namespace FindHikingFellow.Core.Models.Feedback
         [Range(1, 5)]
         public int Rate { get; set; }
 
+        [Required]
         public string Review { get; set; } = string.Empty;
 
         public ActivityType ActivityType { get; set; }
