@@ -1,5 +1,5 @@
-﻿using FindHikingFellow.Core.Enumerations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using FindHikingFellow.Core.Enumerations;
 
 namespace FindHikingFellow.Core.Models.Tour
 {

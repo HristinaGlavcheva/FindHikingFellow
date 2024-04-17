@@ -1,6 +1,4 @@
-﻿using FindHikingFellow.Core.Contracts;
-using FindHikingFellow.Core.Models.Statistics;
-using System.Runtime.InteropServices;
+﻿using FindHikingFellow.Core.Models.Statistics;
 
 namespace FindHikingFellow.Core.Contracts
 {

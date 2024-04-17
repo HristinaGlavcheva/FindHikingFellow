@@ -1,9 +1,9 @@
-﻿using FindHikingFellow.Core.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Core.Models.Home;
 using FindHikingFellow.Core.Models.Tour;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace FindHikingFellow.Controllers
 {

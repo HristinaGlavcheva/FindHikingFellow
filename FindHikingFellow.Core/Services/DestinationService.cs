@@ -1,9 +1,9 @@
-﻿using FindHikingFellow.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models;
 using FindHikingFellow.Core.Models.Destination;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace FindHikingFellow.Core.Services
 {

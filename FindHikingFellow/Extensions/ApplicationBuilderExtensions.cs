@@ -1,5 +1,5 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using FindHikingFellow.Infrastructure.Data.Models;
 
 using static FindHikingFellow.Core.Constants.AdministratorConstants;
 

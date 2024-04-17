@@ -1,5 +1,5 @@
-﻿using FindHikingFellow.Core.Contracts;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using FindHikingFellow.Core.Contracts;
 
 namespace FindHikingFellow.Core.Models.Tour
 {

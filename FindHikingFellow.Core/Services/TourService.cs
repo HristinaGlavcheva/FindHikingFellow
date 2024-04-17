@@ -1,12 +1,11 @@
-﻿using FindHikingFellow.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Enumerations;
-using FindHikingFellow.Core.Models.Feature;
 using FindHikingFellow.Core.Models.Feedback;
 using FindHikingFellow.Core.Models.Tour;
 using FindHikingFellow.Core.Models.TourKeyPoint;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace FindHikingFellow.Core.Services
 {
@@ -140,13 +139,7 @@ namespace FindHikingFellow.Core.Services
                 ActivityType = input.ActivityType,
                 ElevationGain = input.ElevationGain,
                 Length = input.Length,
-                OrganiserId = organiserId,
-                //Features = input.Features.Select(f => new TourFeature
-                //{
-                //    FeatureId = f.Id,
-
-                //}).ToList()
-            };
+                OrganiserId = organiserId            };
 
             foreach (var inputKeyPoint in input.KeyPoints)
             {
@@ -161,16 +154,6 @@ namespace FindHikingFellow.Core.Services
 
                 newTour.KeyPoints.Add(new TourKeyPoint { KeyPoint = keyPoint });
             }
-
-            //foreach (var inputFeature in input.Features)
-            //{
-            //    var feature = new Feature
-            //    {
-            //        Name = inputFeature.Name
-            //    };
-
-            //    newTour.Features.Add(new TourFeature { Feature = feature });
-            //}
 
             await tourRepository.AddAsync(newTour);
             await tourRepository.SaveChangesAsync();

@@ -17,17 +17,11 @@ namespace FindHikingFellow.Infrastructure.Data
 
         public DbSet<Destination> Destinations { get; set; } = null!;
 
-        public DbSet<Feature> Features { get; set; } = null!;
-
         public DbSet<FeedBack> FeedBacks { get; set; } = null!;
-
-        public DbSet<Image> Images { get; set; } = null!;
 
         public DbSet<KeyPoint> KeyPoints { get; set; } = null!;
 
         public DbSet<PersonalList> PersonalLists { get; set; } = null!;
-
-        public DbSet<TourFeature> TourFeatures { get; set; } = null!;
 
         public DbSet<TourKeyPoint> TourKeyPoints { get; set; } = null!;
 

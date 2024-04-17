@@ -31,10 +31,6 @@
         public const int KeyPointNameMinLength = 3;
         public const int KeyPointNameMaxLength = 40;
 
-        //Feature
-        public const int FeatureNameMinLength = 3;
-        public const int FeatureNameMaxLength = 30;
-
         //ImageUrl
         public const int ImageUrlMinLength = 5;
         public const int ImageUrlMaxLength = 250;

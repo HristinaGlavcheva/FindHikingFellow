@@ -1,6 +1,6 @@
-﻿using FindHikingFellow.Core.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Models.Components;
-using Microsoft.AspNetCore.Mvc;
 
 namespace FindHikingFellow.Components
 {

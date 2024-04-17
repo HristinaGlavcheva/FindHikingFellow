@@ -1,10 +1,10 @@
-﻿using FindHikingFellow.Core.Contracts;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Services;
 using FindHikingFellow.Infrastructure.Data;
 using FindHikingFellow.Infrastructure.Data.Common;
 using FindHikingFellow.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -14,7 +14,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<ITourService, TourService>();
             services.AddScoped<IDestinationService, DestinationService>();
-            services.AddScoped<IFeatureService, FeatureService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IRegisteredUsersCountService, RegisteredUsersCountService>();
             services.AddScoped<IPersonalListService, PersonalListService>();

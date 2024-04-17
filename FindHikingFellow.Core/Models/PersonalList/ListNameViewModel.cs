@@ -1,6 +1,4 @@
-﻿using FindHikingFellow.Core.Models.Tour;
-
-namespace FindHikingFellow.Core.Models.PersonalList
+﻿namespace FindHikingFellow.Core.Models.PersonalList
 {
     public class ListNameViewModel
     {

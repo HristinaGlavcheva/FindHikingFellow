@@ -1,5 +1,5 @@
-﻿using FindHikingFellow.Core.Contracts;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using FindHikingFellow.Core.Contracts;
 
 namespace FindHikingFellow.Controllers
 {

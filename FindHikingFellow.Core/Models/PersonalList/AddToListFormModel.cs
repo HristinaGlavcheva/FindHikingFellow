@@ -1,10 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using static FindHikingFellow.Core.Constants.MessageConstants;
-using static FindHikingFellow.Infrastructure.Constants.DataConstants;
-
-
-namespace FindHikingFellow.Core.Models.PersonalList
+﻿namespace FindHikingFellow.Core.Models.PersonalList
 {
     public class AddToListFormModel
     {

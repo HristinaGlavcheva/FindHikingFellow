@@ -1,8 +1,6 @@
-﻿using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
-
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-
+using FindHikingFellow.Infrastructure.Data.Models.Enumerations;
 using static FindHikingFellow.Infrastructure.Constants.DataConstants;
 
 namespace FindHikingFellow.Infrastructure.Data.Models
@@ -67,20 +65,12 @@ namespace FindHikingFellow.Infrastructure.Data.Models
         [Comment("Specific points or places which the tour is going to pass near by")]
         public ICollection<TourKeyPoint> KeyPoints { get; init; } = new HashSet<TourKeyPoint>();
 
-        [Comment("Some additional distinctive features of the tour")]
-        public ICollection<TourFeature> Features { get; init; } = new HashSet<TourFeature>();
-
         [Comment("Different users' lists of tours where the tour is included")]
         public ICollection<TourPersonalList> PersonalLists { get; init; } = new HashSet<TourPersonalList>();
-
-        //[Comment("Helpful advices, warnings, tips and tricks about the tour")]
-        //public ICollection<TipsAndTricks> TipsAndTricks { get; init; } = new HashSet<TipsAndTricks>();
 
         [Comment("Ratings and review of the tour")]
         public ICollection<FeedBack> FeedBacks { get; init; } = new HashSet<FeedBack>();
 
         public ICollection<TourParticipant> Participants { get; init; } = new HashSet<TourParticipant>();
-       
-        public ICollection<Image> Images { get; init; } = new HashSet<Image>();
     }
 }

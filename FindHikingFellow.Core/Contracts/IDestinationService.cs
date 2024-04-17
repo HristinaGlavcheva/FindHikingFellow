@@ -1,7 +1,5 @@
 ﻿using FindHikingFellow.Core.Models;
 using FindHikingFellow.Core.Models.Destination;
-using FindHikingFellow.Core.Models.Tour;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FindHikingFellow.Core.Contracts
 {

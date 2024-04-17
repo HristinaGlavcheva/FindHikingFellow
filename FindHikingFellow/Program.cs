@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using FindHikingFellow.Infrastructure.Data;
 
 namespace FindHikingFellow
 {
@@ -23,8 +20,7 @@ namespace FindHikingFellow
 
             if (app.Environment.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+                app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
             else

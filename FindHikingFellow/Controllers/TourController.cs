@@ -1,11 +1,11 @@
-﻿using FindHikingFellow.Core.Contracts;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using FindHikingFellow.Core.Contracts;
 using FindHikingFellow.Core.Extensions;
 using FindHikingFellow.Core.Models.Feedback;
 using FindHikingFellow.Core.Models.PersonalList;
 using FindHikingFellow.Core.Models.Tour;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace FindHikingFellow.Controllers
 {
@@ -13,20 +13,17 @@ namespace FindHikingFellow.Controllers
     {
         private readonly ITourService tourService;
         private readonly IDestinationService destinationService;
-        private readonly IFeatureService featureService;
         private readonly IFeedbackService feedbackService;
         private readonly IPersonalListService personalListService;
 
         public TourController(
             ITourService _tourService,
             IDestinationService _destinationService,
-            IFeatureService _featureService,
             IFeedbackService _feedbackService,
             IPersonalListService _personalListService)
         {
             tourService = _tourService;
             destinationService = _destinationService;
-            featureService = _featureService;
             feedbackService = _feedbackService;
             personalListService = _personalListService;
         }
@@ -37,7 +34,6 @@ namespace FindHikingFellow.Controllers
             var model = new TourFormModel()
             {
                 Destinations = await destinationService.ListDestinationsAsync(),
-                Features = await featureService.ListFeaturesAsync()
             };
 
             return View(model);
@@ -64,7 +60,7 @@ namespace FindHikingFellow.Controllers
 
             var newTourId = await tourService.CreateTourAsync(input, User.Id());
 
-            return RedirectToAction(nameof(Details), new { id = newTourId, information = input.GetInformation() });
+            return RedirectToAction(nameof(All));
         }
 
         [AllowAnonymous]
@@ -174,7 +170,6 @@ namespace FindHikingFellow.Controllers
             var model = await tourService.GetTourFormModelByIdAsync(id);
 
             model.Destinations = await destinationService.ListDestinationsAsync();
-            model.Features = await featureService.ListFeaturesAsync();
             model.KeyPoints = await tourService.ListKeyPointsAsync(id);
 
             return View(model);
@@ -206,7 +201,6 @@ namespace FindHikingFellow.Controllers
             if (!ModelState.IsValid)
             {
                 input.Destinations = await destinationService.ListDestinationsAsync();
-                input.Features = await featureService.ListFeaturesAsync();
                 return View(input);
             }
 
