@@ -146,7 +146,7 @@ namespace FindMyHikingFellow.Tests
             BalkanMauntains = new Destination
             {
                 Id = 3,
-                Name = "Balkan Mauntains",
+                Name = "Balkan Mountains",
                 ImageUrl = "https://trud.bg/public/images/articles/2020-11/mountain-landscape-beautiful-hd-wallpaper-1024x640_1509577115668281610_original.jpg"
             };
 
@@ -242,6 +242,18 @@ namespace FindMyHikingFellow.Tests
             Assert.That(resultFalse, Is.EqualTo(false));
         }
 
-       
+        [Test]
+        public async Task Test_AllDestinationsNamesAsync_ReturnsTheCorrectResult()
+        {
+            // Act
+            var result = await tourService.AllDestinationsNamesAsync();
+
+            // Assert
+            Assert.That(result.Count(), Is.EqualTo(4));
+            Assert.That(result.First(), Is.EqualTo("Pirin"));
+            Assert.That(result.Skip(1).First(), Is.EqualTo("Rila"));
+            Assert.That(result.Skip(2).First(), Is.EqualTo("Balkan Mountains"));
+            Assert.That(actual: result.Skip(3).First(), Is.EqualTo(expected: "Rodopi"));
+        }
     }
 }
